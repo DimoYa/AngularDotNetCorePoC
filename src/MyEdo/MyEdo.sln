@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEdo", "MyEdo\MyEdo.csproj", "{CF336F7D-3C22-4445-BD6D-DC33B2DB7CA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF336F7D-3C22-4445-BD6D-DC33B2DB7CA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF336F7D-3C22-4445-BD6D-DC33B2DB7CA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF336F7D-3C22-4445-BD6D-DC33B2DB7CA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF336F7D-3C22-4445-BD6D-DC33B2DB7CA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {100B8CD8-B3DA-4CCE-80CD-F4BE468FAC8B}
+	EndGlobalSection
+EndGlobal
