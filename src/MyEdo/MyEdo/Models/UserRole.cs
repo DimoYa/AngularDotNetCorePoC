@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyEdo.Models
 {
-    public class UserRole : IdentityRole, IAuditInfo, IDeletableEntity
+    public class UserRole : IdentityRole<string>, IAuditInfo, IDeletableEntity
     {
         public UserRole(string name)
             : base(name)

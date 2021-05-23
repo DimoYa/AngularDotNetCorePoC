@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyEdo.Models
 {
-    public class User : IdentityUser, IAuditInfo, IDeletableEntity
+    public class User : IdentityUser<string>, IAuditInfo, IDeletableEntity
     {
         public User()
         {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyEdo.Data
 {
-    public class MyEduDbContext : ApiAuthorizationDbContext<User>
+    public class MyEduDbContext : KeyApiAuthorizationDbContext<User, UserRole, string>
     {
         public MyEduDbContext(
             DbContextOptions options,
