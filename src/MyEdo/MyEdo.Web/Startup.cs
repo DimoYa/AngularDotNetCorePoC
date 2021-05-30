@@ -1,14 +1,24 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using MyEdo.Business.Services.AppAdmin;
+using MyEdo.Business.Services.AppSkill;
+using MyEdo.Business.Services.AppSkillCategory;
+using MyEdo.Business.Services.AppTraining;
+using MyEdo.Business.Services.AppUser;
 using MyEdo.Core.Models;
 using MyEdo.Data;
 using MyEdo.Data.Seeding;
+using System;
 
 namespace MyEdo
 {
@@ -53,6 +63,40 @@ namespace MyEdo
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ISkillService, SkillService>();
+            services.AddTransient<ISkillCategoryService, SkillCategoryService>();
+            services.AddTransient<ITrainingService, TrainingService>();
+            services.AddTransient<IAdminService, AdminService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyEdo API", Version = "v1" });
+                c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "basic",
+                    In = ParameterLocation.Header,
+                    Description = "Basic Authorization header using the Bearer scheme."
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                          new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "basic"
+                                }
+                            },
+                            Array.Empty<string>()
+                    }
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +118,12 @@ namespace MyEdo
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyEdo API V1");
+
+                });
             }
             else
             {

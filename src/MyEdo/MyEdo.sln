@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEdo.Core", "MyEdo.Core\My
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEdo.Business", "MyEdo.Business\MyEdo.Business.csproj", "{A4DEF733-1BFB-4E3D-B52C-BB3D74239791}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEdo.Business.Test", "MyEdo.Business.Test\MyEdo.Business.Test.csproj", "{829B486C-9A2F-4CE7-B96F-B74BF778822C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEdo.Web.Test", "MyEdo.Web.Test\MyEdo.Web.Test.csproj", "{1ABE218E-4C65-4A6F-8A21-3C5A1309215B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{A4DEF733-1BFB-4E3D-B52C-BB3D74239791}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4DEF733-1BFB-4E3D-B52C-BB3D74239791}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4DEF733-1BFB-4E3D-B52C-BB3D74239791}.Release|Any CPU.Build.0 = Release|Any CPU
+		{829B486C-9A2F-4CE7-B96F-B74BF778822C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{829B486C-9A2F-4CE7-B96F-B74BF778822C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{829B486C-9A2F-4CE7-B96F-B74BF778822C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{829B486C-9A2F-4CE7-B96F-B74BF778822C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ABE218E-4C65-4A6F-8A21-3C5A1309215B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ABE218E-4C65-4A6F-8A21-3C5A1309215B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ABE218E-4C65-4A6F-8A21-3C5A1309215B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ABE218E-4C65-4A6F-8A21-3C5A1309215B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
