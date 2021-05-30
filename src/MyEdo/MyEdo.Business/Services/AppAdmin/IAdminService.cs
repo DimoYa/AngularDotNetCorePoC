@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MyEdo.Business.Services.Admin
+namespace MyEdo.Business.Services.AppAdmin
 {
     public interface IAdminService
     {

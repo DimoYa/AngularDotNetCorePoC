@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyEdo.Business.Services.AppUser;
-using MyEdo.Core.Common;
 using MyEdo.Core.Models;
 using MyEdo.Data;
 using System;
@@ -9,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyEdo.Business.Services.Admin
+namespace MyEdo.Business.Services.AppAdmin
 {
     public class AdminService : IAdminService
     {
