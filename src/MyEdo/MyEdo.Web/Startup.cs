@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -40,6 +41,16 @@ namespace MyEdo
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            var mappingConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddMaps(new[] {
+        typeof(Startup)
+            });
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddDefaultIdentity<User>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -71,18 +82,26 @@ namespace MyEdo
             services.AddTransient<ITrainingService, TrainingService>();
             services.AddTransient<IAdminService, AdminService>();
 
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(swagger =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyEdo API", Version = "v1" });
-                c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+                //This is to generate the Default UI of Swagger Documentation    
+                swagger.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "ASP.NET 5 Web API",
+                    Description = "Authentication and Authorization in ASP.NET 5 with JWT and Swagger"
+                });
+                // To Enable authorization using Swagger (JWT)    
+                swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Name = "Authorization",
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "basic",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Description = "Basic Authorization header using the Bearer scheme."
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
                 });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                           new OpenApiSecurityScheme
@@ -90,10 +109,10 @@ namespace MyEdo
                                 Reference = new OpenApiReference
                                 {
                                     Type = ReferenceType.SecurityScheme,
-                                    Id = "basic"
+                                    Id = "Bearer"
                                 }
                             },
-                            Array.Empty<string>()
+                            new string[] {}
                     }
                 });
             });

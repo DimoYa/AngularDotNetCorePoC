@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 
 namespace MyEdo.Controllers
 {
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," +
-                          GlobalConstants.ResourceRoleName)]
+    //[Authorize(Roles = GlobalConstants.AdministratorRoleName + "," +
+    //                      GlobalConstants.ResourceRoleName)]
     [Route("api/[controller]")]
     [ApiController]
     public class SkillController : ControllerBase
@@ -35,10 +35,10 @@ namespace MyEdo.Controllers
         [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<SkillCategoryApiModel>> CreateCategory([FromBody] SkillCategoryApiModel inputModel)
         {
-            if (string.IsNullOrEmpty(this.User.Identity.Name))
-            {
-                return this.Unauthorized();
-            }
+            //if (string.IsNullOrEmpty(this.User.Identity.Name))
+            //{
+            //    return this.Unauthorized();
+            //}
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest();
@@ -63,10 +63,6 @@ namespace MyEdo.Controllers
         [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<IEnumerable<SkillCategory>>> Get()
         {
-            if (string.IsNullOrEmpty(this.User.Identity.Name))
-            {
-                return this.Unauthorized();
-            }
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest();
