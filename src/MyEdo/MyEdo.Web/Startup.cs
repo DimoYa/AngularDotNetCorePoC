@@ -19,6 +19,7 @@ using MyEdo.Business.Services.AppUser;
 using MyEdo.Core.Models;
 using MyEdo.Data;
 using MyEdo.Data.Seeding;
+using MyEdo.Web.ApiModels;
 using System;
 
 namespace MyEdo
@@ -43,12 +44,12 @@ namespace MyEdo
 
             var mappingConfig = new MapperConfiguration(cfg =>
             {
-                cfg.AddMaps(new[] {
-        typeof(Startup)
-            });
+                cfg.AddMaps(new[] {typeof(Startup)});
+                cfg.CreateMap<SkillCategoryApiModel, SkillCategory>();
             });
 
             IMapper mapper = mappingConfig.CreateMapper();
+
             services.AddSingleton(mapper);
 
             services.AddDefaultIdentity<User>(options =>

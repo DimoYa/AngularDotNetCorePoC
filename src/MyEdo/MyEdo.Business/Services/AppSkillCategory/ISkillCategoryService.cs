@@ -6,11 +6,11 @@ namespace MyEdo.Business.Services.AppSkillCategory
 {
     public interface ISkillCategoryService
     {
-        Task<bool> CreateCategory(SkillCategory model);
+        Task<string> CreateCategory(SkillCategory model);
 
-        Task<bool> EditCategory(SkillCategory model, string id);
+        Task<bool> EditCategory(SkillCategory model);
 
-        Task<bool> DeleteCategory(string id);
+        Task<bool> DeleteCategory(SkillCategory model);
 
         Task<SkillCategory> GetCategoryByName(string name);
 

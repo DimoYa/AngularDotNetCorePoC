@@ -16,7 +16,7 @@ namespace MyEdo.Business.Services.AppSkillCategory
             this.context = context;
         }
 
-        public async Task<bool> CreateCategory(SkillCategory model)
+        public async Task<string> CreateCategory(SkillCategory model)
         {
             SkillCategory skillCategory = new SkillCategory
             {
@@ -24,26 +24,27 @@ namespace MyEdo.Business.Services.AppSkillCategory
             };
 
             this.context.SkillCategories.Add(skillCategory);
-            int result = await this.context.SaveChangesAsync();
+            await this.context.SaveChangesAsync();
 
-            return result > 0;
+            return skillCategory.Id;
         }
 
-        public async Task<bool> EditCategory(SkillCategory model, string id)
+        public async Task<bool> EditCategory(SkillCategory model)
         {
-            var categoryForUpdate = await this.GetCategoryById(id);
+            var categoryForUpdate = await this.GetCategoryById(model.Id);
 
             categoryForUpdate.Name = model.Name;
+            categoryForUpdate.ModifiedOn = DateTime.UtcNow;
 
             int result = await this.context.SaveChangesAsync();
 
             return result > 0;
         }
 
-        public async Task<bool> DeleteCategory(string id)
+        public async Task<bool> DeleteCategory(SkillCategory model)
         {
             var skillCategoryForDeletion = this.context.SkillCategories
-                .SingleOrDefault(s => s.Id == id);
+                .SingleOrDefault(s => s.Id == model.Id);
 
             skillCategoryForDeletion.IsDeleted = true;
             skillCategoryForDeletion.DeletedOn = DateTime.UtcNow;

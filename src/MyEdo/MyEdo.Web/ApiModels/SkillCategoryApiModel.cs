@@ -8,10 +8,8 @@ namespace MyEdo.Web.ApiModels
 {
     public class SkillCategoryApiModel
     {
-        [Required]
-        [StringLength(20, MinimumLength = 1)]
-        [Display(Name = "Skill category name")]
-        [DataType(DataType.Text)]
+        public string Id { get; set; }
+
         public string Name { get; set; }
     }
 }
