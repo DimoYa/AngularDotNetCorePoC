@@ -10,7 +10,7 @@ namespace MyEdo.Business.Services.AppSkill
 
         Task<IEnumerable<UserSkill>> GetUserSkillsByCategories();
 
-        Task<bool> CreateSkill(Skill model);
+        Task<string> CreateSkill(Skill model);
 
         Task<bool> EditSkill(Skill model, string id);
 

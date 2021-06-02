@@ -12,8 +12,7 @@ using System.Threading.Tasks;
 
 namespace MyEdo.Controllers
 {
-    //[Authorize(Roles = GlobalConstants.AdministratorRoleName + "," +
-    //                      GlobalConstants.ResourceRoleName)]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SkillCategoryController : ControllerBase
@@ -28,7 +27,6 @@ namespace MyEdo.Controllers
             this.skillCategoryService = skillCategoryService;
             this.mapper = mapper;
         }
-
         [HttpGet(nameof(GetAllCategories))]
         [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status401Unauthorized)]

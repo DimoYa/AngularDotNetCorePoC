@@ -27,20 +27,21 @@ namespace MyEdo.Business.Services.AppSkill
             this.userService = userService;
         }
 
-        public async Task<bool> CreateSkill(Skill model)
+        public async Task<string> CreateSkill(Skill model)
         {
             var skillCategory = await this.skillCategoryService.GetCategoryById(model.SkillCategoryId);
 
             Skill skill = new Skill
             {
                 Name = model.Name,
+                CreatedOn = DateTime.UtcNow,
                 SkillCategory = skillCategory,
             };
 
             this.context.Skills.Add(skill);
-            int result = await this.context.SaveChangesAsync();
+            await this.context.SaveChangesAsync();
 
-            return result > 0;
+            return skill.Id;
         }
 
         public async Task<bool> EditSkill(Skill model, string id)
@@ -51,6 +52,7 @@ namespace MyEdo.Business.Services.AppSkill
 
             skillForUpdate.Name = model.Name;
             skillForUpdate.SkillCategory = skillCategory;
+            skillForUpdate.ModifiedOn = DateTime.UtcNow;
 
             int result = await this.context.SaveChangesAsync();
 
