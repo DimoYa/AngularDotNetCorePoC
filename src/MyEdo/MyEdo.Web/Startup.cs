@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,7 @@ using MyEdo.Data;
 using MyEdo.Data.Seeding;
 using MyEdo.Web.ApiModels;
 using System;
+using System.Collections.Generic;
 
 namespace MyEdo
 {
@@ -44,7 +46,7 @@ namespace MyEdo
 
             var mappingConfig = new MapperConfiguration(cfg =>
             {
-                cfg.AddMaps(new[] {typeof(Startup)});
+                cfg.AddMaps(new[] { typeof(Startup) });
                 cfg.CreateMap<SkillCategoryApiModel, SkillCategory>();
                 cfg.CreateMap<SkillApiModel, Skill>();
             });
@@ -67,7 +69,10 @@ namespace MyEdo
             services.AddIdentityServer()
                 .AddApiAuthorization<User, MyEduDbContext>();
 
-            services.AddAuthentication()
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+            })
                 .AddIdentityServerJwt();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -94,27 +99,23 @@ namespace MyEdo
                     Description = "Authentication and Authorization in ASP.NET 5 with JWT and Swagger"
                 });
                 // To Enable authorization using Swagger (JWT)    
-                swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
+                    Description = "JWT Authorization header using the Bearer scheme.",
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+                    Scheme = "bearer",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
                 });
                 swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
-                          new OpenApiSecurityScheme
-                            {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
-                                }
-                            },
-                            new string[] {}
+                       new OpenApiSecurityScheme
+                       {
+                           Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                       },
+                       new List<string>()
                     }
                 });
             });

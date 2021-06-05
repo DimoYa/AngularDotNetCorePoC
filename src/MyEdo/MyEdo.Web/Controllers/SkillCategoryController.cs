@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MyEdo.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Route("api/[controller]")]
     [ApiController]
     public class SkillCategoryController : ControllerBase

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyEdo.Business.Services.AppSkill;
+using MyEdo.Core.Common;
 using MyEdo.Core.Models;
 using MyEdo.Web.ApiModels;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MyEdo.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Route("api/[controller]")]
     [ApiController]
     public class SkillController : ControllerBase
