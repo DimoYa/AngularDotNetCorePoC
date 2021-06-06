@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,8 @@ using MyEdo.Data.Seeding;
 using MyEdo.Web.ApiModels;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace MyEdo
 {
@@ -89,35 +92,10 @@ namespace MyEdo
             services.AddTransient<ITrainingService, TrainingService>();
             services.AddTransient<IAdminService, AdminService>();
 
-            services.AddSwaggerGen(swagger =>
+            services.AddSwaggerGen(c =>
             {
-                //This is to generate the Default UI of Swagger Documentation    
-                swagger.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "ASP.NET 5 Web API",
-                    Description = "Authentication and Authorization in ASP.NET 5 with JWT and Swagger"
-                });
-                // To Enable authorization using Swagger (JWT)    
-                swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = "JWT Authorization header using the Bearer scheme.",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Scheme = "bearer",
-                    Type = SecuritySchemeType.Http,
-                    BearerFormat = "JWT",
-                });
-                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                       new OpenApiSecurityScheme
-                       {
-                           Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
-                       },
-                       new List<string>()
-                    }
-                });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyEdo API", Version = "v1" });
+               
             });
         }
 

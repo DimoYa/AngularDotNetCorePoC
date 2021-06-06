@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MyEdo.Web.Controllers
 {
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SkillController : ControllerBase
@@ -29,6 +29,31 @@ namespace MyEdo.Web.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet(nameof(GetAllSkills))]
+        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<IEnumerable<SkillCategory>>> GetAllSkills()
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            try
+            {
+                var skills = await this.skillService
+               .GetAllSkillsByCategories();
+
+                return Ok(skills);
+            }
+            catch (Exception ex)
+            {
+
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost(nameof(CreateSkill))]
         [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status401Unauthorized)]
