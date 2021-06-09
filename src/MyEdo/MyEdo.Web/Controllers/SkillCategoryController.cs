@@ -29,8 +29,8 @@ namespace MyEdo.Controllers
         }
 
         [HttpGet(nameof(GetAllCategories))]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<IEnumerable<SkillCategory>>> GetAllCategories()
         {
             if (!this.ModelState.IsValid)
@@ -54,8 +54,8 @@ namespace MyEdo.Controllers
 
         [HttpPost(nameof(CreateCategory))]
         [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<SkillCategoryApiModel>> CreateCategory([FromBody] SkillCategoryApiModel inputModel)
         {
             if (!this.ModelState.IsValid)
@@ -81,9 +81,9 @@ namespace MyEdo.Controllers
         }
 
         [HttpPut(nameof(EditCategory))]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<SkillCategoryApiModel>> EditCategory([FromBody] SkillCategoryApiModel inputModel)
         {
             if (!this.ModelState.IsValid)
@@ -106,10 +106,10 @@ namespace MyEdo.Controllers
         }
 
         [HttpDelete(nameof(DeleteCategory))]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<SkillCategoryApiModel>> DeleteCategory([FromBody] SkillCategoryApiModel inputModel)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<SkillCategoryApiModel>> DeleteCategory([FromBody] SkillCategoryDeleteApiModel inputModel)
         {
             if (!this.ModelState.IsValid)
             {
@@ -118,8 +118,7 @@ namespace MyEdo.Controllers
 
             try
             {
-                var model = mapper.Map<SkillCategory>(inputModel);
-                await this.skillCategoryService.DeleteCategory(model);
+                await this.skillCategoryService.DeleteCategory(inputModel.SkillCategoryId);
             }
             catch (Exception ex)
             {

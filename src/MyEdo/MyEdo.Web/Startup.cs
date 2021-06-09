@@ -52,6 +52,7 @@ namespace MyEdo
                 cfg.AddMaps(new[] { typeof(Startup) });
                 cfg.CreateMap<SkillCategoryApiModel, SkillCategory>();
                 cfg.CreateMap<SkillApiModel, Skill>();
+                cfg.CreateMap<SkillAddApiModel, UserSkill>();
             });
 
             IMapper mapper = mappingConfig.CreateMapper();
@@ -85,7 +86,7 @@ namespace MyEdo
                 configuration.RootPath = "ClientApp/dist";
             });
 
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ISkillService, SkillService>();
             services.AddTransient<ISkillCategoryService, SkillCategoryService>();

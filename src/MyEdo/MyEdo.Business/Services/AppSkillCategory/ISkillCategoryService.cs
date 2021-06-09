@@ -10,9 +10,7 @@ namespace MyEdo.Business.Services.AppSkillCategory
 
         Task<bool> EditCategory(SkillCategory model);
 
-        Task<bool> DeleteCategory(SkillCategory model);
-
-        Task<SkillCategory> GetCategoryByName(string name);
+        Task<bool> DeleteCategory(string id);
 
         Task<SkillCategory> GetCategoryById(string id);
 

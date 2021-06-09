@@ -44,9 +44,9 @@ namespace MyEdo.Business.Services.AppSkill
             return skill.Id;
         }
 
-        public async Task<bool> EditSkill(Skill model, string id)
+        public async Task<bool> EditSkill(Skill model)
         {
-            var skillForUpdate = await this.GetSkillById(id);
+            var skillForUpdate = await this.GetSkillById(model.Id);
 
             var skillCategory = await this.skillCategoryService.GetCategoryById(model.SkillCategoryId);
 
@@ -59,9 +59,9 @@ namespace MyEdo.Business.Services.AppSkill
             return result > 0;
         }
 
-        public async Task<bool> EditSkillLevel(UserSkill model, string id)
+        public async Task<bool> EditSkillLevel(UserSkill model)
         {
-            var skillForUpdate = await this.GetCurrentuserSkillById(id);
+            var skillForUpdate = await this.GetCurrentuserSkillById(model.SkillId);
 
             skillForUpdate.Level = model.Level;
 
@@ -70,9 +70,9 @@ namespace MyEdo.Business.Services.AppSkill
             return result > 0;
         }
 
-        public async Task<bool> DeleteSkill(string id)
+        public async Task<bool> DeleteSkill(string skillId)
         {
-            var skillForDeletion = await this.GetSkillById(id);
+            var skillForDeletion = await this.GetSkillById(skillId);
 
             skillForDeletion.IsDeleted = true;
             skillForDeletion.DeletedOn = DateTime.UtcNow;
@@ -82,15 +82,15 @@ namespace MyEdo.Business.Services.AppSkill
             return result > 0;
         }
 
-        public async Task<bool> AddSkillToMyProfile(string id, int level)
+        public async Task<bool> AddSkillToMyProfile(UserSkill model)
         {
             var currentUserId = await this.userService.GetCurrentUserId();
 
             UserSkill userSkill = new UserSkill
             {
-                UserId = currentUserId,
-                SkillId = id,
-                Level = (SkillLevel)level
+                UserId = model.UserId,
+                SkillId = model.SkillId,
+                Level = model.Level
             };
 
             this.context.UserSkills.Add(userSkill);
@@ -118,20 +118,7 @@ namespace MyEdo.Business.Services.AppSkill
             return Task.FromResult(skillsByCategories.AsEnumerable());
         }
 
-        public async Task<IEnumerable<UserSkill>> GetUserSkillsByCategories()
-        {
-            var currentUserId = await this.userService.GetCurrentUserId();
-
-            var skillsByCategories = this.context.UserSkills
-                 .Include(us => us.Skill).ThenInclude(c => c.SkillCategory)
-                 .Where(us => us.UserId == currentUserId)
-                 .Where(s => s.Skill.IsDeleted == false)
-                 .ToList();
-
-            return skillsByCategories;
-        }
-
-        public Task<Skill> GetSkillById(string id)
+        private Task<Skill> GetSkillById(string id)
         {
             var skill = this.context.Skills
                   .Where(s => s.Id == id)
@@ -146,7 +133,7 @@ namespace MyEdo.Business.Services.AppSkill
             return Task.FromResult(skill);
         }
 
-        public async Task<UserSkill> GetCurrentuserSkillById(string skillId)
+        private async Task<UserSkill> GetCurrentuserSkillById(string skillId)
         {
             var currentUser = await this.userService.GetCurrentUserId();
 
@@ -155,18 +142,6 @@ namespace MyEdo.Business.Services.AppSkill
                   .SingleOrDefault();
 
             return skill;
-        }
-
-        public async Task<IList<string>> GetCurrentUserSkillsId()
-        {
-            var currentUserId = await this.userService.GetCurrentUserId();
-
-            var userSkillsId = this.context.UserSkills
-                .Where(u => u.UserId == currentUserId)
-                .Select(s => s.SkillId)
-                .ToList();
-
-            return userSkillsId;
         }
     }
 }

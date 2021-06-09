@@ -29,9 +29,10 @@ namespace MyEdo.Web.Controllers
             this.mapper = mapper;
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpGet(nameof(GetAllSkills))]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<IEnumerable<SkillCategory>>> GetAllSkills()
         {
             if (!this.ModelState.IsValid)
@@ -56,7 +57,8 @@ namespace MyEdo.Web.Controllers
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost(nameof(CreateSkill))]
         [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> CreateSkill(SkillApiModel inputModel)
         {
             if (!this.ModelState.IsValid)
@@ -79,6 +81,129 @@ namespace MyEdo.Web.Controllers
             }
 
             return this.CreatedAtAction(nameof(this.CreateSkill), new { skillId }, inputModel);
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [HttpPut(nameof(EditSkill))]
+        [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> EditSkill(SkillApiModel inputModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            try
+            {
+                var model = mapper.Map<Skill>(inputModel);
+                await this.skillService.EditSkill(model);
+            }
+            catch (Exception ex)
+            {
+
+                return this.BadRequest(ex.Message);
+            }
+
+            return this.Ok(inputModel);
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [HttpDelete(nameof(DeleteSkill))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<SkillApiModel>> DeleteSkill([FromBody] SkillDeleteApiModel inputModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            try
+            {
+                await this.skillService.DeleteSkill(inputModel.SkillId);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+
+            return this.Ok(inputModel);
+        }
+
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
+        [HttpPut(nameof(AddSkillToMyProfile))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> AddSkillToMyProfile([FromBody] SkillAddApiModel inputModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            try
+            {
+                var model = mapper.Map<UserSkill>(inputModel);
+                await this.skillService.AddSkillToMyProfile(model);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+
+            return this.Ok(inputModel);
+        }
+
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
+        [HttpPut(nameof(EditSkillLevel))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> EditSkillLevel([FromBody] SkillAddApiModel inputModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            try
+            {
+                var model = mapper.Map<UserSkill>(inputModel);
+                await this.skillService.EditSkillLevel(model);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+
+            return this.Ok(inputModel);
+        }
+
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
+        [HttpDelete(nameof(RemoveSkillFromMyProfile))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> RemoveSkillFromMyProfile([FromBody] SkillDeleteApiModel inputModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            try
+            {
+                await this.skillService.RemoveSkillFromProfile(inputModel.SkillId);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+
+            return this.Ok(inputModel);
         }
     }
 }

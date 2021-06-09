@@ -41,10 +41,10 @@ namespace MyEdo.Business.Services.AppSkillCategory
             return result > 0;
         }
 
-        public async Task<bool> DeleteCategory(SkillCategory model)
+        public async Task<bool> DeleteCategory(string id)
         {
             var skillCategoryForDeletion = this.context.SkillCategories
-                .SingleOrDefault(s => s.Id == model.Id);
+                .SingleOrDefault(s => s.Id == id);
 
             skillCategoryForDeletion.IsDeleted = true;
             skillCategoryForDeletion.DeletedOn = DateTime.UtcNow;
@@ -63,14 +63,15 @@ namespace MyEdo.Business.Services.AppSkillCategory
             return result > 0;
         }
 
-        public Task<SkillCategory> GetCategoryByName(string categoryName)
+        public Task<IEnumerable<SkillCategory>> GetAllActiveSkillCategories()
         {
-            var category = this.context
-                               .SkillCategories
-                               .Where(s => s.IsDeleted == false)
-                               .SingleOrDefault(s => s.Name == categoryName);
+            var categories = this.context
+                              .SkillCategories
+                              .Where(s => s.IsDeleted == false)
+                              .OrderBy(s => s.Name)
+                              .ToList();
 
-            return Task.FromResult(category);
+            return Task.FromResult(categories.AsEnumerable());
         }
 
         public Task<SkillCategory> GetCategoryById(string id)
@@ -81,17 +82,6 @@ namespace MyEdo.Business.Services.AppSkillCategory
                               .SingleOrDefault(s => s.Id == id);
 
             return Task.FromResult(category);
-        }
-
-        public Task<IEnumerable<SkillCategory>> GetAllActiveSkillCategories()
-        {
-            var categories = this.context
-                              .SkillCategories
-                              .Where(s => s.IsDeleted == false)
-                              .OrderBy(s => s.Name)
-                              .ToList();
-
-            return Task.FromResult(categories.AsEnumerable());
         }
     }
 }

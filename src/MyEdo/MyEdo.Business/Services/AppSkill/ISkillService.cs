@@ -8,24 +8,16 @@ namespace MyEdo.Business.Services.AppSkill
     {
         Task<IEnumerable<Skill>> GetAllSkillsByCategories();
 
-        Task<IEnumerable<UserSkill>> GetUserSkillsByCategories();
-
         Task<string> CreateSkill(Skill model);
 
-        Task<bool> EditSkill(Skill model, string id);
+        Task<bool> EditSkill(Skill model);
 
-        Task<bool> DeleteSkill(string id);
+        Task<bool> DeleteSkill(string skillId);
 
-        Task<bool> AddSkillToMyProfile(string id, int level);
+        Task<bool> AddSkillToMyProfile(UserSkill model);
 
         Task<bool> RemoveSkillFromProfile(string id);
 
-        Task<bool> EditSkillLevel(UserSkill model, string id);
-
-        Task<Skill> GetSkillById(string id);
-
-        Task<UserSkill> GetCurrentuserSkillById(string skillId);
-
-        Task<IList<string>> GetCurrentUserSkillsId();
+        Task<bool> EditSkillLevel(UserSkill model);
     }
 }
