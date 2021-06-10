@@ -35,15 +35,16 @@ namespace MyEdo.Business.Services.AppUser
             return userWithSkills;
         }
 
-        public Task<string> GetCurrentUserId()
+        public async Task<string> GetCurrentUserId()
         {
-            var currentUser = httpContextAccessor
-                .HttpContext
-                .User
-                .FindFirst(ClaimTypes.NameIdentifier)
-                .Value;
+            var userName = await this.GetCurrentUserName();
 
-            return Task.FromResult(currentUser);
+            var currentUserId = this.context
+                .Users
+                .FirstOrDefault(x => x.Email == userName)
+                .Id;
+
+            return currentUserId;
         }
 
         public Task<string> GetCurrentUserName()
@@ -51,8 +52,9 @@ namespace MyEdo.Business.Services.AppUser
             var currentUser = httpContextAccessor
                 .HttpContext
                 .User
-                .FindFirst(ClaimTypes.Name)
-                .Value;
+                .Identities
+                .FirstOrDefault()
+                .Name;
 
             return Task.FromResult(currentUser);
         }

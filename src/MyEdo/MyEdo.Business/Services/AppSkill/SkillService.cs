@@ -88,7 +88,7 @@ namespace MyEdo.Business.Services.AppSkill
 
             UserSkill userSkill = new UserSkill
             {
-                UserId = model.UserId,
+                UserId = currentUserId,
                 SkillId = model.SkillId,
                 Level = model.Level
             };

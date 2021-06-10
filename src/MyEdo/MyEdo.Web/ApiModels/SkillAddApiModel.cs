@@ -9,8 +9,8 @@ namespace MyEdo.Web.ApiModels
 {
     public class SkillAddApiModel
     {
-        public SkillLevel SkillLevel { get; set; }
+        public string SkillId { get; set; }
 
-        public SkillApiModel Skill { get; set; }
+        public SkillLevel Level { get; set; }
     }
 }
