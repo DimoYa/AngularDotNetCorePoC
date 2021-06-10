@@ -118,6 +118,28 @@ namespace MyEdo.Business.Services.AppSkill
             return Task.FromResult(skillsByCategories.AsEnumerable());
         }
 
+        public Task<IEnumerable<UserSkill>> GetAllUsersSkills()
+        {
+
+            var userSkillsByCategories = this.context.UserSkills
+                 .Where(s => s.Skill.IsDeleted == false)
+                 .ToList();
+
+            return Task.FromResult(userSkillsByCategories.AsEnumerable());
+        }
+
+        public Task<IEnumerable<UserSkill>> GetMySkills()
+        {
+            var currentUserId = this.userService.GetCurrentUserId();
+
+            var skillsByCategories = this.context.UserSkills
+                 .Where(us => us.UserId == currentUserId.Result)
+                 .Where(s => s.Skill.IsDeleted == false)
+                 .ToList();
+
+            return Task.FromResult(skillsByCategories.AsEnumerable());
+        }
+
         private Task<Skill> GetSkillById(string id)
         {
             var skill = this.context.Skills

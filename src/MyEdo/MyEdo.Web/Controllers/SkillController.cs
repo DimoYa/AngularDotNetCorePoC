@@ -55,6 +55,56 @@ namespace MyEdo.Web.Controllers
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [HttpGet(nameof(GetAllUsersSkills))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<IEnumerable<UserSkill>>> GetAllUsersSkills()
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            try
+            {
+                var skills = await this.skillService
+               .GetAllUsersSkills();
+
+                return Ok(skills);
+            }
+            catch (Exception ex)
+            {
+
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
+        [HttpGet(nameof(GetMySkills))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<IEnumerable<UserSkill>>> GetMySkills()
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            try
+            {
+                var skills = await this.skillService
+               .GetMySkills();
+
+                return Ok(skills);
+            }
+            catch (Exception ex)
+            {
+
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost(nameof(CreateSkill))]
         [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
