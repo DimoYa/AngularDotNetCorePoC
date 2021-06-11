@@ -52,7 +52,6 @@ namespace MyEdo
                 cfg.AddMaps(new[] { typeof(Startup) });
                 cfg.CreateMap<SkillCategoryApiModel, SkillCategory>();
                 cfg.CreateMap<SkillApiModel, Skill>();
-                cfg.CreateMap<SkillAddApiModel, UserSkill>();
             });
 
             IMapper mapper = mappingConfig.CreateMapper();

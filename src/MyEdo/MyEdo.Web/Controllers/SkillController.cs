@@ -83,7 +83,7 @@ namespace MyEdo.Web.Controllers
         [HttpGet(nameof(GetMySkills))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<IEnumerable<UserSkill>>> GetMySkills()
+        public async Task<ActionResult<IEnumerable<GetSkillsApiModel>>> GetMySkills()
         {
             if (!this.ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace MyEdo.Web.Controllers
                 var skills = await this.skillService
                .GetMySkills();
 
-                return Ok(skills);
+                return Ok(skills.Select(s=> new GetSkillsApiModel(s)));
             }
             catch (Exception ex)
             {

@@ -133,6 +133,7 @@ namespace MyEdo.Business.Services.AppSkill
             var currentUserId = this.userService.GetCurrentUserId();
 
             var skillsByCategories = this.context.UserSkills
+                 .Include(s => s.Skill).ThenInclude(c => c.SkillCategory)
                  .Where(us => us.UserId == currentUserId.Result)
                  .Where(s => s.Skill.IsDeleted == false)
                  .ToList();
