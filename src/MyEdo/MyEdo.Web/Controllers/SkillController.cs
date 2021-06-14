@@ -30,10 +30,10 @@ namespace MyEdo.Web.Controllers
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        [HttpGet(nameof(GetAllSkills))]
+        [HttpGet(nameof(GetAllSkillsByCategories))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<IEnumerable<SkillCategory>>> GetAllSkills()
+        public async Task<ActionResult<IEnumerable<GetConsolidatedSkillsByCategoryApiModel>>> GetAllSkillsByCategories()
         {
             if (!this.ModelState.IsValid)
             {
@@ -45,7 +45,23 @@ namespace MyEdo.Web.Controllers
                 var skills = await this.skillService
                .GetAllSkillsByCategories();
 
-                return Ok(skills);
+                var model = skills.Select(s => new GetSkillsByCategoriesApiModel(s)).ToList();
+
+                var groupedUserSkillInfo = model
+                .GroupBy(s => new
+                {
+                    s.CategoryId,
+                    s.CategoryName
+                })
+               .Select(grp => new GetConsolidatedSkillsByCategoryApiModel
+               {
+                   CategoryId = grp.Key.CategoryId,
+                   CategoryName = grp.Key.CategoryName,
+                   Skills = grp.ToList(),
+               })
+               .ToList();
+
+                return Ok(groupedUserSkillInfo);
             }
             catch (Exception ex)
             {
@@ -58,7 +74,7 @@ namespace MyEdo.Web.Controllers
         [HttpGet(nameof(GetAllUsersSkills))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<IEnumerable<UserSkill>>> GetAllUsersSkills()
+        public async Task<ActionResult<IEnumerable<GetConsolidatedAllUsersSkillsApiModel>>> GetAllUsersSkills()
         {
             if (!this.ModelState.IsValid)
             {
@@ -70,7 +86,37 @@ namespace MyEdo.Web.Controllers
                 var skills = await this.skillService
                .GetAllUsersSkills();
 
-                return Ok(skills);
+                var model = skills.Select(s => new GetSkillsApiModel(s)).ToList();
+
+                var groupedUserSkillInfo = model
+                .GroupBy(s => new
+                {
+                    s.CategoryId,
+                    s.CategoryName,
+                    s.UserId,
+                    s.UserName
+                })
+               .Select(grp => new GetConsolidatedSkillsApiModel
+               {
+                   CategoryId = grp.Key.CategoryId,
+                   CategoryName = grp.Key.CategoryName,
+                   UserId = grp.Key.UserId,
+                   UserName = grp.Key.UserName,
+                   Skills = grp.ToList(),
+               }).GroupBy(s => new
+               {
+                   s.UserId,
+                   s.UserName
+               })
+               .Select(grp => new GetConsolidatedAllUsersSkillsApiModel
+               {
+                   UserId = grp.Key.UserId,
+                   UserName = grp.Key.UserName,
+                   Categories = grp.ToList(),
+               })
+               .ToList();
+
+                return Ok(groupedUserSkillInfo);
             }
             catch (Exception ex)
             {

@@ -18,6 +18,8 @@ namespace MyEdo.Web.ApiModels
             SkillLevel = userSkill.Level;
             CategoryId = userSkill.Skill.SkillCategoryId;
             CategoryName = userSkill.Skill.SkillCategory.Name;
+            UserId = userSkill.User.Id;
+            UserName = userSkill.User.UserName;
         }
 
         public string SkillId { get; set; }
@@ -33,5 +35,13 @@ namespace MyEdo.Web.ApiModels
         [IgnoreDataMember]
         [JsonIgnore]
         public string CategoryName { get; set; }
+
+        [IgnoreDataMember]
+        [JsonIgnore]
+        public string UserId { get; set; }
+
+        [IgnoreDataMember]
+        [JsonIgnore]
+        public string UserName { get; set; }
     }
 }

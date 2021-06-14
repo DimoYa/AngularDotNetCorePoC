@@ -113,6 +113,7 @@ namespace MyEdo.Business.Services.AppSkill
         {
             var skillsByCategories = this.context.Skills
                 .Where(s => s.IsDeleted == false)
+                .Include(s=> s.SkillCategory)
                 .ToList();
 
             return Task.FromResult(skillsByCategories.AsEnumerable());
@@ -122,6 +123,8 @@ namespace MyEdo.Business.Services.AppSkill
         {
 
             var userSkillsByCategories = this.context.UserSkills
+                 .Include(s => s.Skill).ThenInclude(c => c.SkillCategory)
+                 .Include(s=> s.User)
                  .Where(s => s.Skill.IsDeleted == false)
                  .ToList();
 
