@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace MyEdo.Web.ApiModels
 {
-    public class SkillAddApiModel
+    public class SkillProfileApiModel
     {
-        public string SkillId { get; set; }
+        public string Id { get; set; }
+
+        public string Name { get; set; }
 
         public SkillLevel Level { get; set; }
     }

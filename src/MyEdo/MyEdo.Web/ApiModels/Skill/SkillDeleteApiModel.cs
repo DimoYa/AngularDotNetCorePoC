@@ -7,6 +7,7 @@ namespace MyEdo.Web.ApiModels
 {
     public class SkillDeleteApiModel
     {
-        public string SkillId { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }

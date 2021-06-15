@@ -11,6 +11,8 @@ namespace MyEdo.Web.ApiModels
 
         public string Name { get; set; }
 
-        public CategoryApiModel SkillCategory { get; set; }
+        public string SkillCategoryId { get; set; }
+
+        public string SkillCategoryName { get; set; }
     }
 }
