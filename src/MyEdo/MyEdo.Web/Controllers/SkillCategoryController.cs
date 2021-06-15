@@ -1,17 +1,18 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using MyEdo.Business.Services.AppSkillCategory;
-using MyEdo.Core.Common;
-using MyEdo.Core.Models;
-using MyEdo.Web.ApiModels;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace MyEdo.Controllers
+﻿namespace MyEdo.Controllers
 {
+    using AutoMapper;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using MyEdo.Business.Services.AppSkillCategory;
+    using MyEdo.Core.Common;
+    using MyEdo.Core.Models;
+    using MyEdo.Web.ApiModels;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Route("api/[controller]")]
     [ApiController]
@@ -31,7 +32,7 @@ namespace MyEdo.Controllers
         [HttpGet(nameof(GetAllCategories))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<IEnumerable<SkillCategory>>> GetAllCategories()
+        public async Task<ActionResult<IEnumerable<CategoryApiModel>>> GetAllCategories()
         {
             if (!this.ModelState.IsValid)
             {
@@ -43,7 +44,10 @@ namespace MyEdo.Controllers
                 var skillCategories = await this.skillCategoryService
                .GetAllActiveSkillCategories();
 
-                return Ok(skillCategories);
+                var model = skillCategories
+                    .Select(c => new CategoryApiModel { Id = c.Id, Name = c.Name });
+
+                return Ok(model);
             }
             catch (Exception ex)
             {
@@ -53,10 +57,10 @@ namespace MyEdo.Controllers
         }
 
         [HttpPost(nameof(CreateCategory))]
-        [ProducesResponseType(typeof(SkillCategoryApiModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(CategoryApiModel), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<SkillCategoryApiModel>> CreateCategory([FromBody] SkillCategoryApiModel inputModel)
+        public async Task<ActionResult<CategoryApiModel>> CreateCategory([FromBody] CategoryApiModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -67,9 +71,9 @@ namespace MyEdo.Controllers
 
             try
             {
-                var model = mapper.Map<SkillCategory>(inputModel);
-                skillCategoryId = await this.skillCategoryService.CreateCategory(model);
-                inputModel.Id = skillCategoryId;
+                var modelMap = mapper.Map<SkillCategory>(model);
+                skillCategoryId = await this.skillCategoryService.CreateCategory(modelMap);
+                model.Id = skillCategoryId;
             }
             catch (Exception ex)
             {
@@ -77,14 +81,14 @@ namespace MyEdo.Controllers
                 return this.BadRequest(ex.Message);
             }
 
-            return this.CreatedAtAction(nameof(this.CreateCategory), new { skillCategoryId },  inputModel);
+            return this.CreatedAtAction(nameof(this.CreateCategory), new { skillCategoryId }, model);
         }
 
         [HttpPut(nameof(EditCategory))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<SkillCategoryApiModel>> EditCategory([FromBody] SkillCategoryApiModel inputModel)
+        public async Task<ActionResult<CategoryApiModel>> EditCategory([FromBody] CategoryApiModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -93,8 +97,8 @@ namespace MyEdo.Controllers
 
             try
             {
-                var model = mapper.Map<SkillCategory>(inputModel);
-                await this.skillCategoryService.EditCategory(model);
+                var modelMap = mapper.Map<SkillCategory>(model);
+                await this.skillCategoryService.EditCategory(modelMap);
             }
             catch (Exception ex)
             {
@@ -102,14 +106,14 @@ namespace MyEdo.Controllers
                 return this.BadRequest(ex.Message);
             }
 
-            return this.Ok(inputModel);
+            return this.Ok(model);
         }
 
         [HttpDelete(nameof(DeleteCategory))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<SkillCategoryApiModel>> DeleteCategory([FromBody] SkillCategoryDeleteApiModel inputModel)
+        public async Task<ActionResult<CategoryApiModel>> DeleteCategory([FromBody] CategoryApiModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -118,14 +122,14 @@ namespace MyEdo.Controllers
 
             try
             {
-                await this.skillCategoryService.DeleteCategory(inputModel.SkillCategoryId);
+                await this.skillCategoryService.DeleteCategory(model.Id);
             }
             catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
             }
 
-            return this.Ok(inputModel);
+            return this.Ok(model);
         }
     }
 }

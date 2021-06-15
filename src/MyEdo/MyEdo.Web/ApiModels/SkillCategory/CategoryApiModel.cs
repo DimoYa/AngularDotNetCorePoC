@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyEdo.Web.ApiModels
 {
-    public class SkillCategoryApiModel
+    public class CategoryApiModel
     {
         public string Id { get; set; }
 
