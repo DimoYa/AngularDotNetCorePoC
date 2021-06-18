@@ -1,4 +1,5 @@
-﻿using MyEdo.Core.Models;
+﻿using MyEdo.Business.Exceptions;
+using MyEdo.Core.Models;
 using MyEdo.Data;
 using System;
 using System.Collections.Generic;
@@ -43,8 +44,7 @@ namespace MyEdo.Business.Services.AppSkillCategory
 
         public async Task<bool> DeleteCategory(string id)
         {
-            var skillCategoryForDeletion = this.context.SkillCategories
-                .SingleOrDefault(s => s.Id == id);
+            var skillCategoryForDeletion = await this.GetCategoryById(id);
 
             skillCategoryForDeletion.IsDeleted = true;
             skillCategoryForDeletion.DeletedOn = DateTime.UtcNow;
@@ -80,6 +80,11 @@ namespace MyEdo.Business.Services.AppSkillCategory
                               .SkillCategories
                               .Where(s => s.IsDeleted == false)
                               .SingleOrDefault(s => s.Id == id);
+
+            if (category == null)
+            {
+                throw new NotFoundException();
+            }
 
             return Task.FromResult(category);
         }

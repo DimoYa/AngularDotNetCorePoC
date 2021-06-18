@@ -1,9 +1,4 @@
-﻿using MyEdo.Core.Models;
-using MyEdo.Core.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MyEdo.Core.Models.Enums;
 
 namespace MyEdo.Web.ApiModels
 {

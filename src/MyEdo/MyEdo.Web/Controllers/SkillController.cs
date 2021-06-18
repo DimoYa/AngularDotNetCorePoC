@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyEdo.Business.Exceptions;
 using MyEdo.Business.Services.AppSkill;
 using MyEdo.Core.Common;
 using MyEdo.Core.Models;
@@ -33,13 +34,9 @@ namespace MyEdo.Web.Controllers
         [HttpGet(nameof(GetAllSkillsByCategories))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<IEnumerable<GetConsolidatedSkillsByCategoryApiModel>>> GetAllSkillsByCategories()
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             try
             {
                 var skills = await this.skillService
@@ -63,6 +60,18 @@ namespace MyEdo.Web.Controllers
 
                 return Ok(groupedUserSkillInfo);
             }
+            catch (NotAuthorizedException ex)
+            {
+                return this.Unauthorized(ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                return this.Forbid(ex.Message);
+            }
+            catch (BadRequestException ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
             catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
@@ -73,13 +82,9 @@ namespace MyEdo.Web.Controllers
         [HttpGet(nameof(GetAllUsersSkills))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<IEnumerable<GetConsolidatedAllUsersSkillsApiModel>>> GetAllUsersSkills()
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             try
             {
                 var skills = await this.skillService
@@ -117,6 +122,18 @@ namespace MyEdo.Web.Controllers
 
                 return Ok(groupedUserSkillInfo);
             }
+            catch (NotAuthorizedException ex)
+            {
+                return this.Unauthorized(ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                return this.Forbid(ex.Message);
+            }
+            catch (BadRequestException ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
             catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
@@ -127,13 +144,9 @@ namespace MyEdo.Web.Controllers
         [HttpGet(nameof(GetMySkills))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<IEnumerable<GetConsolidatedSkillsApiModel>>> GetMySkills()
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             try
             {
                 var skills = await this.skillService
@@ -157,6 +170,18 @@ namespace MyEdo.Web.Controllers
 
                 return Ok(groupedUserSkillInfo);
             }
+            catch (NotAuthorizedException ex)
+            {
+                return this.Unauthorized(ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                return this.Forbid(ex.Message);
+            }
+            catch (BadRequestException ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
             catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
@@ -164,17 +189,14 @@ namespace MyEdo.Web.Controllers
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        [HttpPost(nameof(CreateSkill))]
+        [HttpPost]
         [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateSkill(SkillApiModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             var skillId = string.Empty;
 
             try
@@ -182,6 +204,22 @@ namespace MyEdo.Web.Controllers
                 var modelMap = mapper.Map<Skill>(model);
                 skillId = await this.skillService.CreateSkill(modelMap);
                 model.Id = skillId;
+            }
+            catch (NotAuthorizedException ex)
+            {
+                return this.Unauthorized(ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                return this.Forbid(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return this.Unauthorized(ex.GenerateApiError());
+            }
+            catch (BadRequestException ex)
+            {
+                return this.BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -193,21 +231,33 @@ namespace MyEdo.Web.Controllers
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        [HttpPut(nameof(EditSkill))]
+        [HttpPut]
         [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> EditSkill(SkillApiModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             try
             {
                 var modelMap = mapper.Map<Skill>(model);
                 await this.skillService.EditSkill(modelMap);
+            }
+            catch (NotAuthorizedException ex)
+            {
+                return this.Unauthorized(ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                return this.Forbid(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return this.Unauthorized(ex.GenerateApiError());
+            }
+            catch (BadRequestException ex)
+            {
+                return this.BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -219,20 +269,33 @@ namespace MyEdo.Web.Controllers
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        [HttpDelete(nameof(DeleteSkill))]
+        [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<SkillApiModel>> DeleteSkill([FromBody] SkillDeleteApiModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             try
             {
                 await this.skillService.DeleteSkill(model.Id);
+            }
+            catch (NotAuthorizedException ex)
+            {
+                return this.Unauthorized(ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                return this.Forbid(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return this.Unauthorized(ex.GenerateApiError());
+            }
+            catch (BadRequestException ex)
+            {
+                return this.BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -247,17 +310,30 @@ namespace MyEdo.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AddSkillToMyProfile([FromBody] SkillProfileApiModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             try
             {
                 var modelMap = mapper.Map<UserSkill>(model);
                 await this.skillService.AddSkillToMyProfile(modelMap);
+            }
+            catch (NotAuthorizedException ex)
+            {
+                return this.Unauthorized(ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                return this.Forbid(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return this.Unauthorized(ex.GenerateApiError());
+            }
+            catch (BadRequestException ex)
+            {
+                return this.BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -272,17 +348,30 @@ namespace MyEdo.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> EditSkillLevel([FromBody] SkillProfileApiModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             try
             {
                 var modelMap = mapper.Map<UserSkill>(model);
                 await this.skillService.EditSkillLevel(modelMap);
+            }
+            catch (NotAuthorizedException ex)
+            {
+                return this.Unauthorized(ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                return this.Forbid(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return this.Unauthorized(ex.GenerateApiError());
+            }
+            catch (BadRequestException ex)
+            {
+                return this.BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -296,16 +385,29 @@ namespace MyEdo.Web.Controllers
         [HttpDelete(nameof(RemoveSkillFromMyProfile))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> RemoveSkillFromMyProfile([FromBody] SkillDeleteApiModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             try
             {
                 await this.skillService.RemoveSkillFromProfile(model.Id);
+            }
+            catch (NotAuthorizedException ex)
+            {
+                return this.Unauthorized(ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                return this.Forbid(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return this.Unauthorized(ex.GenerateApiError());
+            }
+            catch (BadRequestException ex)
+            {
+                return this.BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

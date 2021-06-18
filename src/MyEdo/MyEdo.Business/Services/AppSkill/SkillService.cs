@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyEdo.Business.Exceptions;
 using MyEdo.Business.Services.AppSkillCategory;
 using MyEdo.Business.Services.AppUser;
 using MyEdo.Core.Models;
-using MyEdo.Core.Models.Enums;
 using MyEdo.Data;
 using System;
 using System.Collections.Generic;
@@ -150,11 +150,10 @@ namespace MyEdo.Business.Services.AppSkill
                   .Where(s => s.Id == id)
                   .SingleOrDefault();
 
-            var skillCategory = this.context
-                .SkillCategories
-                .SingleOrDefault(s => s.Id == skill.SkillCategoryId);
-
-            skill.SkillCategory = skillCategory;
+            if (skill == null)
+            {
+                throw new NotFoundException();
+            }
 
             return Task.FromResult(skill);
         }
@@ -166,6 +165,11 @@ namespace MyEdo.Business.Services.AppSkill
             var skill = this.context.UserSkills
                   .Where(s => s.SkillId == skillId && s.UserId == currentUser)
                   .SingleOrDefault();
+
+            if (skill == null)
+            {
+                throw new NotFoundException();
+            }
 
             return skill;
         }
