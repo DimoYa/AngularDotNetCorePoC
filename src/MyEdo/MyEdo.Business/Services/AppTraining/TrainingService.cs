@@ -22,7 +22,7 @@ namespace MyEdo.Business.Services.AppTraining
             this.userService = userService;
         }
 
-        public async Task<bool> Create(Training model)
+        public async Task<string> Create(Training model)
         {
             Training training = new Training
             {
@@ -33,14 +33,14 @@ namespace MyEdo.Business.Services.AppTraining
             };
 
             this.context.Trainings.Add(training);
-            int result = await this.context.SaveChangesAsync();
+            await this.context.SaveChangesAsync();
 
-            return result > 0;
+            return training.Id;
         }
 
-        public async Task<bool> Edit(Training model, string id)
+        public async Task<bool> Edit(Training model)
         {
-            var trainingForUpdate = await this.GetTrainingById(id);
+            var trainingForUpdate = await this.GetTrainingById(model.Id);
 
             trainingForUpdate.Name = model.Name;
             trainingForUpdate.Type = model.Type;
@@ -65,7 +65,7 @@ namespace MyEdo.Business.Services.AppTraining
             return result > 0;
         }
 
-        public async Task<bool> Request(string id, UserTraining model)
+        public async Task<bool> Request(string id)
         {
             var trainigToRequest = await this.GetTrainingById(id);
             var currentUser = await this.userService.GetCurrentUserId();
@@ -84,10 +84,10 @@ namespace MyEdo.Business.Services.AppTraining
             return result > 0;
         }
 
-        public async Task<bool> AssignToUser(string trainingId, User model)
+        public async Task<bool> AssignToUser(string trainingId, string userId)
         {
             var trainigToAssign = await this.GetTrainingById(trainingId);
-            var userToAssign = await this.userService.GetUserByName(model.FirstName, model.LastName);
+            var userToAssign = await this.userService.GetUserById(userId);
 
             UserTraining userTraining = new UserTraining
             {
@@ -103,28 +103,16 @@ namespace MyEdo.Business.Services.AppTraining
             return result > 0;
         }
 
-        public async Task<bool> ChangeUserTrainingStatus(UserTraining model, string trainingId, string userId)
+        public async Task<bool> ChangeUserTrainingStatus(string trainingId, string userId, UserTrainingStatus status)
         {
             var userTrainingForUpdate = this.context.UserTrainings
                 .SingleOrDefault(x => x.TrainingId == trainingId && x.UserId == userId);
 
-            userTrainingForUpdate.Status = model.Status;
+            userTrainingForUpdate.Status = status;
 
             int result = await this.context.SaveChangesAsync();
 
             return result > 0;
-        }
-
-        public async Task<IList<string>> GetCurrentUserTrainingsId()
-        {
-            var currentUserId = await this.userService.GetCurrentUserId();
-
-            var userTrainingssId = this.context.UserTrainings
-                .Where(u => u.UserId == currentUserId)
-                .Select(t => t.TrainingId)
-                .ToList();
-
-            return userTrainingssId;
         }
 
         public async Task<IEnumerable<UserTraining>> GetCurrentUserTrainings()
@@ -160,7 +148,7 @@ namespace MyEdo.Business.Services.AppTraining
             return Task.FromResult(trainings.AsEnumerable());
         }
 
-        public Task<UserTraining> GetUserTrainingByIds(string trainingId, string userId)
+        private Task<UserTraining> GetUserTrainingByIds(string trainingId, string userId)
         {
             var userTrainingToUpdate = this.context.UserTrainings
                 .Where(x => x.UserId == userId && x.TrainingId == trainingId)
@@ -169,7 +157,7 @@ namespace MyEdo.Business.Services.AppTraining
             return Task.FromResult(userTrainingToUpdate);
         }
 
-        public Task<Training> GetTrainingById(string id)
+        private Task<Training> GetTrainingById(string id)
         {
             var training = this.context.Trainings
                 .Where(t => t.Id == id)
