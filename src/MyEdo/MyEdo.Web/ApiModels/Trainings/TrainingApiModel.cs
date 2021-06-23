@@ -1,6 +1,6 @@
 ﻿using MyEdo.Core.Models.Enums;
 
-namespace MyEdo.Web.ApiModels.Training
+namespace MyEdo.Web.ApiModels.Trainings
 {
     public class TrainingApiModel
     {

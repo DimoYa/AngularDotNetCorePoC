@@ -8,7 +8,7 @@
     using MyEdo.Business.Services.AppSkillCategory;
     using MyEdo.Core.Common;
     using MyEdo.Core.Models;
-    using MyEdo.Web.ApiModels;
+    using MyEdo.Web.ApiModels.SkillCategories;
     using System;
     using System.Collections.Generic;
     using System.Linq;

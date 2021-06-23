@@ -26,24 +26,16 @@ namespace MyEdo.Business.Services.AppAdmin
             this.userManager = userManager;
         }
 
-        public async Task<IEnumerable<User>> GetAllActiveUsers<TViewModel>()
+        public Task<IEnumerable<User>> GetAllActiveUsers()
         {
             var activeUsers = this.context.Users
                 .Include(u => u.Roles)
                 .Where(u => u.IsDeleted == false)
                 .OrderBy(u => u.FirstName)
-                .ThenBy(u => u.LastName);
+                .ThenBy(u => u.LastName)
+                .ToList();
 
-            foreach (var user in activeUsers)
-            {
-                foreach (var role in user.Roles)
-                {
-                    var roleName = await this.userService.GetRoleNameById(role.RoleId);
-                    role.RoleId = roleName;
-                }
-            }
-
-            return activeUsers.ToList();
+            return Task.FromResult(activeUsers.AsEnumerable());
         }
 
         public async Task<bool> Lock(string id)

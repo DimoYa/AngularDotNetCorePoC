@@ -6,7 +6,7 @@ using MyEdo.Business.Exceptions;
 using MyEdo.Business.Services.AppSkill;
 using MyEdo.Core.Common;
 using MyEdo.Core.Models;
-using MyEdo.Web.ApiModels;
+using MyEdo.Web.ApiModels.Skills;
 using System;
 using System.Collections.Generic;
 using System.Linq;

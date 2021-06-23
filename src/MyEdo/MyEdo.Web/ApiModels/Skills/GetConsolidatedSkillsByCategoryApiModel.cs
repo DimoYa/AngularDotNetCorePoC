@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MyEdo.Web.ApiModels
+namespace MyEdo.Web.ApiModels.Skills
 {
     public class GetConsolidatedSkillsByCategoryApiModel
     {

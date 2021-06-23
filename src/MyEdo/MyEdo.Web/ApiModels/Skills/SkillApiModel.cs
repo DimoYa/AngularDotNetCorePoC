@@ -1,4 +1,4 @@
-﻿namespace MyEdo.Web.ApiModels
+﻿namespace MyEdo.Web.ApiModels.Skills
 {
     public class SkillApiModel
     {

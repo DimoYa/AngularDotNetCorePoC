@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using MyEdo.Business.Exceptions;
 using MyEdo.Core.Common;
 using MyEdo.Core.Models;
 using MyEdo.Data;
@@ -63,6 +64,11 @@ namespace MyEdo.Business.Services.AppUser
             var user = context.Users
                 .SingleOrDefault(u => u.FirstName == firstName && u.LastName == lastName);
 
+            if (user == null)
+            {
+                throw new NotFoundException();
+            }
+
             return Task.FromResult(user);
         }
 
@@ -70,6 +76,11 @@ namespace MyEdo.Business.Services.AppUser
         {
             var user = context.Users
                 .SingleOrDefault(u => u.Id == id);
+
+            if (user == null)
+            {
+                throw new NotFoundException();
+            }
 
             return Task.FromResult(user);
         }

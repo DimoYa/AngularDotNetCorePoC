@@ -3,7 +3,7 @@ using MyEdo.Core.Models.Enums;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace MyEdo.Web.ApiModels
+namespace MyEdo.Web.ApiModels.Skills
 {
     public class GetSkillsApiModel
     {

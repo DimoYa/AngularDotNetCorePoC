@@ -1,9 +1,8 @@
-﻿namespace MyEdo.Web.ApiModels
+﻿namespace MyEdo.Web.ApiModels.Skills
 {
-    public class CategoryApiModel
+    public class SkillDeleteApiModel
     {
         public string Id { get; set; }
-
         public string Name { get; set; }
     }
 }

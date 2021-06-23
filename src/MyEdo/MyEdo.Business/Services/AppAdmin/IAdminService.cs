@@ -6,7 +6,7 @@ namespace MyEdo.Business.Services.AppAdmin
 {
     public interface IAdminService
     {
-        Task<IEnumerable<User>> GetAllActiveUsers<TViewModel>();
+        Task<IEnumerable<User>> GetAllActiveUsers();
 
         Task<bool> Lock(string id);
 

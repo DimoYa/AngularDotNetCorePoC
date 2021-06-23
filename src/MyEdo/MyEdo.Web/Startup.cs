@@ -18,8 +18,9 @@ using MyEdo.Business.Services.AppUser;
 using MyEdo.Core.Models;
 using MyEdo.Data;
 using MyEdo.Data.Seeding;
-using MyEdo.Web.ApiModels;
-using MyEdo.Web.ApiModels.Training;
+using MyEdo.Web.ApiModels.SkillCategories;
+using MyEdo.Web.ApiModels.Skills;
+using MyEdo.Web.ApiModels.Trainings;
 
 namespace MyEdo
 {

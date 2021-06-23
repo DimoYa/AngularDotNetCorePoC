@@ -1,6 +1,6 @@
 ﻿using MyEdo.Core.Models.Enums;
 
-namespace MyEdo.Web.ApiModels
+namespace MyEdo.Web.ApiModels.Skills
 {
     public class SkillProfileApiModel
     {
