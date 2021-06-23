@@ -5,6 +5,12 @@ namespace MyEdo.Core.Models.BaseModels
 {
     public abstract class BaseModel<TKey> : IAuditInfo
     {
+        public BaseModel()
+        {
+            this.CreatedOn = DateTime.UtcNow;
+            this.ModifiedOn = DateTime.UtcNow;
+        }
+
         [Key]
         public TKey Id { get; set; }
 

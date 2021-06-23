@@ -1,9 +1,15 @@
-﻿namespace MyEdo.Web.ApiModels.Training
+﻿using MyEdo.Core.Models.Enums;
+
+namespace MyEdo.Web.ApiModels.Training
 {
     public class TrainingApiModel
     {
         public string Id { get; set; }
 
         public string Name { get; set; }
+
+        public TrainingType Type { get; set; }
+
+        public TrainingStatus Status { get; set; }
     }
 }

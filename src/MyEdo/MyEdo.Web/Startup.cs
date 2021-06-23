@@ -19,6 +19,7 @@ using MyEdo.Core.Models;
 using MyEdo.Data;
 using MyEdo.Data.Seeding;
 using MyEdo.Web.ApiModels;
+using MyEdo.Web.ApiModels.Training;
 
 namespace MyEdo
 {
@@ -45,6 +46,9 @@ namespace MyEdo
                 cfg.AddMaps(new[] { typeof(Startup) });
                 cfg.CreateMap<CategoryApiModel, SkillCategory>();
                 cfg.CreateMap<SkillApiModel, Skill>();
+                cfg.CreateMap<TrainingApiModel, Training>();
+                cfg.CreateMap<TrainingBaseApiModel, UserTraining>();
+                cfg.CreateMap<AddUserTrainingApiModel, UserTraining>();
             });
 
             IMapper mapper = mappingConfig.CreateMapper();

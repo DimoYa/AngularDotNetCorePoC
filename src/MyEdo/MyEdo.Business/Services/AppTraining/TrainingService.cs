@@ -1,4 +1,6 @@
-﻿using MyEdo.Business.Services.AppUser;
+﻿using Microsoft.EntityFrameworkCore;
+using MyEdo.Business.Exceptions;
+using MyEdo.Business.Services.AppUser;
 using MyEdo.Core.Models;
 using MyEdo.Core.Models.Enums;
 using MyEdo.Data;
@@ -28,7 +30,7 @@ namespace MyEdo.Business.Services.AppTraining
             {
                 Name = model.Name,
                 Type = model.Type,
-                DueDate = model.DueDate,
+                DueDate = DateTime.UtcNow.AddMonths(1),
                 Status = model.Status,
             };
 
@@ -45,7 +47,6 @@ namespace MyEdo.Business.Services.AppTraining
             trainingForUpdate.Name = model.Name;
             trainingForUpdate.Type = model.Type;
             trainingForUpdate.Status = model.Status;
-            trainingForUpdate.DueDate = model.DueDate;
             trainingForUpdate.ModifiedOn = DateTime.UtcNow;
 
             int result = await this.context.SaveChangesAsync();
@@ -108,6 +109,11 @@ namespace MyEdo.Business.Services.AppTraining
             var userTrainingForUpdate = this.context.UserTrainings
                 .SingleOrDefault(x => x.TrainingId == trainingId && x.UserId == userId);
 
+            if (userTrainingForUpdate == null)
+            {
+                throw new NotFoundException();
+            }
+
             userTrainingForUpdate.Status = status;
 
             int result = await this.context.SaveChangesAsync();
@@ -120,9 +126,11 @@ namespace MyEdo.Business.Services.AppTraining
             var currentUserId = await this.userService.GetCurrentUserId();
 
             var trainings = this.context.UserTrainings
-                 .Where(ut => ut.Training.DueDate.Date >= DateTime.Now.Date)
-                 .Where(ut => ut.UserId == currentUserId)
-                 .Where(ut => ut.Training.IsDeleted == false)
+                 .Where(
+                 ut => ut.Training.DueDate.Date >= DateTime.Now.Date &&
+                 ut.Training.IsDeleted == false &&
+                 ut.UserId == currentUserId)
+                 .Include(t => t.Training)
                  .ToList();
 
             return trainings;
@@ -131,8 +139,9 @@ namespace MyEdo.Business.Services.AppTraining
         public Task<IEnumerable<UserTraining>> GetAllUsersTrainings()
         {
             var trainings = this.context.UserTrainings
-                 .Where(d => d.Training.DueDate.Date >= DateTime.Now.Date)
-                 .Where(s => s.Training.IsDeleted == false)
+                 .Where(t => t.Training.DueDate.Date >= DateTime.Now.Date && t.Training.IsDeleted == false)
+                 .Include(t => t.Training)
+                 .Include(t=> t.User)
                  .ToList();
 
             return Task.FromResult(trainings.AsEnumerable());
@@ -148,20 +157,16 @@ namespace MyEdo.Business.Services.AppTraining
             return Task.FromResult(trainings.AsEnumerable());
         }
 
-        private Task<UserTraining> GetUserTrainingByIds(string trainingId, string userId)
-        {
-            var userTrainingToUpdate = this.context.UserTrainings
-                .Where(x => x.UserId == userId && x.TrainingId == trainingId)
-                .FirstOrDefault();
-
-            return Task.FromResult(userTrainingToUpdate);
-        }
-
         private Task<Training> GetTrainingById(string id)
         {
             var training = this.context.Trainings
-                .Where(t => t.Id == id)
-                .SingleOrDefault();
+                .Where(t => t.DueDate.Date >= DateTime.Now.Date && t.IsDeleted == false)
+                .SingleOrDefault(t => t.Id == id);
+
+            if (training == null)
+            {
+                throw new NotFoundException();
+            }
 
             return Task.FromResult(training);
         }

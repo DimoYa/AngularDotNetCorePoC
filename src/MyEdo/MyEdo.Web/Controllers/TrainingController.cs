@@ -43,7 +43,7 @@ namespace MyEdo.Controllers
                .GetAllTrainings();
 
                 var model = trainings
-                    .Select(t => new TrainingApiModel { Id = t.Id, Name = t.Name });
+                    .Select(t => new TrainingApiModel { Id = t.Id, Name = t.Name, Status = t.Status, Type = t.Type });
 
                 return Ok(model);
             }
@@ -146,7 +146,7 @@ namespace MyEdo.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<TrainingApiModel>> DeleteCategory([FromBody] TrainingApiModel model)
+        public async Task<ActionResult<TrainingBaseApiModel>> Delete([FromBody] TrainingBaseApiModel model)
         {
             try
             {
@@ -182,7 +182,7 @@ namespace MyEdo.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<TrainingApiModel>> RequestTraining([FromBody] TrainingApiModel model)
+        public async Task<ActionResult<TrainingBaseApiModel>> RequestTraining([FromBody] TrainingBaseApiModel model)
         {
             try
             {
@@ -213,13 +213,13 @@ namespace MyEdo.Controllers
             return this.Ok(model);
         }
 
-        [HttpPost(nameof(AssingTraining))]
+        [HttpPost(nameof(AssignTraining))]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        [ProducesResponseType(typeof(TrainingApiModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(AddUserTrainingApiModel), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<UserTrainingApiModel>> AssingTraining([FromBody] UserTrainingApiModel model)
+        public async Task<ActionResult<AddUserTrainingApiModel>> AssignTraining([FromBody] AddUserTrainingApiModel model)
         {
             try
             {
@@ -252,11 +252,11 @@ namespace MyEdo.Controllers
 
         [HttpPost(nameof(UpdateUserTrainingStatus))]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        [ProducesResponseType(typeof(TrainingApiModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AddUserTrainingApiModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<UserTrainingApiModel>> UpdateUserTrainingStatus([FromBody] UserTrainingApiModel model)
+        public async Task<ActionResult<AddUserTrainingApiModel>> UpdateUserTrainingStatus([FromBody] AddUserTrainingApiModel model)
         {
             try
             {
@@ -334,7 +334,14 @@ namespace MyEdo.Controllers
                 var trainings = await this.trainingService
                .GetAllUsersTrainings();
 
-                var model = trainings.Select(t => new UserTrainingApiModel{ TrainingId = t.TrainingId, TrainingName = t.Training.Name, Status = t.Status });
+                var model = trainings.Select(t => new UserTrainingApiModel
+                { 
+                    TrainingId = t.TrainingId,
+                    TrainingName = t.Training.Name,
+                    Status = t.Status,
+                    UserId = t.UserId,
+                    UserName = t.User.UserName
+                });
 
                 var groupedUserTrainings = model
                 .GroupBy(s => new
