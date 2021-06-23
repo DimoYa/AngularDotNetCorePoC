@@ -22,18 +22,6 @@ namespace MyEdo.Business.Services.AppUser
             this.httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<IEnumerable<User>> GetAllActiveResources<TViewModel>()
-        {
-            var resourceRoleId = await this.GetRoleIdByName(GlobalConstants.ResourceRoleName);
-
-            var userWithSkills = context.Users
-                .Where(u => u.IsDeleted == false && u.Roles.Any(r => r.RoleId == resourceRoleId))
-                .OrderBy(u => u.FirstName)
-                .ThenBy(u => u.LastName)
-                .ToList();
-
-            return userWithSkills;
-        }
 
         public async Task<string> GetCurrentUserId()
         {
@@ -44,32 +32,12 @@ namespace MyEdo.Business.Services.AppUser
                 .FirstOrDefault(x => x.Email == userName)
                 .Id;
 
-            return currentUserId;
-        }
-
-        public Task<string> GetCurrentUserName()
-        {
-            var currentUser = httpContextAccessor
-                .HttpContext
-                .User
-                .Identities
-                .FirstOrDefault()
-                .Name;
-
-            return Task.FromResult(currentUser);
-        }
-
-        public Task<User> GetUserByName(string firstName, string lastName)
-        {
-            var user = context.Users
-                .SingleOrDefault(u => u.FirstName == firstName && u.LastName == lastName);
-
-            if (user == null)
+            if (currentUserId == null)
             {
                 throw new NotFoundException();
             }
 
-            return Task.FromResult(user);
+            return currentUserId;
         }
 
         public Task<User> GetUserById(string id)
@@ -85,15 +53,6 @@ namespace MyEdo.Business.Services.AppUser
             return Task.FromResult(user);
         }
 
-        public Task<string> GetRoleIdByName(string roleName)
-        {
-            var resourceRoleId = context.Roles
-                .FirstOrDefault(x => x.Name == roleName)
-                .Id;
-
-            return Task.FromResult(resourceRoleId);
-        }
-
         public Task<string> GetRoleNameById(string roleId)
         {
             var resourceRoleName = context.Roles
@@ -101,6 +60,18 @@ namespace MyEdo.Business.Services.AppUser
                 .Name;
 
             return Task.FromResult(resourceRoleName);
+        }
+
+        private Task<string> GetCurrentUserName()
+        {
+            var currentUser = httpContextAccessor
+                .HttpContext
+                .User
+                .Identities
+                .FirstOrDefault()
+                .Name;
+
+            return Task.FromResult(currentUser);
         }
     }
 }
