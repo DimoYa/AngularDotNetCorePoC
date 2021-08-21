@@ -11,5 +11,7 @@ namespace MyEdo.Business.Services.AppUser
         Task<string> GetCurrentUserId();
 
         Task<User> GetUserById(string id);
+
+        Task<IEnumerable<string>> GetUserRoles();
     }
 }

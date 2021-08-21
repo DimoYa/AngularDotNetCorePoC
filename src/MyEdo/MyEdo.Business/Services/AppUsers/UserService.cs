@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using MyEdo.Business.Exceptions;
 using MyEdo.Core.Common;
 using MyEdo.Core.Models;
@@ -13,13 +14,16 @@ namespace MyEdo.Business.Services.AppUser
     {
         private readonly MyEduDbContext context;
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly UserManager<User> userManager;
 
         public UserService(
             MyEduDbContext context,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            UserManager<User> userManager)
         {
             this.context = context;
             this.httpContextAccessor = httpContextAccessor;
+            this.userManager = userManager;
         }
 
 
@@ -60,6 +64,14 @@ namespace MyEdo.Business.Services.AppUser
                 .Name;
 
             return Task.FromResult(resourceRoleName);
+        }
+
+        public async Task<IEnumerable<string>> GetUserRoles()
+        {
+            var user = await this.userManager.FindByEmailAsync(await this.GetCurrentUserName());
+            var userRoles = await userManager.GetRolesAsync(user);
+
+            return userRoles;
         }
 
         private Task<string> GetCurrentUserName()

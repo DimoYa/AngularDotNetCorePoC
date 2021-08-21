@@ -15,10 +15,6 @@ code {
   border-color: #1861ac;
 }
 
-.bg-resources {
-  background-color: #afeeee
-}
-
 body, html {
   height: 100%;
   background-color: #e9ebee
@@ -26,6 +22,14 @@ body, html {
 
 .container.fill, .jumbotron {
   background-color: #fff
+}
+
+h1, h5 {
+  margin: 5px auto;
+  padding: 3.5px;
+  font-weight: bold;
+  color: #147a9e !important;
+  font-family: Song Myung,Helvetica,Arial,sans-serif;
 }
 
 @media only screen and (max-device-width: 480px) {

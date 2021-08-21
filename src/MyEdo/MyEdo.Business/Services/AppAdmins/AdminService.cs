@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyEdo.Business.Services.AppUser;
+using MyEdo.Core.Common;
 using MyEdo.Core.Models;
 using MyEdo.Data;
 using System;
@@ -37,6 +38,8 @@ namespace MyEdo.Business.Services.AppAdmin
 
             return Task.FromResult(activeUsers.AsEnumerable());
         }
+
+       
 
         public async Task<bool> Lock(string id)
         {
