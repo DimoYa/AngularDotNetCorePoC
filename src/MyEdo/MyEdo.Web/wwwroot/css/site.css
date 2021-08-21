@@ -1,0 +1,58 @@
+﻿.bg-resources {
+    background-color: #AFEEEE;
+}
+
+html, body {
+    height: 100%;
+    background-color: #e9ebee;
+}
+
+.jumbotron, .container.fill {
+    background-color: white;
+}
+
+footer a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+}
+
+@media only screen and (max-device-width: 480px) {
+
+    h1, h4 {
+        font-size: 1.5rem !important;
+    }
+
+    h3 {
+        font-size: 1.2em !important;
+    }
+
+    .d-flex.justify-content-between {
+        display: inline-block !important;
+        width: 100% !important;
+    }
+
+    .w-45 {
+        width: 100% !important;
+    }
+
+    .card-buttons {
+        position: static !important;
+    }
+
+    #registerForm, #loginForm {
+        width: 100% !important;
+    }
+
+    .table th {
+        border-bottom: none !important;
+        border-top: none !important;
+    }
+
+    .table tr {
+        border-top: 2px solid #dee2e6 !important;
+        border-bottom: 2px solid #dee2e6 !important;
+    }
+}

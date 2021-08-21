@@ -9,12 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MyEdo</title>
     <link rel="stylesheet" href="~/Identity/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Identity/css/site.css" />
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="~/css/site.min.css" rel="stylesheet" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light navbar-toggleable-sm bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-toggleable-sm bg-dark border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" href="~/">MyEdo</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -47,7 +47,7 @@
     </div>
     <footer class="footer border-top text-muted">
         <div class="container">
-            &copy; 2021 - MyEdo - <a asp-area="" asp-page="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - MyEdo 
         </div>
     </footer>
     <script src="~/Identity/lib/jquery/dist/jquery.min.js"></script>
