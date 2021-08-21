@@ -1,0 +1,56 @@
+<div class="text-center">
+    <div class="container">
+        <h1 class="display-4">Welcome to Resource Planning System!</h1>
+    </div>
+    <div class="jumbotron">
+        <div *ngIf="!(isAuthenticated | async)">
+            <div class="d-flex justify-content-between">
+                <div class="card text-white bg-info mb-3 container-fluid content-row">
+                    <div class="card-body container-fluid content-row d-flex flex-column">
+                        <h4 class="card-title container-fluid">New member?</h4>
+                        <p class="card-text">Get registration and start manage your working process</p>
+                        <div class="card-buttons align-self-md-center">
+                            <a class="btn btn-secondary" [routerLink]='["/authentication/register"]'><i
+                                    class="fas fa-user-plus p-1"></i>Register</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col py-3 px-md-5 bordered col-example"></div>
+                <div class="card text-white bg-info mb-3 container-fluid content-row">
+                    <div class="card-body container-fluid content-row d-flex flex-column">
+                        <h4 class="card-title container-fluid">Already registered?</h4>
+                        <p class="card-text">Login and manage your working process</p>
+                        <div class="card-buttons align-self-md-center">
+                            <a class="btn btn-secondary" [routerLink]='["/authentication/login"]'><i
+                                    class="fas fa-sign-in-alt p-1"></i>Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isAuthenticated | async">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">Skills</h4>
+                    <p class="card-text mb-2">Build and mantain your professional skill profile</p>
+                    <div class="buttons">
+                        <a class="btn btn-secondary mb-1"><i class="fas fa-plus p-1"></i>Add new skill to my profile</a>
+                        <a class="btn btn-secondary mb-1"><i class="fas fa-book-reader p-1"></i>View and manage
+                            myskills</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">Trainings</h4>
+                    <p class="card-text mb-2">Request and view your trainings</p>
+                    <div class="buttons">
+                        <a class="btn btn-secondary mb-1"><i class="fas fa-chalkboard-teacher p-1"></i>View and
+                            request trainings</a>
+                        <a class="btn btn-secondary mb-1"><i class="fas fa-user-graduate p-1"></i>My Trainings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
