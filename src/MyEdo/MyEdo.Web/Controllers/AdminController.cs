@@ -105,7 +105,7 @@ namespace MyEdo.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult> UnLockUser([FromBody] string userId)
+        public async Task<ActionResult<string>> UnLockUser(string userId)
         {
             try
             {
