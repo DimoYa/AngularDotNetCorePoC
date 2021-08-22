@@ -10,11 +10,13 @@ import { AuthorizeService } from 'src/api-authorization/authorize.service';
 export class HomeComponent implements OnInit {
   public isAuthenticated: Observable<boolean>;
   public isAdmin: Observable<boolean>;
+  public isResource: Observable<boolean>;
 
   constructor(private authorizeService: AuthorizeService) { }
 
   ngOnInit() {
     this.isAuthenticated = this.authorizeService.isAuthenticated();
     this.isAdmin = this.authorizeService.isAdmin();
+    this.isResource = this.authorizeService.isResource();
   }
 }

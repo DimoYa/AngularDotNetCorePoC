@@ -55,6 +55,10 @@ export class AuthorizeService {
     return this.getUserRoles().pipe(map(r => r.includes('Administrator')));
   }
 
+  public isResource(): Observable<boolean> {
+    return this.getUserRoles().pipe(map(r => r.includes('Resource')));
+  }
+
   public getUser(): Observable<IUser | null> {
     return concat(
       this.userSubject.pipe(take(1), filter(u => !!u)),
