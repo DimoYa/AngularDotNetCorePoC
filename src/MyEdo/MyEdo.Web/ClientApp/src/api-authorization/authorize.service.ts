@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { User, UserManager, WebStorageStateStore } from 'oidc-client';
 import { BehaviorSubject, concat, from, Observable } from 'rxjs';
 import { filter, map, mergeMap, take, tap } from 'rxjs/operators';
@@ -44,8 +45,14 @@ export class AuthorizeService {
   private userManager: UserManager;
   private userSubject: BehaviorSubject<IUser | null> = new BehaviorSubject(null);
 
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
+
   public isAuthenticated(): Observable<boolean> {
     return this.getUser().pipe(map(u => !!u));
+  }
+
+  public isAdmin(): Observable<boolean> {
+    return this.getUserRoles().pipe(map(r => r.includes('Administrator')));
   }
 
   public getUser(): Observable<IUser | null> {
@@ -53,6 +60,10 @@ export class AuthorizeService {
       this.userSubject.pipe(take(1), filter(u => !!u)),
       this.getUserFromStorage().pipe(filter(u => !!u), tap(u => this.userSubject.next(u))),
       this.userSubject.asObservable());
+  }
+
+  public getUserRoles(): Observable<string[] | null> {
+    return this.http.get<string[]>(this.baseUrl + 'api/User/GetUserRoles')
   }
 
   public getAccessToken(): Observable<string> {

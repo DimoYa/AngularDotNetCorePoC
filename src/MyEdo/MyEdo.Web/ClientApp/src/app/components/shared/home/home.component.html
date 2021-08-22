@@ -1,6 +1,6 @@
 <div class="text-center">
     <div class="container">
-        <h1 class="text-center">Welcome to Resource Planning System!</h1>
+        <h1 class="text-center">Welcome to MyEdo application!</h1>
     </div>
     <div class="jumbotron">
         <div class="card text-white bg-info mb-3">
@@ -38,6 +38,16 @@
             </div>
         </div>
         <div *ngIf="isAuthenticated | async">
+            <div class="card text-white bg-info mb-3" *ngIf="isAdmin | async">
+                <div class="card-body">
+                    <h4 class="card-title">User management</h4>
+                    <p class="card-text mb-2">Manage user roles and permissions</p>
+                    <div class="buttons">
+                        <a class="btn btn-secondary mb-1"><i class="fas fa-users-cog p-1"></i>View and manage user
+                            status and roles</a>
+                    </div>
+                </div>
+            </div>
             <div class="card text-white bg-info mb-3">
                 <div class="card-body">
                     <h4 class="card-title">Skills</h4>
@@ -46,6 +56,16 @@
                         <a class="btn btn-secondary mb-1"><i class="fas fa-plus p-1"></i>Add new skill to my profile</a>
                         <a class="btn btn-secondary mb-1"><i class="fas fa-book-reader p-1"></i>View and manage
                             myskills</a>
+                    </div>
+                </div>
+                <div class="card-body" *ngIf="isAdmin | async">
+                    <p class="card-text mb-2">Create and manage new skills and categories</p>
+                    <div class="buttons">
+                        <a class="btn btn-secondary mb-1"><i class="fas fa-user-shield p-1"></i>Create new skill
+                            category</a>
+                        <a class="btn btn-secondary mb-1"><i class="fas fa-user-shield p-1"></i>Create new skill</a>
+                        <a class="btn btn-secondary mb-1"><i class="fas fa-user-shield p-1"></i>View and manage
+                            categories and skills</a>
                     </div>
                 </div>
             </div>
@@ -57,6 +77,33 @@
                         <a class="btn btn-secondary mb-1"><i class="fas fa-chalkboard-teacher p-1"></i>View and
                             request trainings</a>
                         <a class="btn btn-secondary mb-1"><i class="fas fa-user-graduate p-1"></i>My Trainings</a>
+                    </div>
+                </div>
+                <div *ngIf="isAdmin | async">
+                    <div class="card-body">
+                        <p class="card-text mb-2">Create and manage new trainings</p>
+                        <div class="buttons">
+                            <div class="buttons">
+                                <a class="btn btn-secondary mb-1"><i class="fas fa-user-shield p-1"></i>Create new
+                                    training</a>
+                                <a class="btn btn-secondary mb-1"><i class="fas fa-user-shield p-1"></i>View and
+                                    manage
+                                    trainings</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text mb-2">Manage user trainings</p>
+                        <div class="buttons">
+                            <div class="buttons">
+                                <a class="btn btn-secondary mb-1"><i class="fas fa-user-plus p-1"></i>Assign user to
+                                    a
+                                    training</a>
+                                <a class="btn btn-secondary mb-1"><i class="fas fa-users p-1"></i>Manage user
+                                    training
+                                    statuses</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
