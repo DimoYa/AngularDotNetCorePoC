@@ -135,5 +135,77 @@ namespace MyEdo.Controllers
 
             return this.Ok(userId);
         }
+
+        [HttpPut("[action]/{userId}/{roleName}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<string>> AddRoleToUser(string userId, string roleName)
+        {
+            try
+            {
+                await this.adminService.AddRoleToUser(userId, roleName);
+            }
+            catch (NotAuthorizedException ex)
+            {
+                return this.Unauthorized(ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                return this.Forbid(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return this.NotFound(ex.GenerateApiError());
+            }
+            catch (BadRequestException ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+
+                return this.BadRequest(ex.Message);
+            }
+
+            return this.Ok(userId);
+        }
+
+        [HttpPut("[action]/{userId}/{roleName}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<string>> RemoveRoleFromUser(string userId, string roleName)
+        {
+            try
+            {
+                await this.adminService.RemoveRoleFromUser(userId, roleName);
+            }
+            catch (NotAuthorizedException ex)
+            {
+                return this.Unauthorized(ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                return this.Forbid(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return this.NotFound(ex.GenerateApiError());
+            }
+            catch (BadRequestException ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+
+                return this.BadRequest(ex.Message);
+            }
+
+            return this.Ok(userId);
+        }
     }
 }

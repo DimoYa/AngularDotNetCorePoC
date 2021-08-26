@@ -16,15 +16,18 @@ namespace MyEdo.Business.Services.AppAdmin
         private readonly MyEduDbContext context;
         private readonly IUserService userService;
         private readonly UserManager<User> userManager;
+        private readonly RoleManager<UserRole> roleManager;
 
         public AdminService(
             MyEduDbContext context,
             IUserService userService,
-            UserManager<User> userManager)
+            UserManager<User> userManager,
+            RoleManager<UserRole> roleManager)
         {
             this.context = context;
             this.userService = userService;
             this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         public Task<IEnumerable<User>> GetAllActiveUsers()
@@ -39,7 +42,7 @@ namespace MyEdo.Business.Services.AppAdmin
             return Task.FromResult(activeUsers.AsEnumerable());
         }
 
-       
+
 
         public async Task<bool> Lock(string id)
         {
@@ -57,6 +60,26 @@ namespace MyEdo.Business.Services.AppAdmin
             var userToUnLock = await this.userService.GetUserById(id);
 
             await this.userManager.SetLockoutEndDateAsync(userToUnLock, null);
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> AddRoleToUser(string userId, string roleName)
+        {
+            var user = await this.userService.GetUserById(userId);
+            await userManager.AddToRoleAsync(user, roleName);
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> RemoveRoleFromUser(string userId, string roleName)
+        {
+            var user = await this.userService.GetUserById(userId);
+            await userManager.RemoveFromRoleAsync(user, roleName);
 
             int result = await this.context.SaveChangesAsync();
 

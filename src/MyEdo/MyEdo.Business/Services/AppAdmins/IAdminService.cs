@@ -11,5 +11,9 @@ namespace MyEdo.Business.Services.AppAdmin
         Task<bool> Lock(string id);
 
         Task<bool> Unlock(string id);
+
+        Task<bool> AddRoleToUser(string userId, string roleId);
+
+        Task<bool> RemoveRoleFromUser(string userId, string roleId);
     }
 }
