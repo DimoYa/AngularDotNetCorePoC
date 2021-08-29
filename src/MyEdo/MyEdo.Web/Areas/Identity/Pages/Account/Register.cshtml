@@ -97,6 +97,14 @@
     </form>
 </div>
 
-@section Scripts {
+@section scripts{
     <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript" src="~/js/errorMessages.js"></script>
+    <script>
+        getErrorMsgs('#registerForm');
+    </script>
+    <script>
+        let userName = $("#email").val();
+        wrapInASpan([`User name '${userName}' is already taken.`], 'alert alert-danger');
+    </script>
 }

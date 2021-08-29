@@ -57,6 +57,13 @@
     </form>
 </div>
 
-@section Scripts {
+@section scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/errorMessages.js"></script>
+    <script>
+        getErrorMsgs('#loginForm');
+    </script>
+    <script>
+        wrapInASpan(['Invalid login attempt.'], 'alert alert-danger');
+    </script>
 }

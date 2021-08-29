@@ -55,12 +55,12 @@ h1, h5 {
 
 @media only screen and (max-device-width: 770px) {
 
-  h1, h4 {
+  h1, h4, p {
       font-size: 1.5rem !important;
   }
 
-  h3 {
-      font-size: 1.2em !important;
+  h3, a {
+      font-size: 1em !important;
   }
 
   .d-flex.justify-content-between {

@@ -27,6 +27,13 @@ h1, h5 {
     font-family: Song Myung,Helvetica,Arial,sans-serif;
 }
 
+.alert-danger {
+    background-color: #bc204b;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}
+
 .loader {
     border: 16px solid #f3f3f3;
     border-radius: 50%;
