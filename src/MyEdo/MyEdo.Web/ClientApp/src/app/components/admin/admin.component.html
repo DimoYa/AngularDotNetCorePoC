@@ -16,18 +16,29 @@
                 <tr *ngFor="let user of users">
                     <td>{{ user.userName }}</td>
                     <td>{{ user.fullName }}</td>
-                    <td><a *ngIf="!user.isLocked" (click)="onLockChange(user.id, user.isLocked)"
+                    <td class="center"><a *ngIf="!user.isLocked" (click)="onLockChange(user.id, user.isLocked)"
                             class="btn bg-transparent"><i class="fas fa fa-user-lock" data-placement="top"
                                 title="Lock user"></i></a>
                         <a *ngIf="user.isLocked" (click)="onLockChange(user.id, user.isLocked)"
                             class="btn bg-transparent"><i class="fas fa fa-unlock-alt" data-placement="top"
                                 title="Unlock user"></i></a>
                     </td>
-                    <td><input type="checkbox" [checked]="isResource(user.id)"
-                            (click)="onRoleChange(user.id, 'Resource', !isResource(user.id))" title="Change user role">
+                    <td class="center">
+                        <label class="switch">
+                            <input type="checkbox" [checked]="isResource(user.id)"
+                                (click)="onRoleChange(user.id, 'Resource', !isResource(user.id))"
+                                title="Change user role">
+                            <span class="slider round"></span>
+                        </label>
                     </td>
-                    <td><input type="checkbox" [checked]="isAdmin(user.id)"
-                            (click)="onRoleChange(user.id, 'Administrator', !isAdmin(user.id))" title="Change admin role">
+                    <td class="center">
+                        <label class="switch">
+
+                            <input type="checkbox" [checked]="isAdmin(user.id)"
+                                (click)="onRoleChange(user.id, 'Administrator', !isAdmin(user.id))"
+                                title="Change admin role">
+                            <span class="slider round"></span>
+                        </label>
                     </td>
                 </tr>
             </tbody>
