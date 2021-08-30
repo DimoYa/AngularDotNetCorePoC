@@ -15,7 +15,7 @@ export class AdminService {
     @Inject('BASE_URL') private baseUrl: string) {}
 
     public getAllUsers(): Observable<UserModel[] | null> {
-      return this.http.get<UserModel[]>(this.baseUrl + this.adminEndpoint)
+      return this.http.get<UserModel[]>(this.baseUrl + `${this.adminEndpoint}/GetAllUsers`)
     }
 
     public lockUser(userId: string): Observable<object> {
