@@ -18,6 +18,8 @@ import { AllSkillsComponent } from "./components/skill/all-skills/all-skills.com
 import { SkillComponent } from "./components/skill/skill/skill.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatExpansionModule } from "@angular/material/expansion";
+import {ConfirmBoxConfigModule, NgxAwesomePopupModule} from '@costlydeveloper/ngx-awesome-popup';
+    
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { MatExpansionModule } from "@angular/material/expansion";
     HttpClientModule,
     FormsModule,
     ApiAuthorizationModule,
+    NgxAwesomePopupModule.forRoot(),
+    ConfirmBoxConfigModule.forRoot(),
     RouterModule.forRoot([
       { path: "", component: HomeComponent, pathMatch: "full" },
       { path: "counter", component: CounterComponent },
