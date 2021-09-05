@@ -1,0 +1,8 @@
+<div class="jumbotron">
+    <h1 class="text-center">All Skills by categories</h1>
+    <hr class="bg-resources hr-2" />
+    <div class="content">
+        <div class="content" *ngFor="let skill of (skills$ | async);">
+            <app-skill [skill]="skill"></app-skill>
+    </div>
+</div>

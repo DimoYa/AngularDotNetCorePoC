@@ -1,0 +1,27 @@
+<ng-template [ngIf]="skill">
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header class="panel-heading card text-white bg-info mb-3 cl">
+        <h4 class="mb-0 text-center">
+            <span class="center-block">{{skill.categoryName}}</span>
+            <span class="float-right">
+                <a class="btn bg-transparent"><i class="fas fa-edit fa-1x text-white" data-placement="top"
+                        title="Edit category name"></i></a>
+                <a class="btn bg-transparent"><i class="far fa-trash-alt fa-1x text-white" data-placement="top"
+                        title="Delete category and all skills beyound it"></i></a>
+            </span>
+        </h4>
+    </mat-expansion-panel-header>
+    <ul class="list-group mb-3" *ngFor="let skillCategoy of (skill.skills);">
+        <li class="list-group-item">{{skillCategoy.skillName}}
+            <div class="float-right">
+                <a class="btn bg-transparent"><i class="fas fa-plus" data-placement="top"
+                        title="Add skill to my profile"></i></a>
+                <a class="btn bg-transparent"><i class="fas fa-edit" data-placement="top"
+                        title="Edit skill"></i></a>
+                <a class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top"
+                        title="Delete skill"></i></a>
+            </div>
+        </li>
+    </ul>
+</mat-expansion-panel>
+</ng-template>

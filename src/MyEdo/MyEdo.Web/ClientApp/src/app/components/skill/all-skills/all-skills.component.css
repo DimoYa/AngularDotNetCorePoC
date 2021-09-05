@@ -1,0 +1,15 @@
+.bg-resources {
+  background-color: #afeeee;
+}
+
+hr.hr-2 {
+  height: 2px;
+}
+
+.content {
+    margin: 10px;
+}
+
+::ng-deep .mat-content {
+    display: inline-block !important;
+}
