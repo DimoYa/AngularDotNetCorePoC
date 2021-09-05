@@ -3,6 +3,6 @@
     <hr class="bg-resources hr-2" />
     <div class="content">
         <div class="content" *ngFor="let skill of (skills$ | async);">
-            <app-skill [skill]="skill"></app-skill>
+            <app-skill [skill]="skill" (deleteEvent)="fromChild()"></app-skill>
     </div>
 </div>

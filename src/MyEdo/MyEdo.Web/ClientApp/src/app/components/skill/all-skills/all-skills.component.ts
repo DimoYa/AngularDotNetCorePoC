@@ -16,4 +16,8 @@ export class AllSkillsComponent implements OnInit {
   ngOnInit() {
     this.skills$ =  this.skillService.getAllSkills();
   }
+
+  public fromChild() {
+    this.skills$ =  this.skillService.getAllSkills();
+  }
 }
