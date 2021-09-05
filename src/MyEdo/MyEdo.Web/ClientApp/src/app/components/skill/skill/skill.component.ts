@@ -2,10 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import SkillCategoryModel from "../../../core/models/skill-model";
 import { SkillService } from "../../../core/services/skill.service";
 import { Router } from "@angular/router";
-import {
-  ConfirmBoxInitializer,
-  DialogLayoutDisplay,
-} from "@costlydeveloper/ngx-awesome-popup";
+import { ConfirmBoxInitializer } from "@costlydeveloper/ngx-awesome-popup";
 
 @Component({
   selector: "app-skill",
@@ -14,7 +11,7 @@ import {
 })
 export class SkillComponent implements OnInit {
   clickButton: boolean = false;
-  deletionMsg = "Are you sure that you want to delete the skill category?";
+  deletionMsg = "Are you sure that you want to delete skill category: ";
 
   @Input("skill")
   skill: SkillCategoryModel;
@@ -39,8 +36,9 @@ export class SkillComponent implements OnInit {
   public deleteCategory(categoryId: string) {
     this.clickButton = true;
 
+    const currentCategory = this.GetCurrentCategory(categoryId);
     const confirmBox = new ConfirmBoxInitializer();
-    confirmBox.setTitle(this.deletionMsg);
+    confirmBox.setTitle(this.deletionMsg + currentCategory.categoryName + '?');
     confirmBox.setButtonLabels("YES", "NO");
 
     const subscription = confirmBox.openConfirmBox$().subscribe((resp) => {

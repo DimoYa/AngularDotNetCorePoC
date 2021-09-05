@@ -7,8 +7,6 @@ import { RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./components/shared/nav-menu/nav-menu.component";
 import { HomeComponent } from "./components/shared/home/home.component";
-import { CounterComponent } from "./counter/counter.component";
-import { FetchDataComponent } from "./fetch-data/fetch-data.component";
 import { ApiAuthorizationModule } from "../api-authorization/api-authorization.module";
 import { AuthorizeGuard } from "../api-authorization/authorize.guard";
 import { AuthorizeInterceptor } from "..//api-authorization/authorize.interceptor";
@@ -26,8 +24,6 @@ import {ConfirmBoxConfigModule, NgxAwesomePopupModule} from '@costlydeveloper/ng
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     FooterComponent,
     AdminComponent,
     AllSkillsComponent,
@@ -42,12 +38,6 @@ import {ConfirmBoxConfigModule, NgxAwesomePopupModule} from '@costlydeveloper/ng
     ConfirmBoxConfigModule.forRoot(),
     RouterModule.forRoot([
       { path: "", component: HomeComponent, pathMatch: "full" },
-      { path: "counter", component: CounterComponent },
-      {
-        path: "fetch-data",
-        component: FetchDataComponent,
-        canActivate: [AuthorizeGuard],
-      },
       {
         path: "admin",
         component: AdminComponent,
