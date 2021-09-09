@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import SkillCategoryModel from "../models/skill-model";
+import { SkillCategoryModel } from "../models/skill-model";
+import { SkillModel } from "../models/skill-model";
 
 @Injectable({
   providedIn: "root",
@@ -24,6 +25,18 @@ export class SkillService {
     );
   }
 
+  public deleteSkill(body: Object): Observable<object> {
+    const reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+    });
+    const httpOptions = {
+      headers: reqHeader,
+      body: body,
+    };
+    const url = `${this.baseUrl}${this.skillEndpoint}`;
+    return this.http.delete(url, httpOptions);
+  }
+
   public deleteCategory(body: Object): Observable<object> {
     const reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -32,7 +45,7 @@ export class SkillService {
       headers: reqHeader,
       body: body,
     };
-    const url = this.baseUrl + `${this.skillCategoryEndpoint}`;
+    const url = `${this.baseUrl}${this.skillCategoryEndpoint}`;
     return this.http.delete(url, httpOptions);
   }
 }

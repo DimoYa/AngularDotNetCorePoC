@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import SkillCategoryModel from "../../../core/models/skill-model";
+import { SkillCategoryModel } from "../../../core/models/skill-model";
+import { SkillModel } from "../../../core/models/skill-model";
 import { SkillService } from "../../../core/services/skill.service";
 import { Router } from "@angular/router";
 import { ConfirmBoxInitializer } from "@costlydeveloper/ngx-awesome-popup";
@@ -11,7 +12,7 @@ import { ConfirmBoxInitializer } from "@costlydeveloper/ngx-awesome-popup";
 })
 export class SkillComponent implements OnInit {
   clickButton: boolean = false;
-  deletionMsg = "Are you sure that you want to delete skill category: ";
+  deletionMsg = "Are you sure that you want to delete: ";
 
   @Input("skill")
   skill: SkillCategoryModel;
@@ -38,12 +39,11 @@ export class SkillComponent implements OnInit {
 
     const currentCategory = this.GetCurrentCategory(categoryId);
     const confirmBox = new ConfirmBoxInitializer();
-    confirmBox.setTitle(this.deletionMsg + currentCategory.categoryName + '?');
+    confirmBox.setTitle(`${this.deletionMsg} category: ${currentCategory.categoryName}?`);
     confirmBox.setButtonLabels("YES", "NO");
 
     const subscription = confirmBox.openConfirmBox$().subscribe((resp) => {
       if (resp.Success) {
-        const currentCategory = this.GetCurrentCategory(categoryId);
         const body = {
           id: currentCategory.categoryId,
           name: currentCategory.categoryName,
@@ -57,7 +57,34 @@ export class SkillComponent implements OnInit {
     });
   }
 
+  public deleteSkill(categoryId: string, skillId: string) {
+    const currentSkill = this.GetCurrentSkill(categoryId, skillId);
+    const confirmBox = new ConfirmBoxInitializer();
+    confirmBox.setTitle(`${this.deletionMsg} skill: ${currentSkill.skillName}?`);
+    confirmBox.setButtonLabels("YES", "NO");
+
+    const subscription = confirmBox.openConfirmBox$().subscribe((resp) => {
+      if (resp.Success) {
+        const body = {
+          id: currentSkill.skillid,
+          name: currentSkill.skillName,
+        };
+
+        this.skillService.deleteSkill(body).subscribe(() => {
+          this.deleteEvent.emit(null);
+        });
+      }
+      subscription.unsubscribe();
+    });
+  }
+
   private GetCurrentCategory(categoryId: string): SkillCategoryModel {
     return this.skillCategories.filter((c) => c.categoryId == categoryId)[0];
+  }
+
+  private GetCurrentSkill(categoryId: string, skillId: string): SkillModel {
+    return this.skillCategories
+      .filter((c) => c.categoryId == categoryId)[0]
+      .skills.filter((s) => s.skillid == skillId)[0];
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
-import SkillCategoryModel from "../../../core/models/skill-model";
+import {SkillCategoryModel} from "../../../core/models/skill-model";
 import { SkillService } from "../../../core/services/skill.service";
 
 @Component({
