@@ -16,7 +16,7 @@
         <ul class="list-group mb-3" *ngFor="let skillCategoy of (skill.skills);">
             <li class="list-group-item">{{skillCategoy.skillName}}
                 <div class="float-right">
-                    <a class="btn bg-transparent" (click)="addSkillToMyProfile(skill.categoryId, skillCategoy.skillid)"><i class="fas fa-plus" data-placement="top"
+                    <a *ngIf="isPossibleToAddSkill(skillCategoy.skillid)" class="btn bg-transparent" (click)="addSkillToMyProfile(skill.categoryId, skillCategoy.skillid)"><i class="fas fa-plus" data-placement="top"
                             title="Add skill to my profile"></i></a>
                     <a class="btn bg-transparent"><i class="fas fa-edit" data-placement="top"
                             title="Edit skill"></i></a>

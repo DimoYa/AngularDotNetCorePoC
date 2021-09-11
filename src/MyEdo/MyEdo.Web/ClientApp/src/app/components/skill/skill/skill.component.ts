@@ -8,7 +8,6 @@ import {
   ButtonMaker,
   ConfirmBoxInitializer,
   DialogInitializer,
-  DialogLayoutDisplay,
 } from "@costlydeveloper/ngx-awesome-popup";
 import { AllSkillsComponent } from "../all-skills/all-skills.component";
 import { AddSkillComponent } from "../add-skill/add-skill.component";
@@ -25,9 +24,10 @@ export class SkillComponent implements OnInit {
   @Input("skill")
   skill: SkillCategoryModel;
   skillCategories: SkillCategoryModel[];
+  mySkills: SkillCategoryModel[];
 
   @Output()
-  deleteEvent = new EventEmitter();
+  emiter = new EventEmitter();
 
   constructor(private skillService: SkillService, private router: Router) {}
 
@@ -35,6 +35,20 @@ export class SkillComponent implements OnInit {
     this.skillService
       .getAllSkills()
       .subscribe((data) => (this.skillCategories = data));
+
+    this.skillService.getMySkills().subscribe((data) => (this.mySkills = data));
+  }
+
+  ngOn
+
+  public isPossibleToAddSkill(skillId: string): boolean {
+    let merged: string[] = [].concat
+      .apply(
+        [],
+        this.mySkills.map((s) => s.skills)
+      )
+      .map((s) => s.skillId);
+    return !merged.some((x) => x == skillId);
   }
 
   public editCategory(categoryId: string) {
@@ -60,7 +74,7 @@ export class SkillComponent implements OnInit {
         };
 
         this.skillService.deleteCategory(body).subscribe(() => {
-          this.deleteEvent.emit(null);
+          this.emiter.emit(null);
         });
       }
       subscription.unsubscribe();
@@ -83,7 +97,7 @@ export class SkillComponent implements OnInit {
         };
 
         this.skillService.deleteSkill(body).subscribe(() => {
-          this.deleteEvent.emit(null);
+          this.emiter.emit(null);
         });
       }
       subscription.unsubscribe();
@@ -101,7 +115,7 @@ export class SkillComponent implements OnInit {
     ]);
 
     const subscription = dialogPopup.openDialog$().subscribe((resp) => {
-      console.log(resp);
+      this.emiter.emit(null);
       subscription.unsubscribe();
     });
   }

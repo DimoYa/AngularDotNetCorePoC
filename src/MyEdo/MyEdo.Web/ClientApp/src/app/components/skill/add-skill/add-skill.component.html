@@ -7,7 +7,8 @@
     </div>
     <div class="col-md-12 form-group">
         <select class="form-control" [(ngModel)]="selectedLevel">
-            <option *ngFor="let item of data" [ngValue]="item">{{item}}</option>
+            <option value="undefined" selected disabled>Select grade</option>
+            <option *ngFor="let item of data" value="{{item}}">{{item}}</option>
         </select>
     </div>
 </div>

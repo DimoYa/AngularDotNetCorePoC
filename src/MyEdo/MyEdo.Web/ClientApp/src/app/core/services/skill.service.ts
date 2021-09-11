@@ -24,6 +24,12 @@ export class SkillService {
     );
   }
 
+  public getMySkills(): Observable<SkillCategoryModel[] | null> {
+    return this.http.get<SkillCategoryModel[]>(
+      this.baseUrl + `${this.skillEndpoint}/GetMySkills`
+    );
+  }
+
   public deleteSkill(body: Object): Observable<object> {
     const reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
