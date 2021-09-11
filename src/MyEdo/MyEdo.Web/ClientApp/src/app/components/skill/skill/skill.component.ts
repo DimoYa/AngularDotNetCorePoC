@@ -3,7 +3,15 @@ import { SkillCategoryModel } from "../../../core/models/skill-model";
 import { SkillModel } from "../../../core/models/skill-model";
 import { SkillService } from "../../../core/services/skill.service";
 import { Router } from "@angular/router";
-import { ConfirmBoxInitializer } from "@costlydeveloper/ngx-awesome-popup";
+import {
+  ButtonLayoutDisplay,
+  ButtonMaker,
+  ConfirmBoxInitializer,
+  DialogInitializer,
+  DialogLayoutDisplay,
+} from "@costlydeveloper/ngx-awesome-popup";
+import { AllSkillsComponent } from "../all-skills/all-skills.component";
+import { AddSkillComponent } from "../add-skill/add-skill.component";
 
 @Component({
   selector: "app-skill",
@@ -12,7 +20,7 @@ import { ConfirmBoxInitializer } from "@costlydeveloper/ngx-awesome-popup";
 })
 export class SkillComponent implements OnInit {
   clickButton: boolean = false;
-  deletionMsg = "Are you sure that you want to delete: ";
+  confirmMsg = "Are you sure that you want to";
 
   @Input("skill")
   skill: SkillCategoryModel;
@@ -39,7 +47,9 @@ export class SkillComponent implements OnInit {
 
     const currentCategory = this.GetCurrentCategory(categoryId);
     const confirmBox = new ConfirmBoxInitializer();
-    confirmBox.setTitle(`${this.deletionMsg} category: ${currentCategory.categoryName}?`);
+    confirmBox.setTitle(
+      `${this.confirmMsg} delete category: ${currentCategory.categoryName}?`
+    );
     confirmBox.setButtonLabels("YES", "NO");
 
     const subscription = confirmBox.openConfirmBox$().subscribe((resp) => {
@@ -60,7 +70,9 @@ export class SkillComponent implements OnInit {
   public deleteSkill(categoryId: string, skillId: string) {
     const currentSkill = this.GetCurrentSkill(categoryId, skillId);
     const confirmBox = new ConfirmBoxInitializer();
-    confirmBox.setTitle(`${this.deletionMsg} skill: ${currentSkill.skillName}?`);
+    confirmBox.setTitle(
+      `${this.confirmMsg} delete skill: ${currentSkill.skillName}?`
+    );
     confirmBox.setButtonLabels("YES", "NO");
 
     const subscription = confirmBox.openConfirmBox$().subscribe((resp) => {
@@ -74,6 +86,22 @@ export class SkillComponent implements OnInit {
           this.deleteEvent.emit(null);
         });
       }
+      subscription.unsubscribe();
+    });
+  }
+
+  public addSkillToMyProfile(categoryId: string, skillId: string) {
+    const dialogPopup = new DialogInitializer(AddSkillComponent);
+    const currentSkill = this.GetCurrentSkill(categoryId, skillId);
+    dialogPopup.setCustomData({ id: skillId, name: currentSkill.skillName });
+
+    dialogPopup.setButtons([
+      new ButtonMaker("Submit", "submit", ButtonLayoutDisplay.SUCCESS),
+      new ButtonMaker("Cancel", "cancel", ButtonLayoutDisplay.SECONDARY),
+    ]);
+
+    const subscription = dialogPopup.openDialog$().subscribe((resp) => {
+      console.log(resp);
       subscription.unsubscribe();
     });
   }

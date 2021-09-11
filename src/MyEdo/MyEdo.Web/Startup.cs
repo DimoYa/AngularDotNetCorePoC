@@ -50,6 +50,7 @@ namespace MyEdo
                 cfg.CreateMap<TrainingApiModel, Training>();
                 cfg.CreateMap<TrainingBaseApiModel, UserTraining>();
                 cfg.CreateMap<AddUserTrainingApiModel, UserTraining>();
+                cfg.CreateMap<SkillProfileApiModel, UserSkill>();
             });
 
             IMapper mapper = mappingConfig.CreateMapper();

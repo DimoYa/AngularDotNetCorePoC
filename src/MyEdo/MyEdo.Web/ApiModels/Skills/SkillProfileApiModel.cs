@@ -4,9 +4,9 @@ namespace MyEdo.Web.ApiModels.Skills
 {
     public class SkillProfileApiModel
     {
-        public string Id { get; set; }
+        public string SkillId { get; set; }
 
-        public string Name { get; set; }
+        public string SkillName { get; set; }
 
         public SkillLevel Level { get; set; }
     }

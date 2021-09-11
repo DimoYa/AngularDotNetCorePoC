@@ -16,7 +16,8 @@ import { AllSkillsComponent } from "./components/skill/all-skills/all-skills.com
 import { SkillComponent } from "./components/skill/skill/skill.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatExpansionModule } from "@angular/material/expansion";
-import {ConfirmBoxConfigModule, NgxAwesomePopupModule} from '@costlydeveloper/ngx-awesome-popup';
+import {ConfirmBoxConfigModule, DialogConfigModule, NgxAwesomePopupModule} from '@costlydeveloper/ngx-awesome-popup';
+import { AddSkillComponent } from './components/skill/add-skill/add-skill.component';
     
 
 @NgModule({
@@ -28,14 +29,20 @@ import {ConfirmBoxConfigModule, NgxAwesomePopupModule} from '@costlydeveloper/ng
     AdminComponent,
     AllSkillsComponent,
     SkillComponent,
+    AddSkillComponent,
   ],
+  entryComponents: [AddSkillComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
     FormsModule,
+    NgxAwesomePopupModule,
+    DialogConfigModule,
     ApiAuthorizationModule,
     NgxAwesomePopupModule.forRoot(),
     ConfirmBoxConfigModule.forRoot(),
+    NgxAwesomePopupModule.forRoot(), 
+    DialogConfigModule.forRoot(),
     RouterModule.forRoot([
       { path: "", component: HomeComponent, pathMatch: "full" },
       {

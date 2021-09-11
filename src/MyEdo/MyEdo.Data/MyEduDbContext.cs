@@ -1,7 +1,9 @@
 ﻿using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Options;
 using MyEdo.Core.Models;
+using System.Linq;
 
 namespace MyEdo.Data
 {
