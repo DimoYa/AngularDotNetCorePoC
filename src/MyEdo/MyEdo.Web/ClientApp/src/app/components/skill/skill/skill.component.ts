@@ -10,6 +10,8 @@ import {
   DialogInitializer,
 } from "@costlydeveloper/ngx-awesome-popup";
 import { AddSkillComponent } from "../add-skill/add-skill.component";
+import { AuthorizeService } from "../../../../../src/api-authorization/authorize.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-skill",
@@ -25,11 +27,16 @@ export class SkillComponent implements OnInit {
   public skillCategories: SkillCategoryModel[];
   public mySkills: SkillCategoryModel[];
   public isAdminView: boolean;
+  public isResource: Observable<boolean>;
 
   @Output()
   emiter = new EventEmitter();
 
-  constructor(private skillService: SkillService, private router: Router) {}
+  constructor(
+    private skillService: SkillService,
+    private authorizeService: AuthorizeService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.skillService
@@ -38,6 +45,7 @@ export class SkillComponent implements OnInit {
 
     this.skillService.getMySkills().subscribe((data) => (this.mySkills = data));
     this.isAdminView = this.router.url.includes("/all-skills");
+    this.isResource = this.authorizeService.isResource();
   }
 
   public isPossibleToAddSkill(skillId: string): boolean {
