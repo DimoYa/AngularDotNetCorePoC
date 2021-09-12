@@ -15,13 +15,20 @@
         </mat-expansion-panel-header>
         <ul class="list-group mb-3" *ngFor="let skillCategoy of (skill.skills);">
             <li class="list-group-item">{{skillCategoy.skillName}}
-                <div class="float-right">
-                    <a *ngIf="isPossibleToAddSkill(skillCategoy.skillid)" class="btn bg-transparent" (click)="addSkillToMyProfile(skill.categoryId, skillCategoy.skillid)"><i class="fas fa-plus" data-placement="top"
-                            title="Add skill to my profile"></i></a>
+                <div *ngIf="isAdminView" class="float-right">
+                    <a *ngIf="isPossibleToAddSkill(skillCategoy.skillid)" class="btn bg-transparent"
+                        (click)="addSkillToMyProfile(skill.categoryId, skillCategoy.skillid)"><i class="fas fa-plus"
+                            data-placement="top" title="Add skill to my profile"></i></a>
                     <a class="btn bg-transparent"><i class="fas fa-edit" data-placement="top"
                             title="Edit skill"></i></a>
-                    <a class="btn bg-transparent" (click)="deleteSkill(skill.categoryId, skillCategoy.skillid)"><i class="far fa-trash-alt" data-placement="top"
-                            title="Delete skill"></i></a>
+                    <a class="btn bg-transparent" (click)="deleteSkill(skill.categoryId, skillCategoy.skillid)"><i
+                            class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
+                </div>
+                <div *ngIf="!isAdminView" class="float-right">
+                    <a class="btn bg-transparent"><i class="fas fa-minus" data-placement="top"
+                            title="Remove skill from my profile"></i></a>
+                    <a class="btn bg-transparent"><i class="fas fa-edit" data-placement="top"
+                            title="Edit skill level in my profile"></i></a>
                 </div>
             </li>
         </ul>

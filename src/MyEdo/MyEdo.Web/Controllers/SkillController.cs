@@ -30,7 +30,8 @@ namespace MyEdo.Web.Controllers
             this.mapper = mapper;
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," +
+                          GlobalConstants.ResourceRoleName)]
         [HttpGet(nameof(GetAllSkillsByCategories))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

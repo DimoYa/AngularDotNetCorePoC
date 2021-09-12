@@ -9,7 +9,6 @@ import {
   ConfirmBoxInitializer,
   DialogInitializer,
 } from "@costlydeveloper/ngx-awesome-popup";
-import { AllSkillsComponent } from "../all-skills/all-skills.component";
 import { AddSkillComponent } from "../add-skill/add-skill.component";
 
 @Component({
@@ -22,9 +21,10 @@ export class SkillComponent implements OnInit {
   confirmMsg = "Are you sure that you want to";
 
   @Input("skill")
-  skill: SkillCategoryModel;
-  skillCategories: SkillCategoryModel[];
-  mySkills: SkillCategoryModel[];
+  public skill: SkillCategoryModel;
+  public skillCategories: SkillCategoryModel[];
+  public mySkills: SkillCategoryModel[];
+  public isAdminView: boolean;
 
   @Output()
   emiter = new EventEmitter();
@@ -37,9 +37,8 @@ export class SkillComponent implements OnInit {
       .subscribe((data) => (this.skillCategories = data));
 
     this.skillService.getMySkills().subscribe((data) => (this.mySkills = data));
+    this.isAdminView = this.router.url.includes("/all-skills");
   }
-
-  ngOn
 
   public isPossibleToAddSkill(skillId: string): boolean {
     let merged: string[] = [].concat
