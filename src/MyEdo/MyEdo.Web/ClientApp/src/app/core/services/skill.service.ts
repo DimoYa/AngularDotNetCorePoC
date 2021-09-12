@@ -58,4 +58,16 @@ export class SkillService {
     const url = `${this.baseUrl}${this.skillEndpoint}/AddSkillToMyProfile`;
     return this.http.put(url, body);
   }
+
+  public removeSkillFromMyProfile(body: Object): Observable<object> {
+    const reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+    });
+    const httpOptions = {
+      headers: reqHeader,
+      body: body,
+    };
+    const url = `${this.baseUrl}${this.skillEndpoint}/RemoveSkillFromMyProfile`;
+    return this.http.delete(url, httpOptions);
+  }
 }

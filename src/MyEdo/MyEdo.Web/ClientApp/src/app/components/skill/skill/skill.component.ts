@@ -12,6 +12,7 @@ import {
 import { AddSkillComponent } from "../add-skill/add-skill.component";
 import { AuthorizeService } from "../../../../../src/api-authorization/authorize.service";
 import { Observable } from "rxjs";
+import { AddSkillModel } from "../../../core/models/add-skill-model";
 
 @Component({
   selector: "app-skill",
@@ -124,6 +125,16 @@ export class SkillComponent implements OnInit {
     const subscription = dialogPopup.openDialog$().subscribe((resp) => {
       this.emiter.emit(null);
       subscription.unsubscribe();
+    });
+  }
+
+  public removeSkillFromMyProfile(skill: AddSkillModel) {
+    const body = {
+      id: skill.skillId,
+      name: skill.skillName,
+    };
+    this.skillService.removeSkillFromMyProfile(body).subscribe(() => {
+      this.emiter.emit(null);
     });
   }
 

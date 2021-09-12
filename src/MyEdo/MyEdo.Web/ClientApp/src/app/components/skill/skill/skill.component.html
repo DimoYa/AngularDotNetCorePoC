@@ -25,7 +25,7 @@
                             class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
                 </div>
                 <div *ngIf="!isAdminView" class="float-right">
-                    <a class="btn bg-transparent"><i class="fas fa-minus" data-placement="top"
+                    <a class="btn bg-transparent" (click)="removeSkillFromMyProfile(skillCategoy)"><i class="fas fa-minus" data-placement="top"
                             title="Remove skill from my profile"></i></a>
                     <a class="btn bg-transparent"><i class="fas fa-edit" data-placement="top"
                             title="Edit skill level in my profile"></i></a>
