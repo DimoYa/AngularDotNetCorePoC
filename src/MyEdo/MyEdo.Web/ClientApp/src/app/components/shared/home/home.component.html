@@ -55,9 +55,9 @@
                     <div *ngIf="isResource | async">
                         <p class="card-text mb-2">Build and mantain your professional skill profile</p>
                         <div class="buttons">
-                            <a class="btn btn-secondary mb-1"><i class="fas fa-plus p-1"></i>Add new skill to my
+                            <a class="btn btn-secondary mb-1" [routerLink]='["/all-skills"]'><i class="fas fa-plus p-1"></i>Add new skill to my
                                 profile</a>
-                            <a class="btn btn-secondary mb-1"><i class="fas fa-book-reader p-1"></i>View and manage
+                            <a class="btn btn-secondary mb-1" [routerLink]='["/my-skills"]'><i class="fas fa-book-reader p-1"></i>View and manage
                                 myskills</a>
                         </div>
                     </div>

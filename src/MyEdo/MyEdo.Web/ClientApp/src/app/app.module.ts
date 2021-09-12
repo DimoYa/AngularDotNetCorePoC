@@ -18,7 +18,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatExpansionModule } from "@angular/material/expansion";
 import {ConfirmBoxConfigModule, DialogConfigModule, NgxAwesomePopupModule} from '@costlydeveloper/ngx-awesome-popup';
 import { AddSkillComponent } from './components/skill/add-skill/add-skill.component';
-    
+import { MySkillsComponent } from './components/skill/my-skills/my-skills.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { AddSkillComponent } from './components/skill/add-skill/add-skill.compon
     AllSkillsComponent,
     SkillComponent,
     AddSkillComponent,
+    MySkillsComponent,
   ],
   entryComponents: [AddSkillComponent],
   imports: [
@@ -53,6 +54,11 @@ import { AddSkillComponent } from './components/skill/add-skill/add-skill.compon
       {
         path: "all-skills",
         component: AllSkillsComponent,
+        canActivate: [AuthorizeGuard],
+      },
+      {
+        path: "my-skills",
+        component: MySkillsComponent,
         canActivate: [AuthorizeGuard],
       },
     ]),
