@@ -3,7 +3,7 @@
         <mat-expansion-panel-header class="panel-heading card text-white bg-info mb-3 cl">
             <h4 class="mb-0 text-center">
                 <span class="center-block">{{skill.categoryName}}</span>
-                <span class="float-right">
+                <span *ngIf="isAdminView" class="float-right">
                     <a class="btn bg-transparent" (click)="editCategory(skill.categoryId)"><i
                             class="fas fa-edit fa-1x text-white" data-placement="top"
                             title="Edit category name"></i></a>
