@@ -16,9 +16,14 @@ import { AllSkillsComponent } from "./components/skill/all-skills/all-skills.com
 import { SkillComponent } from "./components/skill/skill/skill.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatExpansionModule } from "@angular/material/expansion";
-import {ConfirmBoxConfigModule, DialogConfigModule, NgxAwesomePopupModule} from '@costlydeveloper/ngx-awesome-popup';
-import { AddSkillComponent } from './components/skill/add-skill/add-skill.component';
-import { MySkillsComponent } from './components/skill/my-skills/my-skills.component';
+import {
+  ConfirmBoxConfigModule,
+  DialogConfigModule,
+  NgxAwesomePopupModule,
+} from "@costlydeveloper/ngx-awesome-popup";
+import { AddSkillComponent } from "./components/skill/add-skill/add-skill.component";
+import { MySkillsComponent } from "./components/skill/my-skills/my-skills.component";
+import { EditSkillLevelComponent } from "./components/skill/edit-skill-level/edit-skill-level.component";
 
 @NgModule({
   declarations: [
@@ -31,8 +36,13 @@ import { MySkillsComponent } from './components/skill/my-skills/my-skills.compon
     SkillComponent,
     AddSkillComponent,
     MySkillsComponent,
+    EditSkillLevelComponent,
   ],
-  entryComponents: [AddSkillComponent],
+  entryComponents: 
+  [
+    AddSkillComponent,
+    EditSkillLevelComponent
+  ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
@@ -42,7 +52,7 @@ import { MySkillsComponent } from './components/skill/my-skills/my-skills.compon
     ApiAuthorizationModule,
     NgxAwesomePopupModule.forRoot(),
     ConfirmBoxConfigModule.forRoot(),
-    NgxAwesomePopupModule.forRoot(), 
+    NgxAwesomePopupModule.forRoot(),
     DialogConfigModule.forRoot(),
     RouterModule.forRoot([
       { path: "", component: HomeComponent, pathMatch: "full" },
@@ -63,7 +73,7 @@ import { MySkillsComponent } from './components/skill/my-skills/my-skills.compon
       },
     ]),
     BrowserAnimationsModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },

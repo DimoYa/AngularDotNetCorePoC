@@ -33,9 +33,9 @@
                     <div class="form-group w-45">
                         <span>Level: <b>{{skillCategoy['skillLevel']}}</b></span>
                     </div>
-                    <div class="float-right" id="action">
+                    <div class="float-right">
                         <a class="btn bg-transparent" (click)="removeSkillFromMyProfile(skillCategoy)"><i class="fas fa-minus" data-placement="top" title="Remove skill from my profile"></i></a>
-                        <a class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit skill level in my profile"></i></a>
+                        <a class="btn bg-transparent" (click)="editSkillLevel(skillCategoy)"><i class="fas fa-edit" data-placement="top" title="Edit skill level in my profile"></i></a>
                     </div>
                 </div>
             </li>

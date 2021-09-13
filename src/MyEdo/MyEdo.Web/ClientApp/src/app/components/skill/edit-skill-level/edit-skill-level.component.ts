@@ -1,26 +1,23 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { DialogBelonging } from "@costlydeveloper/ngx-awesome-popup";
 import { Subscription } from "rxjs";
 import { SkillService } from "../../../core/services/skill.service";
 
 @Component({
-  selector: "app-add-skill",
-  templateUrl: "./add-skill.component.html",
-  styleUrls: ["./add-skill.component.css"],
+  selector: "app-edit-skill-level",
+  templateUrl: "./edit-skill-level.component.html",
+  styleUrls: ["./edit-skill-level.component.css"],
 })
-export class AddSkillComponent implements OnInit, OnDestroy {
+export class EditSkillLevelComponent implements OnInit {
   private subscriptions: Subscription = new Subscription();
+  public data: number[] = [1, 2, 3, 4, 5];
 
   constructor(
     private skillService: SkillService,
     public dialogBelonging: DialogBelonging
   ) {}
 
-  data: number[] = [1, 2, 3, 4, 5];
-  selectedValue = this.data[0];
-
   ngOnInit() {
-
     this.subscriptions.add(
       this.dialogBelonging.EventsController.onButtonClick$.subscribe(
         (_Button) => {
@@ -28,10 +25,10 @@ export class AddSkillComponent implements OnInit, OnDestroy {
             const body = {
               skillId: this.dialogBelonging.CustomData.id,
               skillName: this.dialogBelonging.CustomData.name,
-              level: this.selectedValue,
+              level: Number(this.dialogBelonging.CustomData.level),
             };
 
-            this.skillService.addSkillToMyProfile(body).subscribe();
+            this.skillService.editSkillLevel(body).subscribe();
             this.dialogBelonging.EventsController.close();
           } else if (_Button.ID === "cancel") {
             this.dialogBelonging.EventsController.close();

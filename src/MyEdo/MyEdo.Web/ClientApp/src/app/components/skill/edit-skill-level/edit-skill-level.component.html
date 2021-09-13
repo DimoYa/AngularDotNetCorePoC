@@ -1,12 +1,12 @@
 <div>
     <div class="col-md-12 form-group">
-        <h5>Add skill with level</h5>
+        <h5> Edit skill level</h5>
     </div>
     <div class="col-md-12 form-group">
         <input class="form-control" readonly value="{{dialogBelonging.CustomData.name}}">
     </div>
     <div class="col-md-12 form-group">
-        <select class="form-control" [(ngModel)]="selectedValue">
+        <select class="form-control" [(ngModel)]="dialogBelonging.CustomData.level">
             <option *ngFor="let item of data" value="{{item}}">{{item}}</option>
         </select>
     </div>

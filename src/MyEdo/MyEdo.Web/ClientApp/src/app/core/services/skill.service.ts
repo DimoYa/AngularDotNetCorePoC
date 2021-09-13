@@ -70,4 +70,10 @@ export class SkillService {
     const url = `${this.baseUrl}${this.skillEndpoint}/RemoveSkillFromMyProfile`;
     return this.http.delete(url, httpOptions);
   }
+
+  public editSkillLevel(body: Object): Observable<object> {
+    const url = `${this.baseUrl}${this.skillEndpoint}/EditSkillLevel`;
+    return this.http.put(url, body);
+  }
+
 }

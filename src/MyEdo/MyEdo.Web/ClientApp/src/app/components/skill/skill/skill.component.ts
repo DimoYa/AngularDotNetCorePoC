@@ -13,6 +13,7 @@ import { AddSkillComponent } from "../add-skill/add-skill.component";
 import { AuthorizeService } from "../../../../../src/api-authorization/authorize.service";
 import { Observable } from "rxjs";
 import { AddSkillModel } from "../../../core/models/add-skill-model";
+import { EditSkillLevelComponent } from "../edit-skill-level/edit-skill-level.component";
 
 @Component({
   selector: "app-skill",
@@ -122,7 +123,7 @@ export class SkillComponent implements OnInit {
       new ButtonMaker("Cancel", "cancel", ButtonLayoutDisplay.SECONDARY),
     ]);
 
-    const subscription = dialogPopup.openDialog$().subscribe((resp) => {
+    const subscription = dialogPopup.openDialog$().subscribe(() => {
       this.emiter.emit(null);
       subscription.unsubscribe();
     });
@@ -135,6 +136,21 @@ export class SkillComponent implements OnInit {
     };
     this.skillService.removeSkillFromMyProfile(body).subscribe(() => {
       this.emiter.emit(null);
+    });
+  }
+
+  public editSkillLevel(skill: AddSkillModel) {
+    const dialogPopup = new DialogInitializer(EditSkillLevelComponent);
+    dialogPopup.setCustomData({ id: skill.skillId, name: skill.skillName, level: skill.skillLevel });
+
+    dialogPopup.setButtons([
+      new ButtonMaker("Submit", "submit", ButtonLayoutDisplay.SUCCESS),
+      new ButtonMaker("Cancel", "cancel", ButtonLayoutDisplay.SECONDARY),
+    ]);
+
+    const subscription = dialogPopup.openDialog$().subscribe(() => {
+      this.emiter.emit(null);
+      subscription.unsubscribe();
     });
   }
 
