@@ -16,21 +16,18 @@ export class AddSkillComponent implements OnInit, OnDestroy {
     public dialogBelonging: DialogBelonging
   ) {}
 
-  selectedLevel: number;
   data: number[] = [1, 2, 3, 4, 5];
 
   ngOnInit() {
     console.log(this.dialogBelonging);
 
     this.subscriptions.add(
-      // IDialogEventsController
       this.dialogBelonging.EventsController.onButtonClick$.subscribe(
         (_Button) => {
           if (_Button.ID === "submit") {
             const body = {
               skillId: this.dialogBelonging.CustomData.id,
               skillName: this.dialogBelonging.CustomData.name,
-              level: this.selectedLevel,
             };
 
             this.skillService.addSkillToMyProfile(body).subscribe();
