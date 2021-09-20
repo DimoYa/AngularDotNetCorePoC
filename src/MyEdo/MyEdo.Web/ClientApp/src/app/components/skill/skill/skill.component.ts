@@ -94,15 +94,15 @@ export class SkillComponent implements OnInit {
     const currentSkill = this.GetCurrentSkill(categoryId, skillId);
     const confirmBox = new ConfirmBoxInitializer();
     confirmBox.setTitle(
-      `${this.confirmMsg} delete skill: ${currentSkill.skillName}?`
+      `${this.confirmMsg} delete skill: ${currentSkill.name}?`
     );
     confirmBox.setButtonLabels("YES", "NO");
 
     const subscription = confirmBox.openConfirmBox$().subscribe((resp) => {
       if (resp.Success) {
         const body = {
-          id: currentSkill.skillid,
-          name: currentSkill.skillName,
+          id: currentSkill.id,
+          name: currentSkill.name,
         };
 
         this.skillService.deleteSkill(body).subscribe(() => {
@@ -116,7 +116,7 @@ export class SkillComponent implements OnInit {
   public addSkillToMyProfile(categoryId: string, skillId: string) {
     const dialogPopup = new DialogInitializer(AddSkillComponent);
     const currentSkill = this.GetCurrentSkill(categoryId, skillId);
-    dialogPopup.setCustomData({ id: skillId, name: currentSkill.skillName });
+    dialogPopup.setCustomData({ id: skillId, name: currentSkill.name });
 
     dialogPopup.setButtons([
       new ButtonMaker("Submit", "submit", ButtonLayoutDisplay.SUCCESS),
@@ -162,6 +162,6 @@ export class SkillComponent implements OnInit {
   private GetCurrentSkill(categoryId: string, skillId: string): SkillModel {
     return this.skillCategories
       .filter((c) => c.categoryId == categoryId)[0]
-      .skills.filter((s) => s.skillid == skillId)[0];
+      .skills.filter((s) => s.id == skillId)[0];
   }
 }

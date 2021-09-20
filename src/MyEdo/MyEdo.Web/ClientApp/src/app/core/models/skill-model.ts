@@ -5,6 +5,6 @@ export interface SkillCategoryModel {
 }
 
 export interface SkillModel {
-    skillid: string;
-    skillName: string;
+    id: string;
+    name: string;
 }

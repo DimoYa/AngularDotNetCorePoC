@@ -14,21 +14,21 @@
             </h4>
         </mat-expansion-panel-header>
         <ul class="list-group mb-3" *ngFor="let skillCategoy of (skill.skills);">
-            <li *ngIf="isAdminView" class="list-group-item">{{skillCategoy.skillName}}
+            <li *ngIf="isAdminView" class="list-group-item">{{skillCategoy.name}}
                 <div class="float-right">
-                    <a *ngIf="(isResource | async) && isPossibleToAddSkill(skillCategoy.skillid)" class="btn bg-transparent"
-                        (click)="addSkillToMyProfile(skill.categoryId, skillCategoy.skillid)"><i class="fas fa-plus"
+                    <a *ngIf="(isResource | async) && isPossibleToAddSkill(skillCategoy.id)" class="btn bg-transparent"
+                        (click)="addSkillToMyProfile(skill.categoryId, skillCategoy.id)"><i class="fas fa-plus"
                             data-placement="top" title="Add skill to my profile"></i></a>
                     <a class="btn bg-transparent"><i class="fas fa-edit" data-placement="top"
                             title="Edit skill"></i></a>
-                    <a class="btn bg-transparent" (click)="deleteSkill(skill.categoryId, skillCategoy.skillid)"><i
+                    <a class="btn bg-transparent" (click)="deleteSkill(skill.categoryId, skillCategoy.id)"><i
                             class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
                 </div>
             </li>
             <li *ngIf="!isAdminView" class="list-group-item">
                 <div class="d-flex justify-content-between">
                     <div class="form-group w-45">
-                        <span>{{skillCategoy.skillName}}</span>
+                        <span>{{skillCategoy.name}}</span>
                     </div>
                     <div class="form-group w-45">
                         <span>Level: <b>{{skillCategoy['skillLevel']}}</b></span>

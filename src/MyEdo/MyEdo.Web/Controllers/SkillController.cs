@@ -43,19 +43,18 @@ namespace MyEdo.Web.Controllers
                 var skills = await this.skillService
                .GetAllSkillsByCategories();
 
-                var model = skills.Select(s => new GetSkillsByCategoriesApiModel(s)).ToList();
-
-                var groupedUserSkillInfo = model
+                var groupedUserSkillInfo = skills
                 .GroupBy(s => new
                 {
-                    s.CategoryId,
-                    s.CategoryName
+                    s.Id,
+                    s.Name,
+                    s.Skills
                 })
                .Select(grp => new GetConsolidatedSkillsByCategoryApiModel
                {
-                   CategoryId = grp.Key.CategoryId,
-                   CategoryName = grp.Key.CategoryName,
-                   Skills = grp.ToList(),
+                   CategoryId = grp.Key.Id,
+                   CategoryName = grp.Key.Name,
+                   Skills = grp.Key.Skills.ToList(),
                })
                .ToList();
 

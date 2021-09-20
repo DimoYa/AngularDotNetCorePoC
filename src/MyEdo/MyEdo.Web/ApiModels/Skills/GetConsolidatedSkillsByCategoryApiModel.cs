@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MyEdo.Core.Models;
+using System.Collections.Generic;
 
 namespace MyEdo.Web.ApiModels.Skills
 {
@@ -8,6 +9,6 @@ namespace MyEdo.Web.ApiModels.Skills
 
         public string CategoryName { get; set; }
 
-        public IEnumerable<GetSkillsByCategoriesApiModel> Skills { get; set; }
+        public IEnumerable<Skill> Skills { get; set; }
     }
 }

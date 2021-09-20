@@ -109,12 +109,14 @@ namespace MyEdo.Business.Services.AppSkill
             return result > 0;
         }
 
-        public Task<IEnumerable<Skill>> GetAllSkillsByCategories()
+        public Task<IEnumerable<SkillCategory>> GetAllSkillsByCategories()
         {
-            var skillsByCategories = this.context.Skills
+            var skillsByCategories = this.context.SkillCategories
                 .Where(s => s.IsDeleted == false)
-                .Include(s=> s.SkillCategory)
+                .Include(s=> s.Skills)
                 .ToList();
+
+            skillsByCategories.ForEach(c => c.Skills.Select(s => s.IsDeleted == false));
 
             return Task.FromResult(skillsByCategories.AsEnumerable());
         }

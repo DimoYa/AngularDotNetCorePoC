@@ -6,7 +6,7 @@ namespace MyEdo.Business.Services.AppSkill
 {
     public interface ISkillService
     {
-        Task<IEnumerable<Skill>> GetAllSkillsByCategories();
+        Task<IEnumerable<SkillCategory>> GetAllSkillsByCategories();
 
         Task<IEnumerable<UserSkill>> GetAllUsersSkills();
 
