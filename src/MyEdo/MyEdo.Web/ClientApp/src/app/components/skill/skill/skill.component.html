@@ -4,7 +4,7 @@
             <h4 class="mb-0 text-center">
                 <span class="center-block">{{skill.categoryName}}</span>
                 <span *ngIf="isAdminView" class="float-right">
-                    <a class="btn bg-transparent" (click)="editCategory(skill.categoryId)"><i
+                    <a class="btn bg-transparent" [routerLink]="['/categories/edit',skill.categoryId]"><i
                             class="fas fa-edit fa-1x text-white" data-placement="top"
                             title="Edit category name"></i></a>
                     <a class="btn bg-transparent" (click)="deleteCategory(skill.categoryId)"><i

@@ -25,6 +25,7 @@ import { AddSkillComponent } from "./components/skill/add-skill/add-skill.compon
 import { MySkillsComponent } from "./components/skill/my-skills/my-skills.component";
 import { EditSkillLevelComponent } from "./components/skill/edit-skill-level/edit-skill-level.component";
 import { CreateCategoryComponent } from './components/skill/create-category/create-category.component';
+import { EditCategoryComponent } from "./components/skill/edit-category/edit-category.component";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CreateCategoryComponent } from './components/skill/create-category/crea
     MySkillsComponent,
     EditSkillLevelComponent,
     CreateCategoryComponent,
+    EditCategoryComponent,
   ],
   entryComponents: 
   [
@@ -79,6 +81,10 @@ import { CreateCategoryComponent } from './components/skill/create-category/crea
         component: CreateCategoryComponent,
         canActivate: [AuthorizeGuard],
       },
+      { 
+        path: 'categories/edit/:id',
+        component: EditCategoryComponent,
+         canActivate: [AuthorizeGuard] },
     ]),
     BrowserAnimationsModule,
     MatExpansionModule,

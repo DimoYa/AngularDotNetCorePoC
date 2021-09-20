@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { EditCategoryModel } from "../models/edit-category-model";
 import { SkillCategoryModel } from "../models/skill-model";
 
 @Injectable({
@@ -27,6 +28,12 @@ export class SkillService {
   public getMySkills(): Observable<SkillCategoryModel[] | null> {
     return this.http.get<SkillCategoryModel[]>(
       this.baseUrl + `${this.skillEndpoint}/GetMySkills`
+    );
+  }
+
+  public getAllCategories(): Observable<EditCategoryModel[] | null> {
+    return this.http.get<EditCategoryModel[]>(
+      this.baseUrl + this.skillCategoryEndpoint
     );
   }
 
@@ -79,5 +86,10 @@ export class SkillService {
   public createCategory(body: Object): Observable<object> {
     const url = `${this.baseUrl}${this.skillCategoryEndpoint}`;
     return this.http.post(url, body);
+  }
+
+  public editCategory(body: Object): Observable<object> {
+    const url = `${this.baseUrl}${this.skillCategoryEndpoint}`;
+    return this.http.put(url, body);
   }
 }
