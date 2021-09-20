@@ -2,6 +2,11 @@
     <h1 class="text-center">All Skills by categories</h1>
     <hr class="bg-resources hr-2" />
     <div class="content">
+        <div *ngIf="(skills$ | async)?.length==0" class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <p class="card-text mb-1 text-center">No Categories created!</p>
+            </div>
+        </div>
         <div class="content" *ngFor="let skill of (skills$ | async);">
             <app-skill [skill]="skill" (emiter)="fromChild()"></app-skill>
     </div>

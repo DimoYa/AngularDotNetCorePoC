@@ -2,7 +2,12 @@
     <h1 class="text-center">My Skills</h1>
     <hr class="bg-resources hr-2" />
     <div class="content">
+        <div *ngIf="(skills$ | async)?.length==0" class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <p class="card-text mb-1 text-center">No skills added to your profile!</p>
+            </div>
+        </div>
         <div class="content" *ngFor="let skill of (skills$ | async);">
             <app-skill [skill]="skill" (emiter)="fromChild()"></app-skill>
+        </div>
     </div>
-</div>
