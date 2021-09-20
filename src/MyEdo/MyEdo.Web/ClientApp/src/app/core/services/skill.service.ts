@@ -76,4 +76,8 @@ export class SkillService {
     return this.http.put(url, body);
   }
 
+  public createCategory(body: Object): Observable<object> {
+    const url = `${this.baseUrl}${this.skillCategoryEndpoint}`;
+    return this.http.post(url, body);
+  }
 }

@@ -141,6 +141,7 @@ export class SkillComponent implements OnInit {
 
   public editSkillLevel(skill: AddSkillModel) {
     const dialogPopup = new DialogInitializer(EditSkillLevelComponent);
+
     dialogPopup.setCustomData({ id: skill.skillId, name: skill.skillName, level: skill.skillLevel });
 
     dialogPopup.setButtons([

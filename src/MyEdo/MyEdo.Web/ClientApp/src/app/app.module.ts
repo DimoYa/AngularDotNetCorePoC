@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 
@@ -24,6 +24,7 @@ import {
 import { AddSkillComponent } from "./components/skill/add-skill/add-skill.component";
 import { MySkillsComponent } from "./components/skill/my-skills/my-skills.component";
 import { EditSkillLevelComponent } from "./components/skill/edit-skill-level/edit-skill-level.component";
+import { CreateCategoryComponent } from './components/skill/create-category/create-category.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { EditSkillLevelComponent } from "./components/skill/edit-skill-level/edi
     AddSkillComponent,
     MySkillsComponent,
     EditSkillLevelComponent,
+    CreateCategoryComponent,
   ],
   entryComponents: 
   [
@@ -50,6 +52,7 @@ import { EditSkillLevelComponent } from "./components/skill/edit-skill-level/edi
     NgxAwesomePopupModule,
     DialogConfigModule,
     ApiAuthorizationModule,
+    ReactiveFormsModule,
     NgxAwesomePopupModule.forRoot(),
     ConfirmBoxConfigModule.forRoot(),
     NgxAwesomePopupModule.forRoot(),
@@ -69,6 +72,11 @@ import { EditSkillLevelComponent } from "./components/skill/edit-skill-level/edi
       {
         path: "my-skills",
         component: MySkillsComponent,
+        canActivate: [AuthorizeGuard],
+      },
+      {
+        path: "create-category",
+        component: CreateCategoryComponent,
         canActivate: [AuthorizeGuard],
       },
     ]),
