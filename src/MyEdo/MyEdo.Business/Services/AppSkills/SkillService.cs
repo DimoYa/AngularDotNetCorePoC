@@ -116,7 +116,16 @@ namespace MyEdo.Business.Services.AppSkill
                 .Include(s=> s.Skills)
                 .ToList();
 
-            skillsByCategories.ForEach(c => c.Skills.Select(s => s.IsDeleted == false));
+            foreach (var category in skillsByCategories)
+            {
+                foreach (var skill in category.Skills)
+                {
+                    if (skill.IsDeleted == true)
+                    {
+                        skillsByCategories.ForEach(c => c.Skills.Remove(skill));
+                    }
+                }
+            }
 
             return Task.FromResult(skillsByCategories.AsEnumerable());
         }
