@@ -29,6 +29,11 @@ export class SkillService {
     );
   }
 
+  public createSkill(body: Object): Observable<object> {
+    const url = `${this.baseUrl}${this.skillEndpoint}`;
+    return this.http.post(url, body);
+  }
+
   public deleteSkill(body: Object): Observable<object> {
     const reqHeader = new HttpHeaders({
       "Content-Type": "application/json",

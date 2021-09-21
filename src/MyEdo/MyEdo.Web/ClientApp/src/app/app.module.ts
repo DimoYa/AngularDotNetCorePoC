@@ -24,8 +24,10 @@ import {
 import { AddSkillComponent } from "./components/skill/add-skill/add-skill.component";
 import { MySkillsComponent } from "./components/skill/my-skills/my-skills.component";
 import { EditSkillLevelComponent } from "./components/skill/edit-skill-level/edit-skill-level.component";
-import { CreateCategoryComponent } from './components/skill/create-category/create-category.component';
+import { CreateCategoryComponent } from "./components/skill/create-category/create-category.component";
 import { EditCategoryComponent } from "./components/skill/edit-category/edit-category.component";
+import { EditSkillComponent } from "./components/skill/edit-skill/edit-skill.component";
+import { CreateSkillComponent } from "./components/skill/create-skill/create-skill.component";
 
 @NgModule({
   declarations: [
@@ -41,12 +43,10 @@ import { EditCategoryComponent } from "./components/skill/edit-category/edit-cat
     EditSkillLevelComponent,
     CreateCategoryComponent,
     EditCategoryComponent,
+    EditSkillComponent,
+    CreateSkillComponent,
   ],
-  entryComponents: 
-  [
-    AddSkillComponent,
-    EditSkillLevelComponent
-  ],
+  entryComponents: [AddSkillComponent, EditSkillLevelComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
@@ -81,10 +81,16 @@ import { EditCategoryComponent } from "./components/skill/edit-category/edit-cat
         component: CreateCategoryComponent,
         canActivate: [AuthorizeGuard],
       },
-      { 
-        path: 'categories/edit/:id',
+      {
+        path: "categories/edit/:id",
         component: EditCategoryComponent,
-         canActivate: [AuthorizeGuard] },
+        canActivate: [AuthorizeGuard],
+      },
+      {
+        path: "create-skill",
+        component: CreateSkillComponent,
+        canActivate: [AuthorizeGuard],
+      },
     ]),
     BrowserAnimationsModule,
     MatExpansionModule,
