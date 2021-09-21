@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditCategoryModel } from '../../../core/models/edit-category-model';
-import { SkillService } from '../../../core/services/skill.service';
+import { CategoryService } from '../../../core/services/category.service';
 
 @Component({
   selector: 'app-edit-category',
@@ -20,7 +20,7 @@ export class EditCategoryComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private skillService: SkillService
+    private categoryService: CategoryService
   ) { }
 
   ngOnInit() {
@@ -29,7 +29,7 @@ export class EditCategoryComponent implements OnInit {
     });
 
     this.id = this.route.snapshot.params['id'];
-    this.skillService.getAllCategories()
+    this.categoryService.getAllCategories()
       .subscribe((data) => {
         this.category = data.filter(c=> c.id == this.id)[0];
       });
@@ -41,7 +41,7 @@ export class EditCategoryComponent implements OnInit {
       name: this.editForm.value['name'],
     };
 
-    this.skillService.editCategory(body)
+    this.categoryService.editCategory(body)
       .subscribe(() => {
         this.router.navigate(['/all-skills']);
       })

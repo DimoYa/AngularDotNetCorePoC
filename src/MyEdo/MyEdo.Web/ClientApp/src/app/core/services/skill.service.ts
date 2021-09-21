@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { EditCategoryModel } from "../models/edit-category-model";
 import { SkillCategoryModel } from "../models/skill-model";
 
 @Injectable({
@@ -9,7 +8,6 @@ import { SkillCategoryModel } from "../models/skill-model";
 })
 export class SkillService {
   skillEndpoint = "api/Skill";
-  skillCategoryEndpoint = "api/SkillCategory";
   httpOptions = {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
@@ -31,12 +29,6 @@ export class SkillService {
     );
   }
 
-  public getAllCategories(): Observable<EditCategoryModel[] | null> {
-    return this.http.get<EditCategoryModel[]>(
-      this.baseUrl + this.skillCategoryEndpoint
-    );
-  }
-
   public deleteSkill(body: Object): Observable<object> {
     const reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -46,18 +38,6 @@ export class SkillService {
       body: body,
     };
     const url = `${this.baseUrl}${this.skillEndpoint}`;
-    return this.http.delete(url, httpOptions);
-  }
-
-  public deleteCategory(body: Object): Observable<object> {
-    const reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
-    });
-    const httpOptions = {
-      headers: reqHeader,
-      body: body,
-    };
-    const url = `${this.baseUrl}${this.skillCategoryEndpoint}`;
     return this.http.delete(url, httpOptions);
   }
 
@@ -80,16 +60,6 @@ export class SkillService {
 
   public editSkillLevel(body: Object): Observable<object> {
     const url = `${this.baseUrl}${this.skillEndpoint}/EditSkillLevel`;
-    return this.http.put(url, body);
-  }
-
-  public createCategory(body: Object): Observable<object> {
-    const url = `${this.baseUrl}${this.skillCategoryEndpoint}`;
-    return this.http.post(url, body);
-  }
-
-  public editCategory(body: Object): Observable<object> {
-    const url = `${this.baseUrl}${this.skillCategoryEndpoint}`;
     return this.http.put(url, body);
   }
 }

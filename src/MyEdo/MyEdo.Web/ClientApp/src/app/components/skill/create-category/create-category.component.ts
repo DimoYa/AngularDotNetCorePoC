@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SkillService } from '../../../core/services/skill.service';
 import { Router } from '@angular/router';
+import { CategoryService } from '../../../core/services/category.service';
 
 @Component({
   selector: 'app-create-category',
@@ -13,7 +13,7 @@ export class CreateCategoryComponent implements OnInit {
   form: FormGroup;
   constructor(
     private fb: FormBuilder,
-    private skillService: SkillService,
+    private categoryService: CategoryService,
     private router: Router) { }
 
   ngOnInit() {
@@ -28,7 +28,7 @@ export class CreateCategoryComponent implements OnInit {
       name: this.form.value['name'],
     };
 
-    this.skillService.createCategory(body)
+    this.categoryService.createCategory(body)
       .subscribe(() => {
         this.router.navigate(['/all-skills']);
       })
@@ -40,6 +40,4 @@ export class CreateCategoryComponent implements OnInit {
   get invalid() {
     return this.form.invalid;
   }
-
-
 }

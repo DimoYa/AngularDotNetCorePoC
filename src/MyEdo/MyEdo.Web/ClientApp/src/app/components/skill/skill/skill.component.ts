@@ -14,6 +14,7 @@ import { AuthorizeService } from "../../../../../src/api-authorization/authorize
 import { Observable } from "rxjs";
 import { AddSkillModel } from "../../../core/models/add-skill-model";
 import { EditSkillLevelComponent } from "../edit-skill-level/edit-skill-level.component";
+import { CategoryService } from "../../../core/services/category.service";
 
 @Component({
   selector: "app-skill",
@@ -36,6 +37,7 @@ export class SkillComponent implements OnInit {
 
   constructor(
     private skillService: SkillService,
+    private categoryService: CategoryService,
     private authorizeService: AuthorizeService,
     private router: Router
   ) {}
@@ -82,7 +84,7 @@ export class SkillComponent implements OnInit {
           name: currentCategory.categoryName,
         };
 
-        this.skillService.deleteCategory(body).subscribe(() => {
+        this.categoryService.deleteCategory(body).subscribe(() => {
           this.emiter.emit(null);
         });
       }
