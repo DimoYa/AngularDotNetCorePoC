@@ -23,5 +23,7 @@ namespace MyEdo.Business.Services.AppSkill
         Task<bool> RemoveSkillFromProfile(string id);
 
         Task<bool> EditSkillLevel(UserSkill model);
+
+        Task<Skill> GetSkillById(string id);
     }
 }

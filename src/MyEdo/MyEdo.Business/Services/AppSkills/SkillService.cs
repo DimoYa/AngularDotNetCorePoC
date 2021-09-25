@@ -113,7 +113,7 @@ namespace MyEdo.Business.Services.AppSkill
         {
             var skillsByCategories = this.context.SkillCategories
                 .Where(s => s.IsDeleted == false)
-                .Include(s=> s.Skills)
+                .Include(s => s.Skills)
                 .ToList();
 
             foreach (var category in skillsByCategories)
@@ -135,7 +135,7 @@ namespace MyEdo.Business.Services.AppSkill
 
             var userSkillsByCategories = this.context.UserSkills
                  .Include(s => s.Skill).ThenInclude(c => c.SkillCategory)
-                 .Include(s=> s.User)
+                 .Include(s => s.User)
                  .Where(s => s.Skill.IsDeleted == false)
                  .ToList();
 
@@ -155,9 +155,10 @@ namespace MyEdo.Business.Services.AppSkill
             return Task.FromResult(skillsByCategories.AsEnumerable());
         }
 
-        private Task<Skill> GetSkillById(string id)
+        public Task<Skill> GetSkillById(string id)
         {
             var skill = this.context.Skills
+                  .Include(s => s.SkillCategory)
                   .Where(s => s.Id == id)
                   .SingleOrDefault();
 

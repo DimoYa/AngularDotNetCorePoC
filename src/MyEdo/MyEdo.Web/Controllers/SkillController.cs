@@ -188,6 +188,45 @@ namespace MyEdo.Web.Controllers
             }
         }
 
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
+        [HttpGet("[action]/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<SkillApiModel>> GetSkillById(string id)
+        {
+            try
+            {
+                var skill = await this.skillService.GetSkillById(id);
+
+                var skillModel = new SkillApiModel
+                {
+                    Id = skill.Id,
+                    Name = skill.Name,
+                    SkillCategoryId = skill.SkillCategoryId,
+                    SkillCategoryName = skill.SkillCategory.Name
+                };
+
+                return Ok(skillModel);
+            }
+            catch (NotAuthorizedException ex)
+            {
+                return this.Unauthorized(ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                return this.Forbid(ex.Message);
+            }
+            catch (BadRequestException ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         [ProducesResponseType(typeof(SkillApiModel), StatusCodes.Status201Created)]
