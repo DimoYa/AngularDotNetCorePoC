@@ -23,14 +23,15 @@ export class CreateSkillComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.categoryService.getAllCategories().subscribe((data) => {
-      this.skillCategories = data;
-      this.selectedValue = data[0];
-    });
-
     this.form = this.fb.group({
       skillName: ["", [Validators.required, Validators.minLength(2)]],
       category: ["", [Validators.required]],
+    });
+
+    this.categoryService.getAllCategories().subscribe((data) => {
+      this.skillCategories = data;
+      this.selectedValue = data[0];
+      this.form.controls['category'].setValue(this.selectedValue, {onlySelf: true});
     });
   }
 
