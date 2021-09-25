@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { EditSkillModel } from "../models/edit-skill-model";
 import { SkillCategoryModel } from "../models/skill-model";
 
 @Injectable({
@@ -29,9 +30,20 @@ export class SkillService {
     );
   }
 
+  public getSkillById(id: string): Observable<EditSkillModel | null> {
+    return this.http.get<EditSkillModel>(
+      this.baseUrl + `${this.skillEndpoint}/GetSkillById/${id}`
+    );
+  }
+
   public createSkill(body: Object): Observable<object> {
     const url = `${this.baseUrl}${this.skillEndpoint}`;
     return this.http.post(url, body);
+  }
+
+  public editSkill(body: Object): Observable<object> {
+    const url = `${this.baseUrl}${this.skillEndpoint}`;
+    return this.http.put(url, body);
   }
 
   public deleteSkill(body: Object): Observable<object> {

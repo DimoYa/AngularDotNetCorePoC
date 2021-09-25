@@ -91,6 +91,11 @@ import { CreateSkillComponent } from "./components/skill/create-skill/create-ski
         component: CreateSkillComponent,
         canActivate: [AuthorizeGuard],
       },
+      {
+        path: "all-skills/edit/:id",
+        component: EditSkillComponent,
+        canActivate: [AuthorizeGuard],
+      },
     ]),
     BrowserAnimationsModule,
     MatExpansionModule,

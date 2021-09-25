@@ -19,7 +19,7 @@
                     <a *ngIf="(isResource | async) && isPossibleToAddSkill(skillCategoy.id)" class="btn bg-transparent"
                         (click)="addSkillToMyProfile(skill.categoryId, skillCategoy.id)"><i class="fas fa-plus"
                             data-placement="top" title="Add skill to my profile"></i></a>
-                    <a class="btn bg-transparent"><i class="fas fa-edit" data-placement="top"
+                    <a class="btn bg-transparent" [routerLink]="['/all-skills/edit',skillCategoy.id]"><i class="fas fa-edit" data-placement="top"
                             title="Edit skill"></i></a>
                     <a class="btn bg-transparent" (click)="deleteSkill(skill.categoryId, skillCategoy.id)"><i
                             class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
