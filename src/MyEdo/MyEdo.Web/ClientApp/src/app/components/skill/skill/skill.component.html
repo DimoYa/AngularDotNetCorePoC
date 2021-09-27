@@ -19,8 +19,8 @@
                     <a *ngIf="(isResource | async) && isPossibleToAddSkill(skillCategoy.id)" class="btn bg-transparent"
                         (click)="addSkillToMyProfile(skill.categoryId, skillCategoy.id)"><i class="fas fa-plus"
                             data-placement="top" title="Add skill to my profile"></i></a>
-                    <a class="btn bg-transparent" [routerLink]="['/all-skills/edit',skillCategoy.id]"><i class="fas fa-edit" data-placement="top"
-                            title="Edit skill"></i></a>
+                    <a class="btn bg-transparent" [routerLink]="['/all-skills/edit',skillCategoy.id]"><i
+                            class="fas fa-edit" data-placement="top" title="Edit skill"></i></a>
                     <a class="btn bg-transparent" (click)="deleteSkill(skill.categoryId, skillCategoy.id)"><i
                             class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
                 </div>
@@ -31,11 +31,18 @@
                         <span>{{skillCategoy['skillName']}}</span>
                     </div>
                     <div class="form-group w-45">
-                        <span>Level: <b>{{skillCategoy['skillLevel']}}</b></span>
+                        <span>Level: <span *ngFor="let num of GetFilledLevelArr(skillCategoy['skillLevel'])">
+                                <i class="fas fa-circle"></i>
+                            </span><span *ngFor="let num of GetTotalLevelArr(skillCategoy['skillLevel'])">
+                                <i class="far fa-circle"></i>
+                            </span>
+                        </span>
                     </div>
-                    <div class="float-right">
-                        <a class="btn bg-transparent" (click)="removeSkillFromMyProfile(skillCategoy)"><i class="fas fa-minus" data-placement="top" title="Remove skill from my profile"></i></a>
-                        <a class="btn bg-transparent" (click)="editSkillLevel(skillCategoy)"><i class="fas fa-edit" data-placement="top" title="Edit skill level in my profile"></i></a>
+                    <div class="form-group w-45 float-right">
+                        <span class="btn bg-transparent" (click)="removeSkillFromMyProfile(skillCategoy)"><i
+                            class="fas fa-minus" data-placement="top" title="Remove skill from my profile"></i></span>
+                    <span class="btn bg-transparent" (click)="editSkillLevel(skillCategoy)"><i class="fas fa-edit"
+                            data-placement="top" title="Edit skill level in my profile"></i></span>
                     </div>
                 </div>
             </li>

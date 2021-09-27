@@ -157,6 +157,15 @@ export class SkillComponent implements OnInit {
     });
   }
 
+  public GetFilledLevelArr(level: number): Number[] {
+    return new Array<Number>(level);
+  }
+
+  
+  public GetTotalLevelArr(level: number): Number[] {
+    return new Array<Number>(5- level);
+  }
+
   private GetCurrentCategory(categoryId: string): SkillCategoryModel {
     return this.skillCategories.filter((c) => c.categoryId == categoryId)[0];
   }
