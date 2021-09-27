@@ -217,6 +217,10 @@ namespace MyEdo.Web.Controllers
             {
                 return this.Forbid(ex.Message);
             }
+            catch (NotFoundException ex)
+            {
+                return this.NotFound(ex.Message);
+            }
             catch (BadRequestException ex)
             {
                 return this.BadRequest(ex.Message);
