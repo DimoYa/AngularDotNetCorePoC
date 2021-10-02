@@ -28,7 +28,11 @@ import { CreateCategoryComponent } from "./components/skill/create-category/crea
 import { EditCategoryComponent } from "./components/skill/edit-category/edit-category.component";
 import { EditSkillComponent } from "./components/skill/edit-skill/edit-skill.component";
 import { CreateSkillComponent } from "./components/skill/create-skill/create-skill.component";
-import { AllTrainingnsComponent } from './components/training/all-trainingns/all-trainingns.component';
+import { AllTrainingnsComponent } from "./components/training/all-trainingns/all-trainingns.component";
+import { CreateTrainingComponent } from "./components/training/create-training/create-training.component";
+import { MatInputModule } from "@angular/material/input";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -47,11 +51,15 @@ import { AllTrainingnsComponent } from './components/training/all-trainingns/all
     EditSkillComponent,
     CreateSkillComponent,
     AllTrainingnsComponent,
+    CreateTrainingComponent,
   ],
   entryComponents: [AddSkillComponent, EditSkillLevelComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     FormsModule,
     NgxAwesomePopupModule,
     DialogConfigModule,
@@ -101,6 +109,11 @@ import { AllTrainingnsComponent } from './components/training/all-trainingns/all
       {
         path: "all-trainings",
         component: AllTrainingnsComponent,
+        canActivate: [AuthorizeGuard],
+      },
+      {
+        path: "create-training",
+        component: CreateTrainingComponent,
         canActivate: [AuthorizeGuard],
       },
     ]),

@@ -20,4 +20,9 @@ export class TrainingService {
   public getAllTrainings(): Observable<TrainingModel[] | null> {
     return this.http.get<TrainingModel[]>(this.baseUrl + this.trainingEndPoint);
   }
+
+  public createTraining(body: Object): Observable<object> {
+    const url = this.baseUrl + this.trainingEndPoint;
+    return this.http.post(url, body);
+  }
 }

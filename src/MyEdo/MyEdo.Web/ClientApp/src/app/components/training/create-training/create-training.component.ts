@@ -1,0 +1,64 @@
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import {
+  TrainingStatus,
+  TrainingType,
+} from "../../../core/models/training-model";
+import { TrainingService } from "../../../core/services/training.service";
+
+@Component({
+  selector: "app-create-training",
+  templateUrl: "./create-training.component.html",
+  styleUrls: ["./create-training.component.css"],
+})
+export class CreateTrainingComponent implements OnInit {
+  form: FormGroup;
+  types: string[] = [
+    TrainingType[TrainingType.Optional],
+    TrainingType[TrainingType.Mandatory],
+  ];
+  statuses: string[] = [
+    TrainingStatus[TrainingStatus.Active],
+    TrainingStatus[TrainingStatus.Inactive],
+  ];
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private trainingService: TrainingService
+  ) {}
+
+  ngOnInit() {
+    this.form = this.fb.group({
+      name: ["", [Validators.required, Validators.minLength(2)]],
+      type: ["", [Validators.required]],
+      status: ["", [Validators.required]],
+      dueDate: ["", [Validators.required]],
+    });
+
+    this.form.controls['type'].setValue(TrainingType[TrainingType.Optional], {onlySelf: true});
+    this.form.controls['status'].setValue(TrainingStatus[TrainingStatus.Active], {onlySelf: true});
+  }
+
+  createTraining() {
+    const body = {
+      id: "",
+      name: this.form.value["name"],
+      type: this.form.value["type"],
+      status: this.form.value["status"],
+      dueDate: this.form.value["dueDate"],
+    };
+
+    this.trainingService.createTraining(body).subscribe(() => {
+      this.router.navigate(["/all-trainings"]);
+    });
+  }
+  get f() {
+    return this.form.controls;
+  }
+
+  get invalid() {
+    return this.form.invalid;
+  }
+}

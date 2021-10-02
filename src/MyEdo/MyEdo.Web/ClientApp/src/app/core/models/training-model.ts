@@ -6,12 +6,12 @@ export interface TrainingModel {
   dueDate: Date;
 }
 
-enum TrainingType {
+export enum TrainingType {
   Optional = 1,
   Mandatory = 2,
 }
 
-enum TrainingStatus {
+export enum TrainingStatus {
   Active = 1,
   Inactive = 2,
 }
