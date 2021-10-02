@@ -32,7 +32,7 @@ import { AllTrainingnsComponent } from "./components/training/all-trainingns/all
 import { CreateTrainingComponent } from "./components/training/create-training/create-training.component";
 import { MatInputModule } from "@angular/material/input";
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatNativeDateModule } from "@angular/material/core";
+import { MatNativeDateModule,  } from "@angular/material/core";
 
 @NgModule({
   declarations: [

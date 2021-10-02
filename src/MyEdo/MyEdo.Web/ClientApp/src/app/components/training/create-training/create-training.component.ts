@@ -37,16 +37,22 @@ export class CreateTrainingComponent implements OnInit {
       dueDate: ["", [Validators.required]],
     });
 
-    this.form.controls['type'].setValue(TrainingType[TrainingType.Optional], {onlySelf: true});
-    this.form.controls['status'].setValue(TrainingStatus[TrainingStatus.Active], {onlySelf: true});
+    this.form.controls["type"].setValue(TrainingType[TrainingType.Optional], {
+      onlySelf: true,
+    });
+    this.form.controls["status"].setValue(
+      TrainingStatus[TrainingStatus.Active],
+      { onlySelf: true }
+    );
   }
 
   createTraining() {
+
     const body = {
-      id: "",
+      id: "1",
       name: this.form.value["name"],
-      type: this.form.value["type"],
-      status: this.form.value["status"],
+      type: TrainingType[this.form.value["type"]],
+      status: TrainingStatus[this.form.value["status"]],
       dueDate: this.form.value["dueDate"],
     };
 

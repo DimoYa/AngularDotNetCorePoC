@@ -30,7 +30,7 @@ namespace MyEdo.Business.Services.AppTraining
             {
                 Name = model.Name,
                 Type = model.Type,
-                DueDate = DateTime.UtcNow.AddMonths(1),
+                DueDate = model.DueDate.AddMonths(1),
                 Status = model.Status,
             };
 
