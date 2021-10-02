@@ -32,7 +32,10 @@ import { AllTrainingnsComponent } from "./components/training/all-trainingns/all
 import { CreateTrainingComponent } from "./components/training/create-training/create-training.component";
 import { MatInputModule } from "@angular/material/input";
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatNativeDateModule,  } from "@angular/material/core";
+import { MatNativeDateModule } from "@angular/material/core";
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
+import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MY_FORMATS } from "./core/common/date-picker-format";
 
 @NgModule({
   declarations: [
@@ -60,6 +63,7 @@ import { MatNativeDateModule,  } from "@angular/material/core";
     MatInputModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MomentDateModule,
     FormsModule,
     NgxAwesomePopupModule,
     DialogConfigModule,
@@ -122,6 +126,9 @@ import { MatNativeDateModule,  } from "@angular/material/core";
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ],
   bootstrap: [AppComponent],
 })

@@ -5,6 +5,7 @@ import {
   TrainingStatus,
   TrainingType,
 } from "../../../core/models/training-model";
+import { DateAdapter } from '@angular/material';
 import { TrainingService } from "../../../core/services/training.service";
 
 @Component({
@@ -26,8 +27,11 @@ export class CreateTrainingComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private trainingService: TrainingService
-  ) {}
+    private trainingService: TrainingService,
+    private dateAdapter: DateAdapter<Date>
+  ) {
+    this.dateAdapter.setLocale('your locale'); 
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
