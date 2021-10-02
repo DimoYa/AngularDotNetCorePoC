@@ -1,7 +1,8 @@
-﻿using MyEdo.Core.Models.Enums;
-
-namespace MyEdo.Web.ApiModels.Trainings
+﻿namespace MyEdo.Web.ApiModels.Trainings
 {
+    using MyEdo.Core.Models.Enums;
+    using System;
+
     public class TrainingApiModel
     {
         public string Id { get; set; }
@@ -11,5 +12,7 @@ namespace MyEdo.Web.ApiModels.Trainings
         public TrainingType Type { get; set; }
 
         public TrainingStatus Status { get; set; }
+
+        public DateTime DueDate { get; set; }
     }
 }

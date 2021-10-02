@@ -28,6 +28,7 @@ import { CreateCategoryComponent } from "./components/skill/create-category/crea
 import { EditCategoryComponent } from "./components/skill/edit-category/edit-category.component";
 import { EditSkillComponent } from "./components/skill/edit-skill/edit-skill.component";
 import { CreateSkillComponent } from "./components/skill/create-skill/create-skill.component";
+import { AllTrainingnsComponent } from './components/training/all-trainingns/all-trainingns.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { CreateSkillComponent } from "./components/skill/create-skill/create-ski
     EditCategoryComponent,
     EditSkillComponent,
     CreateSkillComponent,
+    AllTrainingnsComponent,
   ],
   entryComponents: [AddSkillComponent, EditSkillLevelComponent],
   imports: [
@@ -94,6 +96,11 @@ import { CreateSkillComponent } from "./components/skill/create-skill/create-ski
       {
         path: "all-skills/edit/:id",
         component: EditSkillComponent,
+        canActivate: [AuthorizeGuard],
+      },
+      {
+        path: "all-trainings",
+        component: AllTrainingnsComponent,
         canActivate: [AuthorizeGuard],
       },
     ]),

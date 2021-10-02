@@ -43,7 +43,7 @@ namespace MyEdo.Controllers
                .GetAllTrainings();
 
                 var model = trainings
-                    .Select(t => new TrainingApiModel { Id = t.Id, Name = t.Name, Status = t.Status, Type = t.Type });
+                    .Select(t => new TrainingApiModel { Id = t.Id, Name = t.Name, Status = t.Status, Type = t.Type, DueDate = t.DueDate });
 
                 return Ok(model);
             }
