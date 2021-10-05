@@ -3,6 +3,9 @@ import { Observable } from "rxjs";
 import { AuthorizeService } from "../../../../api-authorization/authorize.service";
 import { TrainingModel } from "../../../core/models/training-model";
 import { TrainingService } from "../../../core/services/training.service";
+import {
+  ConfirmBoxInitializer,
+} from "@costlydeveloper/ngx-awesome-popup";
 
 @Component({
   selector: "app-all-trainingns",
@@ -23,5 +26,28 @@ export class AllTrainingnsComponent implements OnInit {
     this.isAdmin = this.authorizeService.isAdmin();
     this.isResource = this.authorizeService.isResource();
     this.trainings$ = this.trainingService.getAllTrainings();
+  }
+
+  public deleteTraining(training: TrainingModel) {
+
+    const confirmBox = new ConfirmBoxInitializer();
+    confirmBox.setTitle(
+      `Are you sure that you want to delete training: ${training.name}?`
+    );
+    confirmBox.setButtonLabels("YES", "NO");
+
+    const subscription = confirmBox.openConfirmBox$().subscribe((resp) => {
+      if (resp.Success) {
+        const body = {
+          id: training.id,
+          name: training.name,
+        };
+
+        this.trainingService.deleteTraining(body).subscribe(() => {
+          this.trainings$ = this.trainingService.getAllTrainings();
+        });
+      }
+      subscription.unsubscribe();
+    });
   }
 }

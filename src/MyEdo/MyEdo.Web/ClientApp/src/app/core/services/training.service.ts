@@ -25,4 +25,16 @@ export class TrainingService {
     const url = this.baseUrl + this.trainingEndPoint;
     return this.http.post(url, body);
   }
+
+  public deleteTraining(body: Object): Observable<object> {
+    const reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+    });
+    const httpOptions = {
+      headers: reqHeader,
+      body: body,
+    };
+    const url = this.baseUrl + this.trainingEndPoint;
+    return this.http.delete(url, httpOptions);
+  }
 }
