@@ -51,6 +51,13 @@ h1, h5 {
   text-align: center;   
 }
 
+.alert-danger {
+  background-color: #bc204b;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+}
+
 @media only screen and (max-device-width: 770px) {
 
   h1, h4, p {
