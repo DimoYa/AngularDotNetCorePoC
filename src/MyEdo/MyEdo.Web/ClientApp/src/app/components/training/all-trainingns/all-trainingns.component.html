@@ -2,7 +2,13 @@
     <h1 class="text-center">All Trainings</h1>
     <hr class="bg-resources hr-2" />
     <div class="table-responsive">
-        <table class="table table-striped table-bordered sortable" cellspacing="0" width="100%" id="table-id">
+        <div *ngIf="(trainings$ | async)?.length==0" class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <p class="card-text mb-1 text-center">No trainings available!</p>
+            </div>
+        </div>
+        <table *ngIf="(trainings$ | async)?.length>0" class="table table-striped table-bordered sortable"
+            cellspacing="0" width="100%" id="table-id">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -21,8 +27,8 @@
                     <td *ngIf="training.status == 2 && isAdmin | async">Inactive</td>
                     <td>{{training.dueDate | date: 'dd/MM/yyyy'}}</td>
                     <td>
-                        <a class="btn bg-transparent" *ngIf="isResource | async"><i class="fas fa-plus"
-                                data-placement="top" title="Assign training to my profile"></i></a>
+                        <a class="btn bg-transparent" *ngIf="isResource | async" (click)="requestTraining(training)"><i
+                                class="fas fa-plus" data-placement="top" title="Request training"></i></a>
                         <span *ngIf="isAdmin | async">
                             <a class="btn bg-transparent"><i class="fas fa-user-plus" data-placement="top"
                                     title="Assign training to user"></i></a>

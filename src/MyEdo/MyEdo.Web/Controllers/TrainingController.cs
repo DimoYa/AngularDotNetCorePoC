@@ -300,7 +300,7 @@ namespace MyEdo.Controllers
                .GetCurrentUserTrainings();
 
                 var model = trainings
-                    .Select(t => new UserTrainingApiModel { TrainingId = t.TrainingId, TrainingName = t.Training.Name, Status = t.Status });
+                    .Select(t => new TrainingApiModel { Id = t.TrainingId, Name = t.Training.Name, Status = t.Training.Status, Type = t.Training.Type, DueDate = t.Training.DueDate });
 
                 return Ok(model);
             }

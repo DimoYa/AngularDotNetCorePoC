@@ -1,0 +1,35 @@
+<div class="jumbotron">
+    <h1 class="text-center">My Trainings</h1>
+    <hr class="bg-resources hr-2" />
+    <div class="table-responsive">
+        <div *ngIf="(trainings$ | async)?.length==0" class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <p class="card-text mb-1 text-center">No trainings assinged to your profile!</p>
+            </div>
+        </div>
+        <table *ngIf="(trainings$ | async)?.length>0" class="table table-striped table-bordered sortable"
+            cellspacing="0" width="100%" id="table-id">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let training of (trainings$ | async);">
+                    <td>{{training.name}}</td>
+                    <td *ngIf="training.type == 1">Optional</td>
+                    <td *ngIf="training.type == 2">Mandatory</td>
+                    <td *ngIf="training.status == 1">Requested</td>
+                    <td *ngIf="training.status == 2">Assigned</td>
+                    <td *ngIf="training.status == 3">Rejected</td>
+                    <td *ngIf="training.status == 4">Passed</td>
+                    <td *ngIf="training.status == 5">Failed</td>
+                    <td>{{training.dueDate | date: 'dd/MM/yyyy'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -4,6 +4,7 @@ import { AuthorizeService } from "../../../../api-authorization/authorize.servic
 import { TrainingModel } from "../../../core/models/training-model";
 import { TrainingService } from "../../../core/services/training.service";
 import { ConfirmBoxInitializer } from "@costlydeveloper/ngx-awesome-popup";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-all-trainingns",
@@ -17,7 +18,8 @@ export class AllTrainingnsComponent implements OnInit {
 
   constructor(
     private authorizeService: AuthorizeService,
-    private trainingService: TrainingService
+    private trainingService: TrainingService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -45,6 +47,17 @@ export class AllTrainingnsComponent implements OnInit {
         });
       }
       subscription.unsubscribe();
+    });
+  }
+
+  public requestTraining(training: TrainingModel) {
+    const body = {
+      id: training.id,
+      name: training.name,
+    };
+
+    this.trainingService.requestTraining(body).subscribe(() => {
+      this.router.navigate(["/my-trainings"]);
     });
   }
 }

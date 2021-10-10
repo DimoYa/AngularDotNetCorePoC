@@ -21,6 +21,10 @@ export class TrainingService {
     return this.http.get<TrainingModel[]>(this.baseUrl + this.trainingEndPoint);
   }
 
+  public getMyTrainings(): Observable<TrainingModel[] | null> {
+    return this.http.get<TrainingModel[]>(`${this.baseUrl}${this.trainingEndPoint}/GetMyTrainings`);
+  }
+
   public createTraining(body: Object): Observable<object> {
     const url = this.baseUrl + this.trainingEndPoint;
     return this.http.post(url, body);
@@ -41,5 +45,10 @@ export class TrainingService {
     };
     const url = this.baseUrl + this.trainingEndPoint;
     return this.http.delete(url, httpOptions);
+  }
+
+  public requestTraining(body: Object): Observable<object> {
+    const url = `${this.baseUrl}${this.trainingEndPoint}/RequestTraining`;
+    return this.http.post(url, body);
   }
 }
