@@ -27,7 +27,7 @@
                     <td *ngIf="training.status == 2 && isAdmin | async">Inactive</td>
                     <td>{{training.dueDate | date: 'dd/MM/yyyy'}}</td>
                     <td>
-                        <a class="btn bg-transparent" *ngIf="isResource | async" (click)="requestTraining(training)"><i
+                        <a *ngIf="(isResource | async) && isPossibleToAddTraining(training.id)" class="btn bg-transparent" (click)="requestTraining(training)"><i
                                 class="fas fa-plus" data-placement="top" title="Request training"></i></a>
                         <span *ngIf="isAdmin | async">
                             <a class="btn bg-transparent"><i class="fas fa-user-plus" data-placement="top"

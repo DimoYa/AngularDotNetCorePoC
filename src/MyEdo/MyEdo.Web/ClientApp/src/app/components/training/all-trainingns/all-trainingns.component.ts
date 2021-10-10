@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Observable, Subscriber } from "rxjs";
 import { AuthorizeService } from "../../../../api-authorization/authorize.service";
 import { TrainingModel } from "../../../core/models/training-model";
 import { TrainingService } from "../../../core/services/training.service";
@@ -15,6 +15,7 @@ export class AllTrainingnsComponent implements OnInit {
   public isAdmin: Observable<boolean>;
   public isResource: Observable<boolean>;
   public trainings$: Observable<TrainingModel[]>;
+  public myTrainings: TrainingModel[];
 
   constructor(
     private authorizeService: AuthorizeService,
@@ -26,6 +27,9 @@ export class AllTrainingnsComponent implements OnInit {
     this.isAdmin = this.authorizeService.isAdmin();
     this.isResource = this.authorizeService.isResource();
     this.trainings$ = this.trainingService.getAllTrainings();
+    this.trainingService.getMyTrainings().subscribe((data) => {
+      this.myTrainings = data;
+    });
   }
 
   public deleteTraining(training: TrainingModel) {
@@ -48,6 +52,10 @@ export class AllTrainingnsComponent implements OnInit {
       }
       subscription.unsubscribe();
     });
+  }
+
+  public isPossibleToAddTraining(trainingId: string): boolean {
+    return !this.myTrainings.some(t=> t.id === trainingId)
   }
 
   public requestTraining(training: TrainingModel) {
