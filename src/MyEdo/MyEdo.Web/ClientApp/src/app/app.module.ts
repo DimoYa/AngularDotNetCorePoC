@@ -36,6 +36,7 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MY_FORMATS } from "./core/common/date-picker-format";
+import { EditTrainingComponent } from './components/training/edit-training/edit-training.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MY_FORMATS } from "./core/common/date-picker-format";
     CreateSkillComponent,
     AllTrainingnsComponent,
     CreateTrainingComponent,
+    EditTrainingComponent,
   ],
   entryComponents: [AddSkillComponent, EditSkillLevelComponent],
   imports: [
@@ -118,6 +120,11 @@ import { MY_FORMATS } from "./core/common/date-picker-format";
       {
         path: "create-training",
         component: CreateTrainingComponent,
+        canActivate: [AuthorizeGuard],
+      },
+      {
+        path: "all-trainings/edit/:id",
+        component: EditTrainingComponent,
         canActivate: [AuthorizeGuard],
       },
     ]),

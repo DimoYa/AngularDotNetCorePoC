@@ -62,11 +62,6 @@ export class SkillComponent implements OnInit {
     return !merged.some((x) => x == skillId);
   }
 
-  public editCategory(categoryId: string) {
-    this.clickButton = true;
-    console.log(categoryId);
-  }
-
   public deleteCategory(categoryId: string) {
     this.clickButton = true;
 

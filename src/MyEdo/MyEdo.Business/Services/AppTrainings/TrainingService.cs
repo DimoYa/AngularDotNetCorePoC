@@ -30,7 +30,7 @@ namespace MyEdo.Business.Services.AppTraining
             {
                 Name = model.Name,
                 Type = model.Type,
-                DueDate = model.DueDate.AddMonths(1),
+                DueDate = model.DueDate.AddDays(1),
                 Status = model.Status,
             };
 
@@ -47,6 +47,7 @@ namespace MyEdo.Business.Services.AppTraining
             trainingForUpdate.Name = model.Name;
             trainingForUpdate.Type = model.Type;
             trainingForUpdate.Status = model.Status;
+            trainingForUpdate.DueDate = model.DueDate.AddDays(1);
             trainingForUpdate.ModifiedOn = DateTime.UtcNow;
 
             int result = await this.context.SaveChangesAsync();

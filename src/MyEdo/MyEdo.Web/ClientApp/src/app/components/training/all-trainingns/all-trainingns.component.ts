@@ -3,9 +3,7 @@ import { Observable } from "rxjs";
 import { AuthorizeService } from "../../../../api-authorization/authorize.service";
 import { TrainingModel } from "../../../core/models/training-model";
 import { TrainingService } from "../../../core/services/training.service";
-import {
-  ConfirmBoxInitializer,
-} from "@costlydeveloper/ngx-awesome-popup";
+import { ConfirmBoxInitializer } from "@costlydeveloper/ngx-awesome-popup";
 
 @Component({
   selector: "app-all-trainingns",
@@ -29,7 +27,6 @@ export class AllTrainingnsComponent implements OnInit {
   }
 
   public deleteTraining(training: TrainingModel) {
-
     const confirmBox = new ConfirmBoxInitializer();
     confirmBox.setTitle(
       `Are you sure that you want to delete training: ${training.name}?`

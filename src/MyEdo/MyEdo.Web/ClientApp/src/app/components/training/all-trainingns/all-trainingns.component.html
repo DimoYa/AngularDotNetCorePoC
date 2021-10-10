@@ -7,7 +7,7 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Type</th>
-                    <th scope="col">Status</th>
+                    <th scope="col" *ngIf="isAdmin | async">Status</th>
                     <th scope="col">Due Date</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -17,19 +17,19 @@
                     <td>{{training.name}}</td>
                     <td *ngIf="training.type == 1">Optional</td>
                     <td *ngIf="training.type == 2">Mandatory</td>
-                    <td *ngIf="training.status == 1">Active</td>
-                    <td *ngIf="training.status == 2">Inactive</td>
+                    <td *ngIf="training.status == 1 && isAdmin | async">Active</td>
+                    <td *ngIf="training.status == 2 && isAdmin | async">Inactive</td>
                     <td>{{training.dueDate | date: 'dd/MM/yyyy'}}</td>
                     <td>
-                        <a class="btn bg-transparent" *ngIf="isResource | async"><i class="fas fa-plus" data-placement="top"
-                                title="Assign training to my profile"></i></a>
-                        <span *ngIf="isAdmin | async"> 
-                            <a class="btn bg-transparent"><i class="fas fa-user-plus"
-                                data-placement="top" title="Assign training to user"></i></a>
-                        <a class="btn bg-transparent"><i class="fas fa-edit fa-1x"
-                                data-placement="top" title="Edit training"></i></a>
-                        <a class="btn bg-transparent" (click)="deleteTraining(training)"><i class="far fa-trash-alt fa-1x" data-placement="top"
-                                title="Delete training"></i></a>
+                        <a class="btn bg-transparent" *ngIf="isResource | async"><i class="fas fa-plus"
+                                data-placement="top" title="Assign training to my profile"></i></a>
+                        <span *ngIf="isAdmin | async">
+                            <a class="btn bg-transparent"><i class="fas fa-user-plus" data-placement="top"
+                                    title="Assign training to user"></i></a>
+                            <a class="btn bg-transparent"><i class="fas fa-edit fa-1x" data-placement="top"
+                                    [routerLink]="['/all-trainings/edit',training.id]" title="Edit training"></i></a>
+                            <a class="btn bg-transparent" (click)="deleteTraining(training)"><i
+                                    class="far fa-trash-alt fa-1x" data-placement="top" title="Delete training"></i></a>
                         </span>
                     </td>
                 </tr>
