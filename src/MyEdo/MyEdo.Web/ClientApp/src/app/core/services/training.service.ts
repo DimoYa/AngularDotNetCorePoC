@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { TrainingModel } from "../models/training-model";
+import { UserTrainingModel } from "../models/user-trainings-model";
 
 @Injectable({
   providedIn: "root",
@@ -23,6 +24,10 @@ export class TrainingService {
 
   public getMyTrainings(): Observable<TrainingModel[] | null> {
     return this.http.get<TrainingModel[]>(`${this.baseUrl}${this.trainingEndPoint}/GetMyTrainings`);
+  }
+
+  public getAllUsersTrainings(): Observable<UserTrainingModel[] | null> {
+    return this.http.get<UserTrainingModel[]>(`${this.baseUrl}${this.trainingEndPoint}/GetAllUserTrainings`);
   }
 
   public createTraining(body: Object): Observable<object> {
@@ -49,6 +54,11 @@ export class TrainingService {
 
   public requestTraining(body: Object): Observable<object> {
     const url = `${this.baseUrl}${this.trainingEndPoint}/RequestTraining`;
+    return this.http.post(url, body);
+  }
+
+  public assignTraining(body: Object): Observable<object> {
+    const url = `${this.baseUrl}${this.trainingEndPoint}/AssignTraining`;
     return this.http.post(url, body);
   }
 }

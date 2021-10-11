@@ -31,7 +31,6 @@ export class CreateSkillComponent implements OnInit {
     this.categoryService.getAllCategories().subscribe((data) => {
       this.skillCategories = data;
       this.selectedValue = data[0];
-      this.form.controls['category'].setValue(this.selectedValue, {onlySelf: true});
     });
   }
 

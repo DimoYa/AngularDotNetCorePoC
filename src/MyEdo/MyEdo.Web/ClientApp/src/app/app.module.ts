@@ -38,6 +38,8 @@ import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-ad
 import { MY_FORMATS } from "./core/common/date-picker-format";
 import { EditTrainingComponent } from './components/training/edit-training/edit-training.component';
 import { MyTrainingsComponent } from './components/training/my-trainings/my-trainings.component';
+import { AssignTrainingComponent } from './components/training/assign-training/assign-training.component';
+import { UserTrainingsComponent } from './components/training/user-trainings/user-trainings.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { MyTrainingsComponent } from './components/training/my-trainings/my-trai
     CreateTrainingComponent,
     EditTrainingComponent,
     MyTrainingsComponent,
+    AssignTrainingComponent,
+    UserTrainingsComponent,
   ],
   entryComponents: [AddSkillComponent, EditSkillLevelComponent],
   imports: [
@@ -132,6 +136,16 @@ import { MyTrainingsComponent } from './components/training/my-trainings/my-trai
       {
         path: "my-trainings",
         component: MyTrainingsComponent,
+        canActivate: [AuthorizeGuard],
+      },
+      {
+        path: "all-trainings/assign/:id",
+        component: AssignTrainingComponent,
+        canActivate: [AuthorizeGuard],
+      },
+      {
+        path: "user-trainings",
+        component: UserTrainingsComponent,
         canActivate: [AuthorizeGuard],
       },
     ]),

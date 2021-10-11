@@ -31,7 +31,8 @@ namespace MyEdo.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," +
+                          GlobalConstants.ResourceRoleName)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
