@@ -33,7 +33,7 @@ import { CreateTrainingComponent } from "./components/training/create-training/c
 import { MatInputModule } from "@angular/material/input";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
+import { DateAdapter, MatPaginatorModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MY_FORMATS } from "./core/common/date-picker-format";
 import { EditTrainingComponent } from './components/training/edit-training/edit-training.component';
@@ -71,6 +71,7 @@ import { UserTrainingsComponent } from './components/training/user-trainings/use
     MatInputModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MatPaginatorModule,
     MomentDateModule,
     FormsModule,
     NgxAwesomePopupModule,

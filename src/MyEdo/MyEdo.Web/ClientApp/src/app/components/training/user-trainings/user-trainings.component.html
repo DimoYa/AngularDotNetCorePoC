@@ -1,38 +1,45 @@
-<div class="jumbotron">
-    <h1 class="text-center">All user's trainings</h1>
-    <hr class="bg-resources hr-2" />
-    <div class="table-responsive">
-        <div *ngIf="trainings?.length==0" class="card text-white bg-info mb-3">
-            <div class="card-body">
-                <p class="card-text mb-1 text-center">No user's trainigns!</p>
+<ng-template [ngIf]="trainings">
+    <div class="jumbotron">
+        <h1 class="text-center">All user's trainings</h1>
+        <hr class="bg-resources hr-2" />
+        <div class="table-responsive">
+            <div *ngIf="trainings?.length==0" class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <p class="card-text mb-1 text-center">No user's trainigns!</p>
+                </div>
             </div>
+            <table *ngIf="trainings?.length>0" class="table table-striped table-bordered sortable" cellspacing="0"
+                width="100%" id="table-id">
+                <thead>
+                    <tr>
+                        <th scope="col">Resource</th>
+                        <th scope="col">Training</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let training of pageSlice;">
+                        <td>{{training.userName}}</td>
+                        <td>{{training.trainingName}}</td>
+                        <td *ngIf="training.status == 1">Requested</td>
+                        <td *ngIf="training.status == 2">Assigned</td>
+                        <td *ngIf="training.status == 3">Rejected</td>
+                        <td *ngIf="training.status == 4">Passed</td>
+                        <td *ngIf="training.status == 5">Failed</td>
+                        <td>{{training.dueDate | date: 'dd/MM/yyyy'}}</td>
+                        <td>
+                            <a class="btn bg-transparent"><i class="fas fa-user-edit" data-placement="top"
+                                    title="Manage training status"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <mat-paginator [length]="trainings.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page" (page)="OnPageChange($event)">
+            </mat-paginator>
         </div>
-        <table *ngIf="trainings?.length>0" class="table table-striped table-bordered sortable"
-            cellspacing="0" width="100%" id="table-id">
-            <thead>
-                <tr>
-                    <th scope="col">Resource</th>
-                    <th scope="col">Training</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Due Date</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let training of trainings;">
-                    <td>{{training.userName}}</td>
-                    <td>{{training.trainingName}}</td>
-                    <td *ngIf="training.status == 1">Requested</td>
-                    <td *ngIf="training.status == 2">Assigned</td>
-                    <td *ngIf="training.status == 3">Rejected</td>
-                    <td *ngIf="training.status == 4">Passed</td>
-                    <td *ngIf="training.status == 5">Failed</td>
-                    <td>{{training.dueDate | date: 'dd/MM/yyyy'}}</td>
-                    <td>
-                        <a class="btn bg-transparent"><i class="fas fa-user-edit" data-placement="top" title="Manage training status"></i></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
-</div>
+</ng-template>
