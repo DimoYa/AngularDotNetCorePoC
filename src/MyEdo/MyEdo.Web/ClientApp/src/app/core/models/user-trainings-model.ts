@@ -1,11 +1,12 @@
 export interface UserTrainingModel {
     userId: string;
     userName: string;
-    trainings: SkillModel[]
+    trainings: TrainingModel[]
 }
 
-interface SkillModel {
+interface TrainingModel {
     trainingId: string;
     trainingName: string;
     status: number;
+    dueDate: Date
 }

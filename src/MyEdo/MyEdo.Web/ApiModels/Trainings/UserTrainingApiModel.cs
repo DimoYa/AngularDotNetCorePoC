@@ -1,4 +1,5 @@
 ﻿using MyEdo.Core.Models.Enums;
+using System;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
@@ -19,5 +20,7 @@ namespace MyEdo.Web.ApiModels.Trainings
         public string UserName { get; set; }
 
         public UserTrainingStatus Status { get; set; }
+
+        public DateTime DueDate { get; set; }
     }
 }

@@ -15,3 +15,4 @@ export enum TrainingStatus {
   Active = 1,
   Inactive = 2,
 }
+

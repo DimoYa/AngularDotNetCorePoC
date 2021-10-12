@@ -341,7 +341,8 @@ namespace MyEdo.Controllers
                     TrainingName = t.Training.Name,
                     Status = t.Status,
                     UserId = t.UserId,
-                    UserName = t.User.UserName
+                    UserName = t.User.UserName,
+                    DueDate = t.Training.DueDate
                 });
 
                 var groupedUserTrainings = model
