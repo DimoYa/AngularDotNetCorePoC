@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { DialogBelonging } from "@costlydeveloper/ngx-awesome-popup";
 import { Subscription } from "rxjs";
+import { UserTrainingStatus } from "../../../core/models/all-users-trainings-model";
 import { TrainingService } from "../../../core/services/training.service";
 
 @Component({
@@ -9,7 +10,9 @@ import { TrainingService } from "../../../core/services/training.service";
   styleUrls: ["./update-user-training-status.component.css"],
 })
 export class UpdateUserTrainingStatusComponent implements OnInit {
-  public data: number[] = [1, 2, 3, 4, 5];
+
+  public data = Object.values(UserTrainingStatus).filter(value => typeof value !== 'number');
+  public chosenValue : string
   private subscriptions: Subscription = new Subscription();
 
   constructor(
@@ -18,6 +21,7 @@ export class UpdateUserTrainingStatusComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.chosenValue = UserTrainingStatus[this.dialogBelonging.CustomData.status]
     this.subscriptions.add(
       this.dialogBelonging.EventsController.onButtonClick$.subscribe(
         (_Button) => {
@@ -27,7 +31,7 @@ export class UpdateUserTrainingStatusComponent implements OnInit {
               trainingName: this.dialogBelonging.CustomData.trainingName,
               userId: this.dialogBelonging.CustomData.userId,
               userName: this.dialogBelonging.CustomData.userName,
-              status: this.dialogBelonging.CustomData.status,
+              status: this.chosenValue,
             };
 
             this.trainingService
