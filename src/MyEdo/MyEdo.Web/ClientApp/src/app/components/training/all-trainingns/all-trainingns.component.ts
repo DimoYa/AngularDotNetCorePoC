@@ -5,6 +5,7 @@ import { TrainingModel } from "../../../core/models/training-model";
 import { TrainingService } from "../../../core/services/training.service";
 import { ConfirmBoxInitializer } from "@costlydeveloper/ngx-awesome-popup";
 import { Router } from "@angular/router";
+import { PageEvent } from "@angular/material/paginator";
 
 @Component({
   selector: "app-all-trainingns",
@@ -14,8 +15,9 @@ import { Router } from "@angular/router";
 export class AllTrainingnsComponent implements OnInit {
   public isAdmin: Observable<boolean>;
   public isResource: Observable<boolean>;
-  public trainings$: Observable<TrainingModel[]>;
+  public trainings: TrainingModel[];
   public myTrainings: TrainingModel[];
+  public pageSlice: TrainingModel[] = [];
 
   constructor(
     private authorizeService: AuthorizeService,
@@ -26,7 +28,10 @@ export class AllTrainingnsComponent implements OnInit {
   ngOnInit() {
     this.isAdmin = this.authorizeService.isAdmin();
     this.isResource = this.authorizeService.isResource();
-    this.trainings$ = this.trainingService.getAllTrainings();
+    this.trainingService.getAllTrainings().subscribe((data) => {
+      this.trainings = data;
+      this.pageSlice = this.trainings.slice(0, 5);
+    });
     this.trainingService.getMyTrainings().subscribe((data) => {
       this.myTrainings = data;
     });
@@ -47,7 +52,9 @@ export class AllTrainingnsComponent implements OnInit {
         };
 
         this.trainingService.deleteTraining(body).subscribe(() => {
-          this.trainings$ = this.trainingService.getAllTrainings();
+          this.trainingService.getAllTrainings().subscribe((data) => {
+            this.trainings = data;
+          });
         });
       }
       subscription.unsubscribe();
@@ -55,7 +62,7 @@ export class AllTrainingnsComponent implements OnInit {
   }
 
   public isPossibleToAddTraining(trainingId: string): boolean {
-    return !this.myTrainings.some(t=> t.id === trainingId)
+    return !this.myTrainings.some((t) => t.id === trainingId);
   }
 
   public requestTraining(training: TrainingModel) {
@@ -67,5 +74,14 @@ export class AllTrainingnsComponent implements OnInit {
     this.trainingService.requestTraining(body).subscribe(() => {
       this.router.navigate(["/my-trainings"]);
     });
+  }
+
+  public OnPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.trainings.length) {
+      endIndex = this.trainings.length;
+    }
+    this.pageSlice = this.trainings.slice(startIndex, endIndex);
   }
 }

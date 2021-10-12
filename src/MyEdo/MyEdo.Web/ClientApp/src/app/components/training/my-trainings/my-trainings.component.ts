@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 import { TrainingModel } from '../../../core/models/training-model';
 import { TrainingService } from '../../../core/services/training.service';
 
@@ -10,10 +10,23 @@ import { TrainingService } from '../../../core/services/training.service';
 })
 export class MyTrainingsComponent implements OnInit {
 
-  public trainings$: Observable<TrainingModel[]>;
+  public trainings: TrainingModel[];
+  public pageSlice: TrainingModel[];
   constructor(private trainingService: TrainingService) { }
 
   ngOnInit() {
-    this.trainings$ = this.trainingService.getMyTrainings();
+    this.trainingService.getMyTrainings().subscribe((data=> {
+      this.trainings = data;
+      this.pageSlice = this.trainings.slice(0, 5);
+    }));
+  }
+
+  public OnPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.trainings.length) {
+      endIndex = this.trainings.length;
+    }
+    this.pageSlice = this.trainings.slice(startIndex, endIndex);
   }
 }
