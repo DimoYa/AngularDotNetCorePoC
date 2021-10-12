@@ -251,7 +251,7 @@ namespace MyEdo.Controllers
             return this.Ok(model);
         }
 
-        [HttpPost(nameof(UpdateUserTrainingStatus))]
+        [HttpPut(nameof(UpdateUserTrainingStatus))]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [ProducesResponseType(typeof(AddUserTrainingApiModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

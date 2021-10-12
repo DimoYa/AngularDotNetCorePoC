@@ -20,7 +20,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let training of pageSlice;">
+                    <tr *ngFor="let training of pageSlice">
+                        
                         <td>{{training.userName}}</td>
                         <td>{{training.trainingName}}</td>
                         <td *ngIf="training.status == 1">Requested</td>
@@ -30,7 +31,7 @@
                         <td *ngIf="training.status == 5">Failed</td>
                         <td>{{training.dueDate | date: 'dd/MM/yyyy'}}</td>
                         <td>
-                            <a class="btn bg-transparent"><i class="fas fa-user-edit" data-placement="top"
+                            <a class="btn bg-transparent" (click)="updateUserTrainingStatus(training)"><i class="fas fa-user-edit" data-placement="top"
                                     title="Manage training status"></i></a>
                         </td>
                     </tr>

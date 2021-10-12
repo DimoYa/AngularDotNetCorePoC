@@ -54,6 +54,7 @@ export class AllTrainingnsComponent implements OnInit {
         this.trainingService.deleteTraining(body).subscribe(() => {
           this.trainingService.getAllTrainings().subscribe((data) => {
             this.trainings = data;
+            this.pageSlice = this.trainings.slice(0, 5);
           });
         });
       }

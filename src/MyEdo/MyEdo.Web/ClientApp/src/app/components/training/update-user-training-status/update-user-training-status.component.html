@@ -1,0 +1,16 @@
+<div>
+    <div class="col-md-12 form-group">
+        <h5> Update user's training status</h5>
+    </div>
+    <div class="col-md-12 form-group">
+        <input class="form-control" readonly value="{{dialogBelonging.CustomData.userName}}">
+    </div>
+    <div class="col-md-12 form-group">
+        <input class="form-control" readonly value="{{dialogBelonging.CustomData.trainingName}}">
+    </div>
+    <div class="col-md-12 form-group">
+        <select class="form-control" [(ngModel)]="dialogBelonging.CustomData.status">
+            <option *ngFor="let item of data" value="{{item}}">{{item}}</option>
+        </select>
+    </div>
+</div>

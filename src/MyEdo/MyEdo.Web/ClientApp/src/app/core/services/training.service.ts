@@ -61,4 +61,9 @@ export class TrainingService {
     const url = `${this.baseUrl}${this.trainingEndPoint}/AssignTraining`;
     return this.http.post(url, body);
   }
+
+  public updateUserTrainingStatus(body: Object): Observable<object> {
+    const url = `${this.baseUrl}${this.trainingEndPoint}/UpdateUserTrainingStatus`;
+    return this.http.put(url, body);
+  }
 }

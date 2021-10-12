@@ -40,6 +40,7 @@ import { EditTrainingComponent } from './components/training/edit-training/edit-
 import { MyTrainingsComponent } from './components/training/my-trainings/my-trainings.component';
 import { AssignTrainingComponent } from './components/training/assign-training/assign-training.component';
 import { UserTrainingsComponent } from './components/training/user-trainings/user-trainings.component';
+import { UpdateUserTrainingStatusComponent } from './components/training/update-user-training-status/update-user-training-status.component';
 
 @NgModule({
   declarations: [
@@ -63,8 +64,9 @@ import { UserTrainingsComponent } from './components/training/user-trainings/use
     MyTrainingsComponent,
     AssignTrainingComponent,
     UserTrainingsComponent,
+    UpdateUserTrainingStatusComponent,
   ],
-  entryComponents: [AddSkillComponent, EditSkillLevelComponent],
+  entryComponents: [AddSkillComponent, EditSkillLevelComponent, UpdateUserTrainingStatusComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
