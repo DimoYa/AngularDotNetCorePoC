@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { DialogBelonging } from "@costlydeveloper/ngx-awesome-popup";
 import { Subscription } from "rxjs";
+import { SkillLevel } from "../../../core/models/add-skill-model";
 import { SkillService } from "../../../core/services/skill.service";
 
 @Component({
@@ -16,7 +17,7 @@ export class AddSkillComponent implements OnInit, OnDestroy {
     public dialogBelonging: DialogBelonging
   ) {}
 
-  data: number[] = [1, 2, 3, 4, 5];
+  data = Object.values(SkillLevel).filter(value => typeof value !== 'number');
   selectedValue = this.data[0];
 
   ngOnInit() {

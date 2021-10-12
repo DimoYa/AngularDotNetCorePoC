@@ -15,15 +15,9 @@ import { TrainingService } from "../../../core/services/training.service";
 })
 export class CreateTrainingComponent implements OnInit {
   form: FormGroup;
-  types: string[] = [
-    TrainingType[TrainingType.Optional],
-    TrainingType[TrainingType.Mandatory],
-  ];
-  statuses: string[] = [
-    TrainingStatus[TrainingStatus.Active],
-    TrainingStatus[TrainingStatus.Inactive],
-  ];
-
+  types = Object.values(TrainingType).filter(value => typeof value !== 'number');
+  statuses = Object.values(TrainingStatus).filter(value => typeof value !== 'number');
+ 
   constructor(
     private fb: FormBuilder,
     private router: Router,

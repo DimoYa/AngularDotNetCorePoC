@@ -6,7 +6,7 @@
         <input class="form-control" readonly value="{{dialogBelonging.CustomData.name}}">
     </div>
     <div class="col-md-12 form-group">
-        <select class="form-control" [(ngModel)]="dialogBelonging.CustomData.level">
+        <select class="form-control" [(ngModel)]="choosen">
             <option *ngFor="let item of data" value="{{item}}">{{item}}</option>
         </select>
     </div>

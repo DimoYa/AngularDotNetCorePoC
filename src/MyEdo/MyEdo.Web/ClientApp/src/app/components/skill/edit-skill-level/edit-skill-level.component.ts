@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { DialogBelonging } from "@costlydeveloper/ngx-awesome-popup";
 import { Subscription } from "rxjs";
+import { SkillLevel } from "../../../core/models/add-skill-model";
 import { SkillService } from "../../../core/services/skill.service";
 
 @Component({
@@ -10,7 +11,8 @@ import { SkillService } from "../../../core/services/skill.service";
 })
 export class EditSkillLevelComponent implements OnInit {
   private subscriptions: Subscription = new Subscription();
-  public data: number[] = [1, 2, 3, 4, 5];
+  public data = Object.values(SkillLevel).filter(value => typeof value !== 'number');
+  public choosen : string
 
   constructor(
     private skillService: SkillService,
@@ -18,6 +20,7 @@ export class EditSkillLevelComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.choosen = SkillLevel[this.dialogBelonging.CustomData.level]
     this.subscriptions.add(
       this.dialogBelonging.EventsController.onButtonClick$.subscribe(
         (_Button) => {
@@ -25,7 +28,7 @@ export class EditSkillLevelComponent implements OnInit {
             const body = {
               skillId: this.dialogBelonging.CustomData.id,
               skillName: this.dialogBelonging.CustomData.name,
-              level: Number(this.dialogBelonging.CustomData.level),
+              level: this.choosen
             };
 
             this.skillService.editSkillLevel(body).subscribe();
