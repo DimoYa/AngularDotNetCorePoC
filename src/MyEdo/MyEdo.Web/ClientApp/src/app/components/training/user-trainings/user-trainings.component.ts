@@ -1,13 +1,20 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
 import { AllUsersTrainingsModel } from "../../../core/models/all-users-trainings-model";
 import { TrainingService } from "../../../core/services/training.service";
-import { PageEvent } from "@angular/material/paginator";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import {
   ButtonLayoutDisplay,
   ButtonMaker,
   DialogInitializer,
 } from "@costlydeveloper/ngx-awesome-popup";
 import { UpdateUserTrainingStatusComponent } from "../update-user-training-status/update-user-training-status.component";
+import { MatTableDataSource } from "@angular/material";
 
 @Component({
   selector: "app-user-trainings",
@@ -15,9 +22,12 @@ import { UpdateUserTrainingStatusComponent } from "../update-user-training-statu
   styleUrls: ["./user-trainings.component.css"],
 })
 export class UserTrainingsComponent implements OnInit {
-
   public trainings: AllUsersTrainingsModel[] = [];
-  public pageSlice: AllUsersTrainingsModel[] = []; 
+  public pageSlice: AllUsersTrainingsModel[] = [];
+
+  dataSource: MatTableDataSource<any>;
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
 
   constructor(private trainingService: TrainingService) {}
 
@@ -54,6 +64,13 @@ export class UserTrainingsComponent implements OnInit {
 
     const subscription = dialogPopup.openDialog$().subscribe(() => {
       subscription.unsubscribe();
+
+      setTimeout(() => {
+        this.trainings = [];
+        this.pageSlice = [];
+        this.ConvertData();
+        this.paginator.firstPage();
+      }, 1000);
     });
   }
 
