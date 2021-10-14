@@ -24,7 +24,7 @@ export class UserTrainingsComponent implements OnInit {
   public pageSlice: AllUsersTrainingsModel[] = [];
 
   dataSource: MatTableDataSource<any>;
-  @ViewChild(MatPaginator)
+  @ViewChild(MatPaginator , {static: false})
   paginator: MatPaginator;
 
   constructor(private trainingService: TrainingService) {}
