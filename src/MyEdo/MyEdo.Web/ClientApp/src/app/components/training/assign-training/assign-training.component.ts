@@ -5,7 +5,6 @@ import { TrainingModel } from "../../../core/models/training-model";
 import UserModel from "../../../core/models/user-model";
 import { UserTrainingModel } from "../../../core/models/user-trainings-model";
 import { AdminService } from "../../../core/services/admin.service";
-import { CategoryService } from "../../../core/services/category.service";
 import { TrainingService } from "../../../core/services/training.service";
 
 @Component({
