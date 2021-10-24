@@ -14,7 +14,7 @@ export class AddSkillComponent implements OnInit, OnDestroy {
 
   constructor(
     private skillService: SkillService,
-    @Inject('dialogBelonging') private dialogBelonging: DialogBelonging
+    @Inject('dialogBelonging') public dialogBelonging: DialogBelonging
   ) {}
 
   data = Object.values(SkillLevel).filter(value => typeof value !== 'number');

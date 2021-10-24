@@ -16,7 +16,7 @@ export class EditSkillLevelComponent implements OnInit {
 
   constructor(
     private skillService: SkillService,
-    @Inject('dialogBelonging') private dialogBelonging: DialogBelonging
+    @Inject('dialogBelonging') public dialogBelonging: DialogBelonging
   ) {}
 
   ngOnInit() {

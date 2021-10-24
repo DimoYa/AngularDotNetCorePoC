@@ -17,7 +17,7 @@ export class UpdateUserTrainingStatusComponent implements OnInit {
 
   constructor(
     private trainingService: TrainingService,
-    @Inject('dialogBelonging') private dialogBelonging: DialogBelonging
+    @Inject('dialogBelonging') public dialogBelonging: DialogBelonging
   ) {}
 
   ngOnInit() {
