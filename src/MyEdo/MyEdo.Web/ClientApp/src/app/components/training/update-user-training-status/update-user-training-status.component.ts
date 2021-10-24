@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Inject, OnInit, Output } from "@angular/core";
 import { DialogBelonging } from "@costlydeveloper/ngx-awesome-popup";
 import { Subscription } from "rxjs";
 import { UserTrainingStatus } from "../../../core/models/all-users-trainings-model";
@@ -17,7 +17,7 @@ export class UpdateUserTrainingStatusComponent implements OnInit {
 
   constructor(
     private trainingService: TrainingService,
-    public dialogBelonging: DialogBelonging
+    @Inject('dialogBelonging') private dialogBelonging: DialogBelonging
   ) {}
 
   ngOnInit() {

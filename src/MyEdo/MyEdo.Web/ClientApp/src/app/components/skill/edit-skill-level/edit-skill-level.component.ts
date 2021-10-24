@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { DialogBelonging } from "@costlydeveloper/ngx-awesome-popup";
 import { Subscription } from "rxjs";
 import { SkillLevel } from "../../../core/models/add-skill-model";
@@ -16,7 +16,7 @@ export class EditSkillLevelComponent implements OnInit {
 
   constructor(
     private skillService: SkillService,
-    public dialogBelonging: DialogBelonging
+    @Inject('dialogBelonging') private dialogBelonging: DialogBelonging
   ) {}
 
   ngOnInit() {

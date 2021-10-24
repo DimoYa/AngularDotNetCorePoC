@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { DialogBelonging } from "@costlydeveloper/ngx-awesome-popup";
 import { Subscription } from "rxjs";
 import { SkillLevel } from "../../../core/models/add-skill-model";
@@ -14,7 +14,7 @@ export class AddSkillComponent implements OnInit, OnDestroy {
 
   constructor(
     private skillService: SkillService,
-    public dialogBelonging: DialogBelonging
+    @Inject('dialogBelonging') private dialogBelonging: DialogBelonging
   ) {}
 
   data = Object.values(SkillLevel).filter(value => typeof value !== 'number');
