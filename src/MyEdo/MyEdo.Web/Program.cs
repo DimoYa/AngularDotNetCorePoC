@@ -14,6 +14,8 @@ namespace MyEdo
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.CaptureStartupErrors(true);
+                    webBuilder.UseSetting("detailedErrors", "true");
                     webBuilder.UseStartup<Startup>();
                 });
     }
