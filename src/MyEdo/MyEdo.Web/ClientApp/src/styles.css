@@ -85,6 +85,10 @@ h1, h5 {
       position: static !important;
   }
 
+  .mat-expansion-panel-header {
+    padding: 3em !important;
+}
+
   #registerForm, #loginForm {
       width: 100% !important;
   }
