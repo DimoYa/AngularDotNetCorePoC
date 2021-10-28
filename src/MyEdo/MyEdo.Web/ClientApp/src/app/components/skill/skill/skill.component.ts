@@ -29,7 +29,7 @@ export class SkillComponent implements OnInit {
   public skill: SkillCategoryModel;
   public skillCategories: SkillCategoryModel[];
   public mySkills: SkillCategoryModel[];
-  public isAdminView: boolean;
+  public isAdmin: Observable<boolean>;
   public isResource: Observable<boolean>;
 
   @Output()
@@ -48,7 +48,7 @@ export class SkillComponent implements OnInit {
       .subscribe((data) => (this.skillCategories = data));
 
     this.skillService.getMySkills().subscribe((data) => (this.mySkills = data));
-    this.isAdminView = this.router.url.includes("/all-skills");
+    this.isAdmin = this.authorizeService.isAdmin();
     this.isResource = this.authorizeService.isResource();
   }
 

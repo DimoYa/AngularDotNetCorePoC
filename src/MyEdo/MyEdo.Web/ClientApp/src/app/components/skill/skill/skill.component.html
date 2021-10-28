@@ -3,7 +3,7 @@
         <mat-expansion-panel-header class="panel-heading card text-white bg-info mb-3 cl">
             <h4 class="mb-0 text-center">
                 <span class="center-block">{{skill.categoryName}}</span>
-                <span *ngIf="isAdminView" class="float-right">
+                <span *ngIf="(isAdmin | async)" class="float-right">
                     <a class="btn bg-transparent" [routerLink]="['/categories/edit',skill.categoryId]"><i
                             class="fas fa-edit fa-1x text-white" data-placement="top"
                             title="Edit category name"></i></a>
@@ -14,18 +14,20 @@
             </h4>
         </mat-expansion-panel-header>
         <ul class="list-group mb-3" *ngFor="let skillCategoy of (skill.skills);">
-            <li *ngIf="isAdminView" class="list-group-item">{{skillCategoy.name}}
+            <li class="list-group-item">{{skillCategoy.name}}
                 <div class="float-right">
                     <a *ngIf="(isResource | async) && isPossibleToAddSkill(skillCategoy.id)" class="btn bg-transparent"
                         (click)="addSkillToMyProfile(skill.categoryId, skillCategoy.id)"><i class="fas fa-plus"
                             data-placement="top" title="Add skill to my profile"></i></a>
-                    <a class="btn bg-transparent" [routerLink]="['/all-skills/edit',skillCategoy.id]"><i
-                            class="fas fa-edit" data-placement="top" title="Edit skill"></i></a>
-                    <a class="btn bg-transparent" (click)="deleteSkill(skill.categoryId, skillCategoy.id)"><i
-                            class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
+                    <a *ngIf="(isAdmin | async)" class="btn bg-transparent"
+                        [routerLink]="['/all-skills/edit',skillCategoy.id]"><i class="fas fa-edit" data-placement="top"
+                            title="Edit skill"></i></a>
+                    <a *ngIf="(isAdmin | async)" class="btn bg-transparent"
+                        (click)="deleteSkill(skill.categoryId, skillCategoy.id)"><i class="far fa-trash-alt"
+                            data-placement="top" title="Delete skill"></i></a>
                 </div>
             </li>
-            <li *ngIf="!isAdminView" class="list-group-item">
+            <li *ngIf="(!isAdmin | async)" class="list-group-item">
                 <div class="d-flex justify-content-between">
                     <div class="form-group w-45">
                         <span>{{skillCategoy['skillName']}}</span>
@@ -40,9 +42,10 @@
                     </div>
                     <div class="form-group w-45 float-right">
                         <span class="btn bg-transparent" (click)="removeSkillFromMyProfile(skillCategoy)"><i
-                            class="fas fa-minus" data-placement="top" title="Remove skill from my profile"></i></span>
-                    <span class="btn bg-transparent" (click)="editSkillLevel(skillCategoy)"><i class="fas fa-edit"
-                            data-placement="top" title="Edit skill level in my profile"></i></span>
+                                class="fas fa-minus" data-placement="top"
+                                title="Remove skill from my profile"></i></span>
+                        <span class="btn bg-transparent" (click)="editSkillLevel(skillCategoy)"><i class="fas fa-edit"
+                                data-placement="top" title="Edit skill level in my profile"></i></span>
                     </div>
                 </div>
             </li>
