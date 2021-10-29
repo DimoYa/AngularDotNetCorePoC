@@ -1,4 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { DialogBelonging } from "@costlydeveloper/ngx-awesome-popup";
 import { Subscription } from "rxjs";
 import { SkillLevel } from "../../../core/models/add-skill-model";
@@ -14,6 +15,7 @@ export class AddSkillComponent implements OnInit, OnDestroy {
 
   constructor(
     private skillService: SkillService,
+    private router: Router,
     @Inject('dialogBelonging') public dialogBelonging: DialogBelonging
   ) {}
 
@@ -32,7 +34,9 @@ export class AddSkillComponent implements OnInit, OnDestroy {
               level: this.selectedValue,
             };
 
-            this.skillService.addSkillToMyProfile(body).subscribe();
+            this.skillService.addSkillToMyProfile(body).subscribe(() => {
+              this.router.navigate(["/my-skills"]);
+            });
             this.dialogBelonging.EventsController.close();
           } else if (_Button.ID === "cancel") {
             this.dialogBelonging.EventsController.close();
