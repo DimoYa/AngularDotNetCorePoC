@@ -48,13 +48,13 @@ export class SkillComponent implements OnInit {
       .getAllSkills()
       .subscribe((data) => (this.skillCategories = data));
 
+      this.isAdminView = this.router.url.includes("/all-skills");
+      this.isResource = this.authorizeService.isResource();
+      this.isAdmin = this.authorizeService.isAdmin();
+    }
+    
+    public isPossibleToAddSkill(skillId: string): boolean {
     this.skillService.getMySkills().subscribe((data) => (this.mySkills = data));
-    this.isAdminView = this.router.url.includes("/all-skills");
-    this.isResource = this.authorizeService.isResource();
-    this.isAdmin = this.authorizeService.isAdmin();
-  }
-
-  public isPossibleToAddSkill(skillId: string): boolean {
     let merged: string[] = [].concat
       .apply(
         [],
