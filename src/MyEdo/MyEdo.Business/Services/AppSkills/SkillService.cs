@@ -85,6 +85,7 @@ namespace MyEdo.Business.Services.AppSkill
         public async Task<bool> AddSkillToMyProfile(UserSkill model)
         {
             var currentUserId = await this.userService.GetCurrentUserId();
+            await this.GetSkillById(model.SkillId);
 
             UserSkill userSkill = new UserSkill
             {
@@ -160,7 +161,7 @@ namespace MyEdo.Business.Services.AppSkill
             var skill = this.context.Skills
                   .Include(s => s.SkillCategory)
                   .Where(s => s.Id == id)
-                  .SingleOrDefault();
+                  .SingleOrDefault(s=> s.IsDeleted == false);
 
             if (skill == null)
             {
@@ -175,7 +176,7 @@ namespace MyEdo.Business.Services.AppSkill
             var currentUser = await this.userService.GetCurrentUserId();
 
             var skill = this.context.UserSkills
-                  .Where(s => s.SkillId == skillId && s.UserId == currentUser)
+                  .Where(s => s.SkillId == skillId && s.UserId == currentUser && s.Skill.IsDeleted == false)
                   .SingleOrDefault();
 
             if (skill == null)

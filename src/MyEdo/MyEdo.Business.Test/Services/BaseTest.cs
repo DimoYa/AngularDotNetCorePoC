@@ -23,6 +23,10 @@
 
         protected List<SkillCategory> DummySkillCategories { get; private set; }
 
+        protected List<User> DummyUsers { get; private set; }
+
+        protected List<UserSkill> DummyUserSkills { get; private set; }
+
         protected Mock<IUserService> MockedUserService { get; private set; }
 
         [SetUp]
@@ -37,8 +41,12 @@
 
             this.DummySkillCategories = DummyData.GetDummySkillCategories();
             this.DummySkills = DummyData.GetDummySkills();
+            this.DummyUsers = DummyData.GetDummyUsers();
+            this.DummyUserSkills = DummyData.GetDummyUserSkills();
             this.Context.AddRange(this.DummySkillCategories);
             this.Context.AddRange(this.DummySkills);
+            this.Context.AddRange(this.DummyUsers);
+            this.Context.AddRange(this.DummyUserSkills);
             this.Context.SaveChanges();
         }
     }

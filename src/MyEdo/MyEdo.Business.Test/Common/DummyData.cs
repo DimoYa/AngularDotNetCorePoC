@@ -36,7 +36,6 @@
                     LockoutEnabled = true,
                     Roles = new List<IdentityUserRole<string>>()
                     {
-                        new  IdentityUserRole<string> { RoleId = "1", UserId = "123" },
                         new  IdentityUserRole<string> { RoleId = "2", UserId = "123" }
                     }
                 },
@@ -135,6 +134,7 @@
                 {
                    UserId = "123",
                    SkillId = "1",
+                   Level = SkillLevel.Beginning,
                 },
                new UserSkill()
                {
@@ -142,31 +142,11 @@
                    SkillId = "2",
                    Level = SkillLevel.Beginning,
                },
-               new UserSkill()
-              {
-                   UserId = "123",
-                   SkillId = "4",
-               },
-
                 new UserSkill()
                 {
                     UserId = "124",
-                    SkillId = "1",
-                },
-                new UserSkill()
-                {
-                    UserId = "124",
-                    SkillId = "2",
-                },
-                new UserSkill()
-                {
-                    UserId = "125",
-                    SkillId = "1",
-                },
-                new UserSkill()
-                {
-                    UserId = "125",
                     SkillId = "3",
+                    Level = SkillLevel.Beginning,
                 },
             };
         }
