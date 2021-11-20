@@ -10,9 +10,9 @@ namespace MyEdo.Business.Services.AppSkillCategory
 {
     public class SkillCategoryService : ISkillCategoryService
     {
-        private readonly MyEduDbContext context;
+        private readonly MyEdoDbContext context;
 
-        public SkillCategoryService(MyEduDbContext context)
+        public SkillCategoryService(MyEdoDbContext context)
         {
             this.context = context;
         }

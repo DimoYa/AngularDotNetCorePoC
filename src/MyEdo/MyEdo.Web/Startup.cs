@@ -36,7 +36,7 @@ namespace MyEdo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MyEduDbContext>(options =>
+            services.AddDbContext<MyEdoDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
@@ -66,10 +66,10 @@ namespace MyEdo
                 options.Password.RequireUppercase = false;
             })
                 .AddRoles<UserRole>()
-                .AddEntityFrameworkStores<MyEduDbContext>();
+                .AddEntityFrameworkStores<MyEdoDbContext>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<User, MyEduDbContext>();
+                .AddApiAuthorization<User, MyEdoDbContext>();
 
             services.AddAuthentication(options =>
             {
@@ -106,14 +106,14 @@ namespace MyEdo
         {
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<MyEduDbContext>();
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<MyEdoDbContext>();
 
                 if (env.IsDevelopment())
                 {
                     dbContext.Database.Migrate();
                 }
 
-                new MyEduDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                new MyEdoDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
             if (env.IsDevelopment())

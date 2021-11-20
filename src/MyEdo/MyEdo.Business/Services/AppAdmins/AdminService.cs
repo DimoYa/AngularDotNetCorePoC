@@ -13,13 +13,13 @@ namespace MyEdo.Business.Services.AppAdmin
 {
     public class AdminService : IAdminService
     {
-        private readonly MyEduDbContext context;
+        private readonly MyEdoDbContext context;
         private readonly IUserService userService;
         private readonly UserManager<User> userManager;
         private readonly RoleManager<UserRole> roleManager;
 
         public AdminService(
-            MyEduDbContext context,
+            MyEdoDbContext context,
             IUserService userService,
             UserManager<User> userManager,
             RoleManager<UserRole> roleManager)

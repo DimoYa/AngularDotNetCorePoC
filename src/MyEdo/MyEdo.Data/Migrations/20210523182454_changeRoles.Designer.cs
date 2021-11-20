@@ -9,7 +9,7 @@ using MyEdo.Data;
 
 namespace MyEdo.Data.Migrations
 {
-    [DbContext(typeof(MyEduDbContext))]
+    [DbContext(typeof(MyEdoDbContext))]
     [Migration("20210523182454_changeRoles")]
     partial class changeRoles
     {

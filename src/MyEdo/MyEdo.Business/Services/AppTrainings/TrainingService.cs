@@ -13,11 +13,11 @@ namespace MyEdo.Business.Services.AppTraining
 {
     public class TrainingService : ITrainingService
     {
-        private readonly MyEduDbContext context;
+        private readonly MyEdoDbContext context;
         private readonly IUserService userService;
 
         public TrainingService(
-            MyEduDbContext context,
+            MyEdoDbContext context,
             IUserService userService)
         {
             this.context = context;

@@ -10,7 +10,7 @@ namespace MyEdo.Data.Seeding
 {
     internal class RolesSeeder : ISeeder
     {
-        public async Task SeedAsync(MyEduDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(MyEdoDbContext dbContext, IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<UserRole>>();
 

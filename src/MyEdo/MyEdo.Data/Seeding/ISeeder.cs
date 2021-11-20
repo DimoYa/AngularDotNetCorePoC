@@ -5,6 +5,6 @@ namespace MyEdo.Data.Seeding
 {
     interface ISeeder
     {
-        Task SeedAsync(MyEduDbContext dbContext, IServiceProvider serviceProvider);
+        Task SeedAsync(MyEdoDbContext dbContext, IServiceProvider serviceProvider);
     }
 }

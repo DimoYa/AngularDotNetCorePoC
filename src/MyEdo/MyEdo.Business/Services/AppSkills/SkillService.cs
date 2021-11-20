@@ -13,12 +13,12 @@ namespace MyEdo.Business.Services.AppSkill
 {
     public class SkillService : ISkillService
     {
-        private readonly MyEduDbContext context;
+        private readonly MyEdoDbContext context;
         private readonly ISkillCategoryService skillCategoryService;
         private readonly IUserService userService;
 
         public SkillService(
-            MyEduDbContext context,
+            MyEdoDbContext context,
             ISkillCategoryService skillCategoryService,
             IUserService userService)
         {
@@ -29,7 +29,7 @@ namespace MyEdo.Business.Services.AppSkill
 
         public async Task<string> CreateSkill(Skill model)
         {
-            var skillCategory = await this.skillCategoryService.GetCategoryById(model.SkillCategoryId);
+            var skillCategory = await this.skillCategoryService.GetCategoryById(model.SkillCategory.Id);
 
             Skill skill = new Skill
             {

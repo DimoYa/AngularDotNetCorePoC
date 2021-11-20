@@ -12,12 +12,12 @@ namespace MyEdo.Business.Services.AppUser
 {
     public class UserService : IUserService
     {
-        private readonly MyEduDbContext context;
+        private readonly MyEdoDbContext context;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly UserManager<User> userManager;
 
         public UserService(
-            MyEduDbContext context,
+            MyEdoDbContext context,
             IHttpContextAccessor httpContextAccessor,
             UserManager<User> userManager)
         {

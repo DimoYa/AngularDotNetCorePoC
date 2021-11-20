@@ -8,7 +8,7 @@ using MyEdo.Data;
 
 namespace MyEdo.Data.Migrations
 {
-    [DbContext(typeof(MyEduDbContext))]
+    [DbContext(typeof(MyEdoDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

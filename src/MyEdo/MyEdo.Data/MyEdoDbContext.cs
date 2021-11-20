@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace MyEdo.Data
 {
-    public class MyEduDbContext : KeyApiAuthorizationDbContext<User, UserRole, string>
+    public class MyEdoDbContext : KeyApiAuthorizationDbContext<User, UserRole, string>
     {
-        public MyEduDbContext(
+        public MyEdoDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
