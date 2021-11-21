@@ -11,7 +11,7 @@
     public class SkillServiceTests : BaseTest
     {
         [Test]
-        [Property("service", "SkillService")]
+        [Category("UnitTest")]
         public async Task CreateSkill_ShouldReturnSkillId()
         {
             // Arrange
@@ -30,7 +30,7 @@
         }
 
         [Test]
-        [Property("service", "SkillService")]
+        [Category("UnitTest")]
         public async Task EditSkill_ShouldReturnTrue()
         {
             // Arrange
@@ -45,7 +45,7 @@
         }
 
         [Test]
-        [Property("service", "SkillService")]
+        [Category("UnitTest")]
         public async Task DeleteActiveSkill_ShouldReturnTrue()
         {
             // Arrange
@@ -59,7 +59,7 @@
         }
 
         [Test]
-        [Property("service", "SkillService")]
+        [Category("UnitTest")]
         public async Task DeleteInactiveSkill_ShouldReturnException()
         {
             // Arrange
@@ -73,7 +73,7 @@
         }
 
         [Test]
-        [Property("service", "SkillService")]
+        [Category("UnitTest")]
         public async Task AddActiveSkillToMyProfile_ShouldReturnTrue()
         {
             // Arrange
@@ -97,7 +97,7 @@
         }
 
         [Test]
-        [Property("service", "SkillService")]
+        [Category("UnitTest")]
         public async Task AddInActiveSkillToMyProfile_ShouldReturnexception()
         {
             // Arrange
@@ -121,7 +121,7 @@
         }
 
         [Test]
-        [Property("service", "SkillService")]
+        [Category("UnitTest")]
         public async Task RemoveSkillFromMyProfile_ShouldReturnTrue()
         {
             // Arrange
@@ -140,7 +140,7 @@
         }
 
         [Test]
-        [Property("service", "SkillService")]
+        [Category("UnitTest")]
         public async Task EditSkillLevel_ShouldReturnTrue()
         {
             // Arrange
@@ -160,7 +160,7 @@
         }
 
         [Test]
-        [Property("service", "SkillService")]
+        [Category("UnitTest")]
         public async Task GetMySkills_ShouldReturnCurrentUserSkills()
         {
             // Arrange
@@ -178,7 +178,7 @@
         }
 
         [Test]
-        [Property("service", "SkillService")]
+        [Category("UnitTest")]
         public async Task GetAllUserSkills_ShouldReturnAlltUsersSkills()
         {
             // Act
@@ -190,7 +190,7 @@
         }
 
         [Test]
-        [Property("service", "SkillService")]
+        [Category("UnitTest")]
         public async Task GetAllSkillsByCategories_ShouldReturnAllActiveSkills()
         {
             // Act

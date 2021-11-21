@@ -21,26 +21,41 @@ using MyEdo.Data.Seeding;
 using MyEdo.Web.ApiModels.SkillCategories;
 using MyEdo.Web.ApiModels.Skills;
 using MyEdo.Web.ApiModels.Trainings;
+using System;
 
 namespace MyEdo
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment currentEnv;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            currentEnv = env;
         }
 
         public IConfiguration Configuration { get; }
 
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MyEdoDbContext>(options =>
+            if (this.currentEnv.EnvironmentName == "Integration")
+            {
+                services.AddDbContext<MyEdoDbContext>(options => 
+                options.UseInMemoryDatabase(
+                    databaseName: Guid.NewGuid().ToString())
+                );
+            }
+            else
+            {
+                services.AddDbContext<MyEdoDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDatabaseDeveloperPageExceptionFilter();
+                services.AddDatabaseDeveloperPageExceptionFilter();
+            }
 
             var mappingConfig = new MapperConfiguration(cfg =>
             {
