@@ -83,8 +83,11 @@ namespace MyEdo
                 .AddRoles<UserRole>()
                 .AddEntityFrameworkStores<MyEdoDbContext>();
 
-            services.AddIdentityServer()
-                .AddApiAuthorization<User, MyEdoDbContext>();
+            if (this.currentEnv.EnvironmentName != "Integration")
+            {
+                services.AddIdentityServer()
+                        .AddApiAuthorization<User, MyEdoDbContext>(); 
+            }
 
             services.AddAuthentication(options =>
             {
@@ -159,7 +162,10 @@ namespace MyEdo
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseIdentityServer();
+            if (this.currentEnv.EnvironmentName != "Integration")
+            {
+                app.UseIdentityServer(); 
+            }
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

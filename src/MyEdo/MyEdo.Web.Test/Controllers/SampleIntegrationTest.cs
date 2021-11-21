@@ -10,7 +10,7 @@ namespace MyEdo.Web.Test
     {
         [Test]
         [Category("IntegrationTest")]
-        public async Task ApiUnauthorizedRequestToHomePage_ShouldReturnOK()
+        public async Task ApiUnauthorizedRequest_ShouldReturnUnauthorized()
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "/api/Training");
             var response = await this.Client.SendAsync(request);
